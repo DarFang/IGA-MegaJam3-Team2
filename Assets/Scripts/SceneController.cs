@@ -97,7 +97,7 @@ public class SceneController : MonoBehaviour
 		yield return StartTransition();
 
 		//First load the new scene, so if it fails we can recover
-		yield return AwaitAsyncOperation(SceneManager.LoadSceneAsync((int)targetSceneType));
+		yield return AwaitAsyncOperation(SceneManager.LoadSceneAsync((int)targetSceneType, LoadSceneMode.Additive));
 
 		//Call OnCurrentSceneUnload and unload the current scene
 		OnCurrentSceneUnload.Invoke();
