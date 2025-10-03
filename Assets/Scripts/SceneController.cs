@@ -69,7 +69,8 @@ public class SceneController : MonoBehaviour
 
 	/// <summary>
 	/// Fade to black, unload the current scene, then load the new scene and fade in
-	/// NOTE: OnCurrentSceneUnload will be called directly before unload and OnSceneLoad will likely be called after Start
+	/// NOTE: OnCurrentSceneUnload will be called directly before unload, after fade to black
+	/// NOTE: OnSceneLoad will likely be called after Start but before fade from black
 	/// </summary>
 	/// <param name="targetSceneType"></param>
 	public void StartSceneSwitch(SceneType targetSceneType)
