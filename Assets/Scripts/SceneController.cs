@@ -1,8 +1,5 @@
 using System;
 using System.Collections;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -137,6 +134,7 @@ public class SceneController : MonoBehaviour
 	private IEnumerator StartTransition()
 	{
 		//TODO: Add DOTween
+		transitionPanel.color = new Color(0, 0, 0, 1);
 		yield return null;
 	}
 
@@ -147,6 +145,7 @@ public class SceneController : MonoBehaviour
 	private IEnumerator EndTransition()
 	{
 		//TODO: Add DOTween
+		transitionPanel.color = new Color(0, 0, 0, 0);
 		yield return null;
 	}
 }
