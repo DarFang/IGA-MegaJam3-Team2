@@ -12,7 +12,7 @@ public class SceneController : MonoBehaviour
 {
 	#region Static Parameters
 
-	private static SceneController Instance;
+	public static SceneController Instance;
 
 	#endregion
 
@@ -100,8 +100,11 @@ public class SceneController : MonoBehaviour
 		yield return AwaitAsyncOperation(SceneManager.LoadSceneAsync((int)targetSceneType, LoadSceneMode.Additive));
 
 		//Call OnCurrentSceneUnload and unload the current scene
-		OnCurrentSceneUnload.Invoke();
-		yield return AwaitAsyncOperation(SceneManager.UnloadSceneAsync((int)CurrentScene));
+		if (CurrentScene != SceneType.SceneManager)
+		{
+			OnCurrentSceneUnload.Invoke();
+			yield return AwaitAsyncOperation(SceneManager.UnloadSceneAsync((int)CurrentScene));
+		}
 
 		//Now call OnSceneLoaded and we good
 		CurrentScene = targetSceneType;

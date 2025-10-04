@@ -8,5 +8,6 @@ public enum SceneType
 {
 	SceneManager = 0,
 	MainMenu = 1,
-	Level = 2,
+	Credits = 2,
+	Level = 3,
 }
