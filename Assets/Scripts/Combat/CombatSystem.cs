@@ -37,11 +37,14 @@ public class CombatSystem : MonoBehaviour
     public void StartCombat()
     {
         Debug.Log("Combat Started");
-        player.LoadCombat(100, this);
-        enemy.LoadCombat(100, this);
+        player.LoadCombat(100,0, this);
+        enemy.LoadCombat(100,0, this);
         OnCombatStart?.Invoke();
     }
-
+    /// <summary>
+    /// End of combat, check if the player won or lost
+    /// </summary>
+    /// <param name="isPlayerWin">If the player won</param>
     public void EndCombat(bool isPlayerWin)
     {
         Debug.Log("Combat Ended");
@@ -130,10 +133,6 @@ public class CombatSystem : MonoBehaviour
             PlayerEndTurn();
         }
     }
-    /// <summary>
-    /// Interval turn, wait for 1 second and then end the turn
-    /// </summary>
-    /// <returns>The interval turn</returns>
     private IEnumerator IntervalTurn()
     {
         isCombatStarted = true;
