@@ -135,7 +135,7 @@ public class SceneController : MonoBehaviour
 	/// Fade to black using dot tween
 	/// </summary>
 	/// <returns></returns>
-	private IEnumerator StartTransition()
+	public IEnumerator StartTransition()
 	{
 		//TODO: Add DOTween
 		transitionPanel.color = new Color(0, 0, 0, 1);
