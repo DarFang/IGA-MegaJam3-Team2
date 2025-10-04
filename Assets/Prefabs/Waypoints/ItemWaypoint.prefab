@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 102267285617438705}
   - component: {fileID: 7766413515848831008}
+  - component: {fileID: 3077119537605873559}
   m_Layer: 0
   m_Name: ItemWaypoint
   m_TagString: Untagged
@@ -46,7 +47,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Order>k__BackingField: 0
-  <Event>k__BackingField: {fileID: -1107559816176175340, guid: 15ebce9ebb824114bb7bc460c08b44fd, type: 3}
+  <Event>k__BackingField: {fileID: 3077119537605873559}
+--- !u!114 &3077119537605873559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2787258560373486834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b07d334201593e4eb6b29073ad2feca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <OnEventStart>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  <OnEventEnd>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  _itemToAdd: {fileID: 0}
 --- !u!1 &7543894204024817223
 GameObject:
   m_ObjectHideFlags: 0
