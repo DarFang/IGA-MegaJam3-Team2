@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
-
+using System.Collections;
 public class CombatSystem : MonoBehaviour
 {
     public UnityEvent OnCombatStart;
@@ -9,6 +9,7 @@ public class CombatSystem : MonoBehaviour
     bool playerTurn = true;
     public CharacterCombat player;
     public CharacterCombat enemy;
+    bool isCombatStarted = false;
     void Start()
     {
         StartCombat();
@@ -22,7 +23,7 @@ public class CombatSystem : MonoBehaviour
             //Await player action
             return;
         }
-        else
+        else if (!isCombatStarted)
         {
             enemy.RandomAction();
         }
@@ -36,14 +37,23 @@ public class CombatSystem : MonoBehaviour
         OnCombatStart?.Invoke();
     }
 
-    public void EndCombat()
+    public void EndCombat(bool isPlayerWin)
     {
         Debug.Log("Combat Ended");
         OnCombatEnd?.Invoke();
+        if (isPlayerWin)
+        {
+            Debug.Log("Player Won");
+        }
+        else
+        {
+            Debug.Log("Enemy Won");
+        }
     }
     public void PlayerEndTurn()
     {
         playerTurn = false;
+        StartCoroutine(IntervalTurn());
     }
     public void EnemyEndTurn()
     {
@@ -51,31 +61,39 @@ public class CombatSystem : MonoBehaviour
     }
     public void Attack(CharacterCombat character, int attack)
     {
-        if (character == player)
+        if (character.IsPlayer)
         {
             enemy.TakeDamage(attack);
+            if (enemy.isDead)
+            {
+                EndCombat(true);
+            }
             PlayerEndTurn();
         }
         else
         {
             player.TakeDamage(attack);
+            if (player.isDead)
+            {
+                EndCombat(false);
+            }
             EnemyEndTurn();
         }
     }
     public void Defend(CharacterCombat character)
     {
-        character.Defend();
+        character.Defend(5);
         EndTurn(character);
     }
     public void Heal(CharacterCombat character)
     {
-        character.Heal();
+        character.Heal(10);
         EndTurn(character);
     }
 
     public void EndTurn(CharacterCombat character)
     {
-        if (character == player)
+        if (!character.IsPlayer)
         {
             EnemyEndTurn();
         }
@@ -83,5 +101,11 @@ public class CombatSystem : MonoBehaviour
         {
             PlayerEndTurn();
         }
+    }
+    private IEnumerator IntervalTurn()
+    {
+        isCombatStarted = true;
+        yield return new WaitForSeconds(1f);
+        isCombatStarted = false;
     }
 }
