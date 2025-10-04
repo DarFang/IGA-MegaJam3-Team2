@@ -378,7 +378,8 @@ public class AudioManager : SingletonManager<AudioManager> {
 
     #endregion
 
-    private void OnDestroy() {
+    protected override void OnDestroy() {
+        base.OnDestroy();
         SaveVolumeSettings();
 
         // ќчищуЇмо пул

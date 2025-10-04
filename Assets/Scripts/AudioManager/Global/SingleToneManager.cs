@@ -14,12 +14,7 @@ public abstract class SingletonManager<T> : MonoBehaviour where T : MonoBehaviou
 
             lock (_lock) {
                 if (_instance == null) {
-                    _instance = (T)FindObjectOfType(typeof(T));
-
-                    if (FindObjectsOfType(typeof(T)).Length > 1) {
-                        Debug.LogError($"[Singleton] Multiple instances of '{typeof(T)}' found!");
-                        return _instance;
-                    }
+                    _instance = (T)FindFirstObjectByType(typeof(T));
 
                     if (_instance == null) {
                         GameObject singletonObject = new GameObject();

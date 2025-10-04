@@ -4,13 +4,10 @@ using System.Threading;
 using UnityEngine;
 
 public class Entity : MonoBehaviour {
-    [SerializeField] private EntityView entityView;
+    [SerializeField] private EntityVisualStatus entityView;
     [SerializeField] private CharacterData characterData;
-    [SerializeField] private bool isPlayer = false;
-
     public Stats Stats { get; private set; }
     public bool IsDead { get; private set; }
-    public bool IsPlayer => isPlayer;
 
     public event Action<Entity> OnDeath;
     public event Action<float> OnDamageTaken;
@@ -32,21 +29,32 @@ public class Entity : MonoBehaviour {
         }
 
         Stats = new Stats(characterData.StatsData);
+        Stats.Defense.OnValueChanged += HandleDefenceUpdate;
+
         Stats.Health.OnValueChanged += HandleHealthChanged;
         Stats.Health.OnDeath += HandleDeath;
-        Stats.Health.OnDamageTaken += damage => OnDamageTaken?.Invoke(damage);
+        Stats.Health.OnDamageTaken += HandleDamageTaken;
+
         IsDead = false;
+       
 
         HandleHealthChanged(Stats.Health.CurrentValue);
         HandleDefenceUpdate(Stats.Defense.CurrentValue);
     }
 
+    private void HandleDamageTaken(float damage) {
+        OnDamageTaken?.Invoke(damage);
+    }
+
     private void HandleHealthChanged(float delta) {
-        entityView.UpdateHealth(Stats.Health.CurrentValue, Stats.Health.MaxValue);
+        string healthText = $"{Stats.Health.CurrentValue} / {Stats.Health.MaxValue}";
+        float percentage = Stats.Health.CurrentValue / Stats.Health.MaxValue;
+        entityView.UpdateHealth(percentage, healthText);
     }
 
     private void HandleDefenceUpdate(float delta) {
-        entityView.UpdateDefense(Stats.Defense.CurrentValue);
+        string defenceText = Stats.Defense.CurrentValue.ToString();
+        entityView.UpdateDefense(defenceText);
     }
 
     private void HandleDeath() {
@@ -58,7 +66,7 @@ public class Entity : MonoBehaviour {
     }
 
     private void UpdateView() {
-        entityView.UpdateName(characterData.name);
+        entityView.UpdateName(characterData.Name);
     }
 
     // ==================== COMBAT ACTIONS ====================
@@ -70,6 +78,8 @@ public class Entity : MonoBehaviour {
         Stats.Health.TakeDamage(finalDamage);
 
         Debug.Log($"[Combat] {name} took {finalDamage:F1} damage");
+
+        // Анімація шкоди вже викликається через OnDamageTaken подію
     }
 
     public void Attack(Entity target) {
@@ -77,6 +87,9 @@ public class Entity : MonoBehaviour {
 
         float damage = Stats.Attack.CurrentValue;
         target.TakeDamage(damage, this);
+
+        // Показуємо анімацію атаки для атакуючого
+        entityView?.ShowDealDamage(damage);
 
         Debug.Log($"[Combat] {name} attacks {target.name} for {damage:F1} damage");
     }
@@ -87,6 +100,9 @@ public class Entity : MonoBehaviour {
         Stats.Health.Heal(amount);
         OnHealed?.Invoke(amount);
 
+        // Показуємо анімацію лікування
+        entityView?.ShowHeal(amount);
+
         Debug.Log($"[Combat] {name} healed for {amount:F1} HP");
     }
 
@@ -94,6 +110,10 @@ public class Entity : MonoBehaviour {
         if (IsDead) return;
 
         Stats.Defense.Add(amount);
+
+        // Показуємо анімацію баффа захисту
+        entityView?.ShowDefenseBuff(amount);
+
         Debug.Log($"[Combat] {name} gained {amount:F1} defense");
     }
 
