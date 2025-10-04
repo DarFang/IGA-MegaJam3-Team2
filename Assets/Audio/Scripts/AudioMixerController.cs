@@ -5,6 +5,10 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Rendering;
 
+
+/// <summary>
+/// Controls AudioMixerGroups for ducking (temporarily lowering volume) and settings purposes.
+/// </summary>
 public class AudioMixerController : PersistentSingleton<AudioMixerController>
 {
 
@@ -41,6 +45,9 @@ public class AudioMixerController : PersistentSingleton<AudioMixerController>
         mixerGroupDefaultVolumes.Add(sfxGroup.name, sfxVolume);
     }
 
+    /// <summary>
+    /// Ducks the music AudioMixerGroup by the default settings found on the AudioMixerController object.
+    /// </summary>
     public void AutoDuckMusicMixerGroup (AudioClip audioClipDuckingMixer)
     {
         StartCoroutine(AutoDuckMixerGroup(musicGroup, audioClipDuckingMixer));
@@ -107,6 +114,7 @@ public class AudioMixerController : PersistentSingleton<AudioMixerController>
         mixerGroupDefaultVolumes[mixerGroup.name] = volume;
     }
 
+    #region volume settings
     public void SetMasterVolume(float volume) 
     { 
         SetVolumeAndDefaultVolumeOfMixerGroup(masterGroup, volume);
@@ -119,17 +127,22 @@ public class AudioMixerController : PersistentSingleton<AudioMixerController>
     {
         SetVolumeAndDefaultVolumeOfMixerGroup(sfxGroup, volume);
     }
-
+    #endregion
 }
 
+//for future use, if the game wants it
 public class DuckingEnvelope
 {
 
     public float attack, decay, sustain, hold, release;
 
-
     public DuckingEnvelope(float attack, float decay, float sustain, float hold, float release)
     {
-
+        this.attack = attack;
+        this.decay = decay;
+        this.sustain = sustain;
+        this.hold = hold;
+        this.release = release;
     }
+
 }

@@ -3,6 +3,9 @@ using AudioSystem;
 using System.Collections.Generic;
 using System.Collections;
 
+/// <summary>
+/// Manages all music in the game. Starting, stopping, and changing layers. Pausing can be a thing if we want it. 
+/// </summary>
 public class MusicManager : PersistentSingleton<MusicManager>
 {
 
@@ -11,6 +14,10 @@ public class MusicManager : PersistentSingleton<MusicManager>
     private Dictionary<string, MusicPlayer> loadedMusicPlayers = new();
     private Dictionary<string, MusicPlayer> activeMusicPlayers = new();
 
+    /// <summary>
+    /// Starts a song. See the MusicManager for the musicEventIDs.
+    /// </summary>
+    /// <param name="musicEventID">See the MusicManager GameObject for all songIDs.</param>
     public void PlaySong(int musicEventID, float fadeInTime)
     {
         if (AudioManager.Instance.muteAllAudio) return;
@@ -27,21 +34,32 @@ public class MusicManager : PersistentSingleton<MusicManager>
         activeMusicPlayers.Add(playerToStart.name, playerToStart);
 
     }
-
-    public void ChangeLayers(int songID, int[] layerIDsToAdd, int[] layerIDsToRemove, float crossfadeTime)
+    ///<summary>
+    ///Changes multiple layers of the given song. See also the .AddLayer and .RemoveLayer methods.
+    ///</summary>
+    public void ChangeLayers(int musicEventID, int[] layerIDsToAdd, int[] layerIDsToRemove, float crossfadeTime)
     {
-        activeMusicPlayers[allMusicEvents[songID].name].AddAndRemoveLayers(layerIDsToAdd, layerIDsToRemove, crossfadeTime);
+        activeMusicPlayers[allMusicEvents[musicEventID].name].AddAndRemoveLayers(layerIDsToAdd, layerIDsToRemove, crossfadeTime);
     }
 
-    public void StopSong(int songID, float fadeOutTime)
+    /// <summary>
+    /// Stops a song after the given fade out time.
+    /// </summary>
+    /// <param name="musicEventID"></param>
+    /// <param name="fadeOutTime"></param>
+    public void StopSong(int musicEventID, float fadeOutTime)
     {
 
-        MusicPlayer playerToStop = activeMusicPlayers[allMusicEvents[songID].name];
+        MusicPlayer playerToStop = activeMusicPlayers[allMusicEvents[musicEventID].name];
 
         if (playerToStop != null) StartCoroutine(IStopMusicPlayerThenRemoveFromList(playerToStop, fadeOutTime));
 
     }
 
+    /// <summary>
+    /// stops all music after the given fade out time.
+    /// </summary>
+    /// <param name="fadeOutTime"></param>
     public void StopAllMusic(float fadeOutTime)
     {
         foreach (KeyValuePair<string, MusicPlayer> entry in activeMusicPlayers)
@@ -51,14 +69,26 @@ public class MusicManager : PersistentSingleton<MusicManager>
 
     }
 
-    public void AddLayer(int songID, int layerID, float fadeInTime)
+    /// <summary>
+    /// Adds the given layer to the given song over the fade in time
+    /// </summary>
+    /// <param name="musicEventID">See the MusicManager GameObject for all songIDs.</param>
+    /// <param name="layerID">See the MusicManager GameObject for all layerIDs.</param>
+    /// <param name="fadeInTime"></param>
+    public void AddLayer(int musicEventID, int layerID, float fadeInTime)
     {
-        activeMusicPlayers[allMusicEvents[songID].name].AddLayer(layerID, fadeInTime);
+        activeMusicPlayers[allMusicEvents[musicEventID].name].AddLayer(layerID, fadeInTime);
     }
 
-    public void RemoveLayer(int songID, int layerID, float fadeOutTime)
+    /// <summary>
+    /// Removes the given layer from the given song after fading the volume out over the fadeOutTime.
+    /// </summary>
+    /// <param name="musicEventID">See the MusicManager GameObject for all songIDs.</param>
+    /// <param name="layerID">See the MusicManager GameObject for all layerIDs.</param>
+    /// <param name="fadeOutTime"></param>
+    public void RemoveLayer(int musicEventID, int layerID, float fadeOutTime)
     {
-        activeMusicPlayers[allMusicEvents[songID].name].RemoveLayer(layerID, fadeOutTime);
+        activeMusicPlayers[allMusicEvents[musicEventID].name].RemoveLayer(layerID, fadeOutTime);
     }
 
     private IEnumerator IStopMusicPlayerThenRemoveFromList(MusicPlayer playerToRemove, float fadeOutTime)

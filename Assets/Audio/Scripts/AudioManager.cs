@@ -2,6 +2,9 @@ using UnityEngine;
 using UnityEngine.Pool;
 using System.Collections.Generic;
 
+/// <summary>
+/// Mostly manages the pool of SoundEmitters, and I needed somewhere to put a "mute all audio" button!
+/// </summary>
 public class AudioManager : PersistentSingleton<AudioManager>
 {
     IObjectPool<SoundEmitter> soundEmitterPool;

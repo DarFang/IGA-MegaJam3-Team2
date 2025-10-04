@@ -9,6 +9,9 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
     public bool muteAllSounds;
 
+    /// <summary>
+    /// Creates a sound to play. Contains the .AtPosition(Vector3), .SetParent(GameObject), .AutoDuckMusic(AudioMixerGroup), .Play(Sound), and .PlayAndGetSoundEmitter(Sound, out SoundEmiiter) extensions.
+    /// </summary>
     public SoundBuilder CreateSound() => new SoundBuilder(this);
 
     public bool CanPlaySound(Sound sound)

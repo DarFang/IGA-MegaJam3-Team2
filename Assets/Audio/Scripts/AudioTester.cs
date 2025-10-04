@@ -16,7 +16,7 @@ public class AudioTester : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            SoundManager.Instance.CreateSound().SetParent(playSoundObj).AutoDuckMusic(AudioMixerController.Instance.MusicGroup).PlayAndGetSoundEmitter(testSound, out testingEmitter);
+            SoundManager.Instance.CreateSound().SetParent(playSoundObj).AutoDuckMusic().PlayAndGetSoundEmitter(testSound, out testingEmitter);
         }
 
         if (Input.GetKeyDown(KeyCode.A))

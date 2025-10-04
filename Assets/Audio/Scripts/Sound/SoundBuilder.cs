@@ -1,8 +1,9 @@
 using UnityEngine;
-using System.Collections.Generic;
 using UnityEngine.Audio;
-using Unity.VisualScripting.FullSerializer;
 
+/// <summary>
+/// Builds a sound to be played. Contains numerous options for playback behavior.
+/// </summary>
 public class SoundBuilder
 {
     readonly SoundManager soundManager;
@@ -10,29 +11,46 @@ public class SoundBuilder
     GameObject _parentOverride = null;
     AudioMixerGroup _groupToDuck = null;
 
+    //gets a reference to the sound manager
     public SoundBuilder(SoundManager soundManager)
     {
         this.soundManager = soundManager;
     }
 
+    /// <summary>
+    /// Places the SoundEmitter at the specified local position. Careful using this with .SetParent
+    /// </summary>
+    /// <param name="position">The local position to put the SoundEmitter object </param>
     public SoundBuilder AtPosition(Vector3 position) 
     { 
         _position = position;
         return this;
     }
 
+    /// <summary>
+    /// Parents the SoundEmitter to the given GameObject. Careful using this with .AtPosition
+    /// </summary>
+    /// <param name="parent">The GameObject to parent the SoundEmitter object to. </param>
     public SoundBuilder SetParent(GameObject parent)
     { 
         _parentOverride = parent;
         return this;
     }
 
-    public SoundBuilder AutoDuckMusic(AudioMixerGroup group)
+
+    /// <summary>
+    /// Auto ducks the Music AudioMixerGroup.Can be extended to affect any Group in the future.
+    /// </summary>
+    public SoundBuilder AutoDuckMusic()
     {
-        _groupToDuck = group;
+        _groupToDuck = AudioMixerController.Instance.MusicGroup;
         return this;
     }
 
+    /// <summary>
+    /// Plays the Sound from the SoundEmitter. Takes data from the Sound object and applies them to the SoundEmitter.
+    /// </summary>
+    /// <param name="sound">The Sound that data is taken from and applied to the SoundEmitter. </param>
     public void Play(Sound sound)
     {
         if (sound == null)
@@ -69,6 +87,11 @@ public class SoundBuilder
     }
 
 
+    /// <summary>
+    /// Plays the Sound from the SoundEmitter. Takes data from the Sound object and applies them to the SoundEmitter, and also ggives a reference to the SoundEMitter so that it can be accessed at a later time (looping sounds).
+    /// </summary>
+    /// <param name="sound">The Sound that data is taken from and applied to the SoundEmitter. </param>
+    /// <param name="soundEmitter">The SoundEmitter that can now be accessed by other scripts. </param>
     public void PlayAndGetSoundEmitter(Sound sound, out SoundEmitter soundEmitter)
     {
 

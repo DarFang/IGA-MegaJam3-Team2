@@ -5,6 +5,10 @@ using UnityEngine;
 
 namespace AudioSystem
 {
+
+    /// <summary>
+    /// Handles the playback of a given song
+    /// </summary>
     public class MusicPlayer : MonoBehaviour
     {
 
