@@ -77,7 +77,7 @@ MonoBehaviour:
   damageColor: {r: 1, g: 0, b: 0, a: 1}
   healColor: {r: 0, g: 1, b: 0, a: 1}
   buffColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  defaultDefenseText: "\u0417\u0430\u0445\u0438\u0441\u0442: "
+  defaultDefenseText: 'Defence:'
   defaultHealthText: 'HP: '
   aliveColor: {r: 1, g: 1, b: 1, a: 1}
   deadColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
