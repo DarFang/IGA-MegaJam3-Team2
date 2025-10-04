@@ -1005,14 +1005,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4338047823082124203, guid: 5145f682105e9da48b361827e50e306b, type: 3}
-      propertyPath: defaultHoldTime
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 4338047823082124203, guid: 5145f682105e9da48b361827e50e306b, type: 3}
-      propertyPath: defaultDecayTime
-      value: 0.15
-      objectReference: {fileID: 0}
     - target: {fileID: 4919545478868835142, guid: 5145f682105e9da48b361827e50e306b, type: 3}
       propertyPath: m_Name
       value: AudioSystem
