@@ -71,7 +71,7 @@ public class SoundEmitter : MonoBehaviour
         audioSource.pitch = sound.soundSettings.GetPitch();
         audioSource.playOnAwake = false;
         audioSource.priority = 128;
-        audioSource.spatialBlend = 1; //0 = full 2D, 1 = full 3D
+        audioSource.spatialBlend = 0; //0 = full 2D, 1 = full 3D
         audioSource.spread = 0;
         audioSource.outputAudioMixerGroup = AudioMixerController.Instance.SFXGroup;
     }

@@ -46,6 +46,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AutoUnparentOnAwake: 1
   muteAllSounds: 0
+  ambience:
+    name: 
+    frequentSound: 0
+    mute: 0
+    clips:
+    - {fileID: 8300000, guid: c7df8cdfb262bbe4ea7f5d0ee5bf6ca9, type: 3}
+    soundSettings:
+      mixerGroup: {fileID: 6899448223994471096, guid: 200eb56313a83da4a9e284b188c37c29, type: 2}
+      loop: 1
+      randomizeVolume: 0
+      volumeRange: {x: 1, y: 0}
+      randomizePitch: 0
+      pitchRange: {x: 1, y: 0}
 --- !u!1 &4919545478868835142
 GameObject:
   m_ObjectHideFlags: 0

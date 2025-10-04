@@ -8,7 +8,7 @@ public class AudioTester : MonoBehaviour
 
     private void Start()
     {
-        MusicManager.Instance.PlaySong(0, 5);
+        //MusicManager.Instance.PlaySong(0, 5);
 
     }
 
