@@ -19,12 +19,12 @@ MonoBehaviour:
     regeneration: 1
     hasRegeneration: 0
   attackData:
-    baseValue: 0
-    maxValue: 0
+    baseValue: 4
+    maxValue: 10
     minValue: 0
   defenseData:
-    baseValue: 0
-    maxValue: 0
+    baseValue: 2
+    maxValue: 50
     minValue: 0
   manaData:
     baseValue: 0
