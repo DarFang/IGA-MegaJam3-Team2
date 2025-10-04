@@ -23,7 +23,7 @@ public class PlaylistPlayer : MonoBehaviour {
     public int TotalTracks => _currentPlaylist?.TrackCount ?? 0;
 
     public event Action<AudioClip> OnTrackStarted;
-    public event Action<AudioClip> OnTrackCompleted;
+    //public event Action<AudioClip> OnTrackCompleted;
     public event Action<AudioClip> OnTrackStopped;
     public event Action<MusicPlaylistData> OnPlaylistChanged;
 
