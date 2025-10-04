@@ -13,7 +13,7 @@ public class MusicManager : PersistentSingleton<MusicManager>
 
     public void PlaySong(int musicEventID, float fadeInTime)
     {
-        if (AudioManager.Instance.muteAll) return;
+        if (AudioManager.Instance.muteAllAudio) return;
         if (muteAllMusic) return;
         if (!loadedMusicPlayers.ContainsKey(allMusicEvents[musicEventID].name))
         {
@@ -26,6 +26,11 @@ public class MusicManager : PersistentSingleton<MusicManager>
         playerToStart.Play(fadeInTime);
         activeMusicPlayers.Add(playerToStart.name, playerToStart);
 
+    }
+
+    public void ChangeLayers(int songID, int[] layerIDsToAdd, int[] layerIDsToRemove, float crossfadeTime)
+    {
+        activeMusicPlayers[allMusicEvents[songID].name].AddAndRemoveLayers(layerIDsToAdd, layerIDsToRemove, crossfadeTime);
     }
 
     public void StopSong(int songID, float fadeOutTime)

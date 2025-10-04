@@ -64,7 +64,7 @@ public class SoundBuilder
 
         //put this in the other method lol
         soundEmitter.Play();
-        if (_groupToDuck != null) { AudioMixerController.Instance.DuckMusicMixerGroup(5, soundEmitter.AudioSource.clip); Debug.Log("yep"); }
+        if (_groupToDuck != null) { AudioMixerController.Instance.AutoDuckMusicMixerGroup(soundEmitter.AudioSource.clip); }
 
     }
 
@@ -102,7 +102,7 @@ public class SoundBuilder
         }
 
         soundEmitter.Play();
-        if (_groupToDuck != null) { AudioMixerController.Instance.DuckMusicMixerGroup(5, soundEmitter.AudioSource.clip); }
+        if (_groupToDuck != null) { AudioMixerController.Instance.AutoDuckMusicMixerGroup(soundEmitter.AudioSource.clip); }
     }
 
 }

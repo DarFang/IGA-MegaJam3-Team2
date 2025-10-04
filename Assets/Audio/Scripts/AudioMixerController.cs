@@ -18,6 +18,7 @@ public class AudioMixerController : PersistentSingleton<AudioMixerController>
     [SerializeField] private float defaultAttackTime = 0.05f;
     [SerializeField] private float defaultHoldTime = 0.2f;
     [SerializeField] private float defaultDecayTime = 0.2f;
+    [SerializeField] private float defaultDuckAmount = 1;
 
     public AudioMixerGroup MasterGroup => masterGroup;
     public AudioMixerGroup SFXGroup => sfxGroup;
@@ -40,16 +41,16 @@ public class AudioMixerController : PersistentSingleton<AudioMixerController>
         mixerGroupDefaultVolumes.Add(sfxGroup.name, sfxVolume);
     }
 
-    public void DuckMusicMixerGroup (float amount, AudioClip audioClipDuckingMixer)
+    public void AutoDuckMusicMixerGroup (AudioClip audioClipDuckingMixer)
     {
-        StartCoroutine(AutoDuckMixerGroup(musicGroup, amount, audioClipDuckingMixer));
+        StartCoroutine(AutoDuckMixerGroup(musicGroup, audioClipDuckingMixer));
     }
 
-    private IEnumerator AutoDuckMixerGroup(AudioMixerGroup group,  float amount, AudioClip clip)
+    private IEnumerator AutoDuckMixerGroup(AudioMixerGroup group,  AudioClip clip)
     {
         //print("Ducking " + group.name);
 
-        float targetVolume = mixerGroupDefaultVolumes[group.name] - amount;
+        float targetVolume = mixerGroupDefaultVolumes[group.name] - defaultDuckAmount;
         mainMixer.GetFloat(group.name + "Volume", out float curVolume);
 
         if (targetVolume > curVolume) yield break;

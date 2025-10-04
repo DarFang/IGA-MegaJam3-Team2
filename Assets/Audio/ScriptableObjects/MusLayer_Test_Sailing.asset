@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: MusLayer_Test_Sailing
   m_EditorClassIdentifier: 
   layerName: Sailing
-  clip: {fileID: 8300000, guid: 739965c52e2bfad4288c28c5c3adcbf4, type: 3}
+  clip: {fileID: 8300000, guid: bc4028716aa1a5640b3ed6d14b122b60, type: 3}
   defaultVolume: 1

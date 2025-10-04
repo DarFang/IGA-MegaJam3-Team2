@@ -15,7 +15,7 @@ public class AudioManager : PersistentSingleton<AudioManager>
     [SerializeField] int maxPoolSize = 100;
     public int maxSoundInstances = 10;
 
-    public bool muteAll;
+    public bool muteAllAudio;
 
     private void Start()
     {

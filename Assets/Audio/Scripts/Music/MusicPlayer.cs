@@ -31,6 +31,19 @@ namespace AudioSystem
 
         }
 
+        public void AddAndRemoveLayers(int[] layerIDsToAdd, int[] layerIDsToRemove, float crossfadeTime)
+        {
+            foreach (int layerID in layerIDsToAdd) 
+            { 
+                AddLayer(layerID, crossfadeTime); 
+            }
+            foreach (int layerID in layerIDsToRemove) 
+            { 
+                RemoveLayer(layerID, crossfadeTime); 
+            }
+
+        }
+
         public void AddLayer(int layerID, float fadeInTime)
         {
 

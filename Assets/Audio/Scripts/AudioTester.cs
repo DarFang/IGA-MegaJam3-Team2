@@ -37,7 +37,7 @@ public class AudioTester : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
 
-            AudioMixerController.Instance.SetMasterVolume(-20);
+            MusicManager.Instance.ChangeLayers(0, new int[] { 2 }, new int[] { 1 }, 7);
 
         }
 

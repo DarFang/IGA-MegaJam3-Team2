@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: MusLayer_Test_Base
   m_EditorClassIdentifier: 
   layerName: Base
-  clip: {fileID: 8300000, guid: e747ba6cac143934086f07e0de66928d, type: 3}
+  clip: {fileID: 8300000, guid: ed399e59dd41da046924a0033c22afd0, type: 3}
   defaultVolume: 1

@@ -14,7 +14,7 @@ public class SoundManager : PersistentSingleton<SoundManager>
     public bool CanPlaySound(Sound sound)
     {
 
-        if ((AudioManager.Instance.muteAll))
+        if ((AudioManager.Instance.muteAllAudio))
         {
             Debug.Log("muteAll in the AudioManager is set to true!");
             return false;
