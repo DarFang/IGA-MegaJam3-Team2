@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39b40bbd038656340a5aba05bff214fd, type: 3}
+  m_Name: MusLayer_Test_Action
+  m_EditorClassIdentifier: 
+  layerName: Action
+  clip: {fileID: 8300000, guid: 8bbc382cd7432a841b7d670dc358d7a8, type: 3}
+  defaultVolume: 1
