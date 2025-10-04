@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -12,7 +13,7 @@ public class SceneController : MonoBehaviour
 {
 	#region Static Parameters
 
-	private static SceneController Instance;
+	public static SceneController Instance;
 
 	#endregion
 
@@ -100,8 +101,11 @@ public class SceneController : MonoBehaviour
 		yield return AwaitAsyncOperation(SceneManager.LoadSceneAsync((int)targetSceneType, LoadSceneMode.Additive));
 
 		//Call OnCurrentSceneUnload and unload the current scene
-		OnCurrentSceneUnload.Invoke();
-		yield return AwaitAsyncOperation(SceneManager.UnloadSceneAsync((int)CurrentScene));
+		if (CurrentScene != SceneType.SceneManager)
+		{
+			OnCurrentSceneUnload.Invoke();
+			yield return AwaitAsyncOperation(SceneManager.UnloadSceneAsync((int)CurrentScene));
+		}
 
 		//Now call OnSceneLoaded and we good
 		CurrentScene = targetSceneType;
@@ -132,11 +136,10 @@ public class SceneController : MonoBehaviour
 	/// Fade to black using dot tween
 	/// </summary>
 	/// <returns></returns>
-	private IEnumerator StartTransition()
+	public IEnumerator StartTransition()
 	{
-		//TODO: Add DOTween
-		transitionPanel.color = new Color(0, 0, 0, 1);
-		yield return null;
+		transitionPanel.DOColor(new Color(0, 0, 0, 1), 1f);
+		yield return new WaitForSecondsRealtime(1f);
 	}
 
 	/// <summary>
@@ -145,8 +148,7 @@ public class SceneController : MonoBehaviour
 	/// <returns></returns>
 	private IEnumerator EndTransition()
 	{
-		//TODO: Add DOTween
-		transitionPanel.color = new Color(0, 0, 0, 0);
-		yield return null;
+		transitionPanel.DOColor(new Color(0, 0, 0, 0), 1f);
+		yield return new WaitForSecondsRealtime(1f);
 	}
 }
