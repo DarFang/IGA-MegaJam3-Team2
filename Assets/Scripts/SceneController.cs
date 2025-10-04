@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -137,9 +138,8 @@ public class SceneController : MonoBehaviour
 	/// <returns></returns>
 	public IEnumerator StartTransition()
 	{
-		//TODO: Add DOTween
-		transitionPanel.color = new Color(0, 0, 0, 1);
-		yield return null;
+		transitionPanel.DOColor(new Color(0, 0, 0, 1), 1f);
+		yield return new WaitForSecondsRealtime(1f);
 	}
 
 	/// <summary>
@@ -148,8 +148,7 @@ public class SceneController : MonoBehaviour
 	/// <returns></returns>
 	private IEnumerator EndTransition()
 	{
-		//TODO: Add DOTween
-		transitionPanel.color = new Color(0, 0, 0, 0);
-		yield return null;
+		transitionPanel.DOColor(new Color(0, 0, 0, 0), 1f);
+		yield return new WaitForSecondsRealtime(1f);
 	}
 }
