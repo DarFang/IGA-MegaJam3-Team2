@@ -14,6 +14,13 @@ public class MusicManager : PersistentSingleton<MusicManager>
     private Dictionary<string, MusicPlayer> loadedMusicPlayers = new();
     private Dictionary<string, MusicPlayer> activeMusicPlayers = new();
 
+    private void Start()
+    {
+
+        PlaySong(0, 5);
+
+    }
+
     /// <summary>
     /// Starts a song. See the MusicManager for the musicEventIDs.
     /// </summary>

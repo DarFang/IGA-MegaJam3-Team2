@@ -109,13 +109,15 @@ public class SettingsMenuController : MonoBehaviour
 	public void OnSoundVolumeChanged(float linearVolume)
 	{
 		settings.soundVolume = linearVolume;
-		SetVolume(linearVolume, "SoundVolume");
+		SetVolume(linearVolume, "SFXVolume");
 		soundText.text = Mathf.Round(linearVolume * 100).ToString() + "%";
 		SaveSettings();
 	}
 
 	private void SetVolume(float linearVolume, string mixerVariable)
 	{
+		//clamp the value so it never reaches zero to prevent bugs
+		linearVolume = Mathf.Clamp(linearVolume, 0.00001f, 1);
 		audioMixer.SetFloat(mixerVariable, Mathf.Log10(linearVolume) * 20f);
 	}
 

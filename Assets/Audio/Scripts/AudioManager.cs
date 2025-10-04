@@ -20,7 +20,7 @@ public class AudioManager : PersistentSingleton<AudioManager>
 
     public bool muteAllAudio;
 
-    private void Start()
+    private void Awake()
     {
         InitializePool();
     }
