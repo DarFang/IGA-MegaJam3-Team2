@@ -1,12 +1,12 @@
 using UnityEngine;
 using UnityEngine.Events;
 
+// TODO: Implement combat events logic
 public class CombatEvent : Event
 {
     [field: SerializeField] public override UnityEvent OnEventStart { get; set; }
     [field: SerializeField] public override UnityEvent OnEventEnd { get; set; }
 
-    // TODO: Implement combat events logic
     public override void StartEvent()
     {
         Debug.Log("Started combat event!");

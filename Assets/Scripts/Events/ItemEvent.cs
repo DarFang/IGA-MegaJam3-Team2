@@ -3,10 +3,17 @@ using UnityEngine.Events;
 
 public class ItemEvent : Event
 {
+    #region Serialized Properties
+
     [field: SerializeField] public override UnityEvent OnEventStart { get; set; }
     [field: SerializeField] public override UnityEvent OnEventEnd { get; set; }
     [SerializeField] private ItemData _itemToAdd;
 
+    #endregion
+
+    /// <summary>
+    /// Call this method to start the item event.
+    /// </summary>
     public override void StartEvent()
     {
         if (_itemToAdd != null)
@@ -17,7 +24,7 @@ public class ItemEvent : Event
             OnEventStart?.Invoke();
         }
         else
-            Debug.LogError($"No item assigned to {name}.");
+            Debug.LogError($"No item assigned to {name}.", this);
     }
     public override void EndEvent()
     {
@@ -28,7 +35,7 @@ public class ItemEvent : Event
             OnEventEnd?.Invoke();
         }
         else
-            Debug.LogError($"No item assigned to {name}.");
+            Debug.LogError($"No item assigned to {name}.", this);
     }
 
     public override string GetType() => "Item event";

@@ -4,14 +4,13 @@ using UnityEngine.Events;
 
 public class Waypoint : MonoBehaviour
 {
+    /// <summary>
+    /// The order of this waypoint in the path.
+    /// </summary>
     [field: SerializeField] public int Order { get; private set; }
+    
+    /// <summary>
+    /// The event to trigger when the player reaches this waypoint.
+    /// </summary>
     [field: SerializeField] public Event Event { get; private set; }
-
-    /*private void Start() => Event.OnEventEnd.AddListener(DisableVisual);
-    private void OnDisable() => Event.OnEventEnd.RemoveListener(DisableVisual);
-    private void DisableVisual()
-    {
-        Debug.Log($"Disabling {name}'s gameObject...");
-        GetComponentInChildren<MeshRenderer>().gameObject.SetActive(false);
-    }*/
 }
