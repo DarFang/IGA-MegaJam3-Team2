@@ -1,0 +1,119 @@
+using Cysharp.Threading.Tasks;
+using System;
+using System.Threading;
+using UnityEngine;
+// ==================== PLAYER ====================
+public class Player : Entity {
+    [SerializeField] private PlayerUI playerUI;
+
+    private UniTaskCompletionSource<PlayerAction> _currentActionSource;
+    private CancellationTokenSource _actionCancellationTokenSource;
+    private bool _isWaitingForInput = false;
+
+    protected void Start() {
+
+        if (playerUI != null) {
+            playerUI.OnActionSelected += HandleActionSelected;
+        }
+    }
+
+    private void HandleActionSelected(PlayerAction action) {
+        if (!_isWaitingForInput) return;
+
+        Debug.Log($"[Player] Action received: {action}");
+        _currentActionSource?.TrySetResult(action);
+    }
+
+    public override async UniTask DoActionAsync(BattleContext context, CancellationToken cancellationToken = default) {
+        if (IsDead) return;
+
+        if (playerUI != null) {
+            // Активуємо UI для вводу
+            _isWaitingForInput = true;
+            playerUI.SetButtonsInteractable(true);
+
+            // Створюємо задачу для очікування дії
+            _currentActionSource = new UniTaskCompletionSource<PlayerAction>();
+            _actionCancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+
+            try {
+                // Чекаємо на вибір дії з таймаутом
+                var playerAction = await _currentActionSource.Task
+                    .Timeout(TimeSpan.FromSeconds(30)) // Захист від "зависання"
+                    .AttachExternalCancellation(_actionCancellationTokenSource.Token);
+
+                ExecutePlayerAction(playerAction, context);
+
+            } catch (TimeoutException) {
+                Debug.LogWarning("[Player] Action selection timeout, using random action");
+                await base.DoActionAsync(context, cancellationToken);
+            } catch (OperationCanceledException) {
+                Debug.Log("[Player] Action selection was cancelled");
+                await base.DoActionAsync(context, cancellationToken);
+            } finally {
+                // Завершуємо режим очікування
+                _isWaitingForInput = false;
+                playerUI.SetButtonsInteractable(false);
+                _currentActionSource = null;
+                _actionCancellationTokenSource?.Dispose();
+                _actionCancellationTokenSource = null;
+            }
+        } else {
+            Debug.LogWarning("[Player] No PlayerUI assigned, using random action");
+            await base.DoActionAsync(context, cancellationToken);
+        }
+    }
+
+    private void ExecutePlayerAction(PlayerAction action, BattleContext context) {
+        switch (action) {
+            case PlayerAction.Attack:
+                if (context.Opponent != null && !context.Opponent.IsDead) {
+                    Attack(context.Opponent);
+                }
+                break;
+
+            case PlayerAction.Defense:
+                float defenseBoost = Stats.Attack.CurrentValue * 0.3f;
+                ApplyDefenseBuff(defenseBoost);
+                break;
+
+            case PlayerAction.Mana:
+                if (context.Opponent != null && !context.Opponent.IsDead) {
+                    float magicDamage = Stats.Attack.CurrentValue * 1.5f;
+                    context.Opponent.TakeDamage(magicDamage, this);
+                    Debug.Log($"[Combat] {name} used magic attack for {magicDamage:F1} damage");
+                }
+                break;
+
+            case PlayerAction.Heal:
+                float healAmount = Stats.Health.MaxValue * 0.3f;
+                Heal(healAmount);
+                break;
+        }
+    }
+
+    public void CancelActionSelection() {
+        _isWaitingForInput = false;
+        _actionCancellationTokenSource?.Cancel();
+        _currentActionSource?.TrySetCanceled();
+
+        if (playerUI != null) {
+            playerUI.SetButtonsInteractable(false);
+        }
+    }
+
+    protected void OnDestroy() {
+        CancelActionSelection();
+
+        if (playerUI != null) {
+            playerUI.OnActionSelected -= HandleActionSelected;
+        }
+    }
+}
+
+public enum PlayerAction {
+    Attack,
+    Defense,
+    Mana,
+    Heal
+}
