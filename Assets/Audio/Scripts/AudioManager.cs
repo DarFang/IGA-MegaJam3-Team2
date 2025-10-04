@@ -20,8 +20,9 @@ public class AudioManager : PersistentSingleton<AudioManager>
 
     public bool muteAllAudio;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         InitializePool();
     }
 
