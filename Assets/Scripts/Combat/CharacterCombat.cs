@@ -62,7 +62,7 @@ public class CharacterCombat : MonoBehaviour
     public void AttackAction()
     {
         Debug.Log(gameObject.name + " is attacking");
-        combatSystem.Attack(this, 10);
+        combatSystem.Attack(this, 20);
     }
     public void DefendAction()
     {

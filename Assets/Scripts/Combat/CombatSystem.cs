@@ -4,12 +4,14 @@ using System.Collections;
 public class CombatSystem : MonoBehaviour
 {
     public UnityEvent OnCombatStart;
-    public UnityEvent OnCombatEnd;
+    public UnityEvent<bool> OnCombatEnd;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     bool playerTurn = true;
     public CharacterCombat player;
     public CharacterCombat enemy;
     bool isCombatStarted = false;
+    public UnityEvent OnPlayerEndTurn;
+    public UnityEvent OnEnemyEndTurn;
     void Start()
     {
         StartCombat();
@@ -40,7 +42,7 @@ public class CombatSystem : MonoBehaviour
     public void EndCombat(bool isPlayerWin)
     {
         Debug.Log("Combat Ended");
-        OnCombatEnd?.Invoke();
+        OnCombatEnd?.Invoke(isPlayerWin);
         if (isPlayerWin)
         {
             Debug.Log("Player Won");
@@ -82,7 +84,7 @@ public class CombatSystem : MonoBehaviour
     }
     public void Defend(CharacterCombat character)
     {
-        character.Defend(5);
+        character.Defend(1);
         EndTurn(character);
     }
     public void Heal(CharacterCombat character)
@@ -105,7 +107,9 @@ public class CombatSystem : MonoBehaviour
     private IEnumerator IntervalTurn()
     {
         isCombatStarted = true;
+        OnPlayerEndTurn?.Invoke();
         yield return new WaitForSeconds(1f);
         isCombatStarted = false;
+        OnEnemyEndTurn?.Invoke();
     }
 }
