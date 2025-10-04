@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class BattleFieldManager : MonoBehaviour {
     [SerializeField] private TurnManager turnManager;
@@ -10,10 +11,10 @@ public class BattleFieldManager : MonoBehaviour {
     private Entity currentEntity;
     private bool battleActive;
 
-    public event Action<Entity> OnBattleEnd;
+    public UnityEvent<bool> OnBattleEnd;
     public event Action<Entity> OnTurnStarted;
 
-    // Варіант 1: З використанням UniTask
+    // пїЅпїЅпїЅпїЅпїЅпїЅ 1: пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ UniTask
     public async void StartBattle(Entity playerEntity, Entity enemyEntity) {
         if (playerEntity == null || enemyEntity == null) {
             Debug.LogError("[BattleField] Cannot start battle with null entities");
@@ -38,8 +39,6 @@ public class BattleFieldManager : MonoBehaviour {
         while (battleActive && !player.IsDead && !enemy.IsDead) {
             await ExecuteTurnAsync();
         }
-
-        if (!battleActive) return;
         EndBattle();
     }
 
@@ -61,17 +60,17 @@ public class BattleFieldManager : MonoBehaviour {
             this
         );
 
-        // Тут чекаємо поки entity виконає дію
+        // пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ entity пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ
         await currentEntity.DoActionAsync(context);
 
-        // Невелика затримка після дії для анімацій
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ дії пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         await UniTask.Delay(300);
 
         turnManager.EndTurn();
     }
 
     private Entity DetermineNextEntity() {
-        // Простий алгоритм: швидший йде першим у непарні ходи
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
         bool isOddTurn = turnManager.CurrentTurn % 2 == 1;
         bool playerIsFaster = player.Stats.Speed.CurrentValue >= enemy.Stats.Speed.CurrentValue;
 
@@ -88,9 +87,6 @@ public class BattleFieldManager : MonoBehaviour {
     }
 
     private void EndBattle() {
-        if (!battleActive) return;
-
-        battleActive = false;
 
         Entity winner = player.IsDead ? enemy : player;
 

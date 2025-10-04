@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 102267285617438705}
   - component: {fileID: 7766413515848831008}
+  - component: {fileID: 2288171319750907769}
   m_Layer: 0
   m_Name: CombatWaypoint
   m_TagString: Untagged
@@ -46,7 +47,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <Order>k__BackingField: 0
-  <Event>k__BackingField: {fileID: -5485902454752182627, guid: 262fa29038dd84d439a930c98993cd16, type: 3}
+  <Event>k__BackingField: {fileID: 2288171319750907769}
+--- !u!114 &2288171319750907769
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2787258560373486834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc0fe9e9271888649a109985602fe64d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <OnEventStart>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  <OnEventEnd>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &7543894204024817223
 GameObject:
   m_ObjectHideFlags: 0
