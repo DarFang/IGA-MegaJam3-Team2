@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: 673cf52ba91adfb4eb2d33db562762b2
   - enabled: 1
+    path: Assets/Scenes/Credits.unity
+    guid: 74d47708653ccdd4481cd4689b8d51b4
+  - enabled: 1
     path: Assets/Scenes/MegaJam.unity
     guid: 5943bf7aac5482f4d9b8b2fe711cdbec
   m_configObjects:
