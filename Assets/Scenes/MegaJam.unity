@@ -1134,7 +1134,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 931197923422382252, guid: 6559601a30c98e843befb7b451eb5ea2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -10
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1049753686656638246, guid: 6559601a30c98e843befb7b451eb5ea2, type: 3}
       propertyPath: m_AnchorMax.y
@@ -1240,6 +1240,10 @@ PrefabInstance:
       propertyPath: m_BlocksRaycasts
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2727179219731177490, guid: 6559601a30c98e843befb7b451eb5ea2, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3142221800093439657, guid: 6559601a30c98e843befb7b451eb5ea2, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1323,6 +1327,10 @@ PrefabInstance:
     - target: {fileID: 4502334877696137439, guid: 6559601a30c98e843befb7b451eb5ea2, type: 3}
       propertyPath: m_Name
       value: PauseMenuPrefab
+      objectReference: {fileID: 0}
+    - target: {fileID: 4590686239509686074, guid: 6559601a30c98e843befb7b451eb5ea2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4982853441616628301, guid: 6559601a30c98e843befb7b451eb5ea2, type: 3}
       propertyPath: m_SizeDelta.y
