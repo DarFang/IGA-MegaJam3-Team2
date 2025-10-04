@@ -85,9 +85,11 @@ public class EntityVisualStatus : MonoBehaviour {
 
         if (actionText == null) return;
 
+        textColor.a = 1.0f;
+
         // Встановлюємо текст та колір
         actionText.text = actionMessage;
-        actionText.color = textColor.WithAlpha(1f); // Повна непрозорість
+        actionText.color = textColor; //.WithAlpha(1f); // Повна непрозорість
         actionText.gameObject.SetActive(true);
 
         // Створюємо послідовність анімацій
@@ -106,7 +108,7 @@ public class EntityVisualStatus : MonoBehaviour {
         // В кінці вимикаємо об'єкт
         currentActionSequence.OnComplete(() => {
             actionText.gameObject.SetActive(false);
-            actionText.color = textColor.WithAlpha(1f); // Відновлюємо колір
+            actionText.color = textColor; //.WithAlpha(1f); // Відновлюємо колір
         });
     }
 
