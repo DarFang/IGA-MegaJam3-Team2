@@ -60,8 +60,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e1d11c8bc706cc4fba10f39dda8e415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <OnEventStart>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  <OnEventEnd>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
   _dialogueSystemEvents: {fileID: 0}
-  _conversationName: 
+  _conversationName: TestConvo
 --- !u!1 &7543894204024817223
 GameObject:
   m_ObjectHideFlags: 0
