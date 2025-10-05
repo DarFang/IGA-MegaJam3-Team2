@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 191be68f0522b8f46b31c83ce1194cbc, type: 3}
-  m_Name: Memories
+  m_Name: Robot Head 1
   m_EditorClassIdentifier: 
-  itemName: Memory from past
-  itemIcon: {fileID: 21300000, guid: 5eedec2fe6ad77d4db55aec5f0fb03e6, type: 3}
-  description: You remember that was good time
+  itemName: Robot Head
+  itemIcon: {fileID: 21300000, guid: dc7d8d5a7da061441a565d8320ee79c4, type: 3}
+  description: 
   startsUnknown: 1
   unknownName: Unknown Item
   unknownIcon: {fileID: 0}
@@ -22,7 +22,7 @@ MonoBehaviour:
     or visit a merchant to identify it.
   isStackable: 1
   maxStackSize: 99
-  rarity: 3
+  rarity: 0
   itemType: 3
   equipmentSlot: 0
   primaryAbility:
