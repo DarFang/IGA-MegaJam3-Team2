@@ -3,10 +3,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-
 public class InventoryUI : MonoBehaviour {
     [Header("Inventory Reference")]
     [SerializeField] private Inventory inventory;
