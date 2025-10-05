@@ -5,6 +5,7 @@ public class Encounter : MonoBehaviour {
     [SerializeField] Enemy enemyPrefab;
     [SerializeField] BattleFieldManager fieldManager;
     [SerializeField] private RectTransform encounterSpawnPoint;
+    [SerializeField] public UpgradedAbilities upgradedAbilities;
     void Start()
     {
         Enemy enemy = Instantiate(enemyPrefab);
@@ -14,6 +15,6 @@ public class Encounter : MonoBehaviour {
         enemy.transform.SetParent(encounterSpawnPoint);
         enemy.transform.position = encounterSpawnPoint.transform.position;
 
-        fieldManager.StartBattle(player, enemy);
+        fieldManager.StartBattle(player, enemy, upgradedAbilities);
     }
 }

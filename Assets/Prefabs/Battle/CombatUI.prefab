@@ -1,5 +1,86 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &956992440685042582
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8367494351180263169}
+  - component: {fileID: 4361286311006556775}
+  - component: {fileID: 9060920007950099948}
+  m_Layer: 5
+  m_Name: Battlefield4
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8367494351180263169
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 956992440685042582}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1592136043535796489}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &4361286311006556775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 956992440685042582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc3d4fdf20b1de74998726f61ef48855, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnBattleEnd:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: CombatEvent, Assembly-CSharp
+        m_MethodName: EndEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &9060920007950099948
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 956992440685042582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c097c8163606bd4181a39d4d8dcea5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 7713672028195492315}
+  enemyPrefab: {fileID: 9222545399552592174, guid: 0ce0fd8f1ab337a48a5472904858d9ff, type: 3}
+  fieldManager: {fileID: 4361286311006556775}
+  encounterSpawnPoint: {fileID: 8691117472699193367}
+  upgradedAbilities: {fileID: 11400000, guid: 9f46f047f07871f40955efeaa5655f96, type: 2}
 --- !u!1 &2775803404078935516
 GameObject:
   m_ObjectHideFlags: 0
@@ -59,7 +140,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.9843137}
+  m_Color: {r: 0, g: 0, b: 0, a: 0.09019608}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -76,6 +157,87 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &2795354273771341209
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6974187420260229218}
+  - component: {fileID: 8904094822288334838}
+  - component: {fileID: 744162879910032874}
+  m_Layer: 5
+  m_Name: Battlefield5
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &6974187420260229218
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2795354273771341209}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1592136043535796489}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &8904094822288334838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2795354273771341209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc3d4fdf20b1de74998726f61ef48855, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnBattleEnd:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: CombatEvent, Assembly-CSharp
+        m_MethodName: EndEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &744162879910032874
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2795354273771341209}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c097c8163606bd4181a39d4d8dcea5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 7713672028195492315}
+  enemyPrefab: {fileID: 9222545399552592174, guid: 1a46ba2397dc2c1468331cf3a743c43c, type: 3}
+  fieldManager: {fileID: 8904094822288334838}
+  encounterSpawnPoint: {fileID: 8691117472699193367}
+  upgradedAbilities: {fileID: 11400000, guid: 73e9f42393a21cc4cbab6bff57d51457, type: 2}
 --- !u!1 &5734098433596249325
 GameObject:
   m_ObjectHideFlags: 0
@@ -99,18 +261,99 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5734098433596249325}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5692079812828618053}
+  m_Father: {fileID: 1592136043535796489}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 376, y: 281}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &6305014931459149926
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1526295447738290036}
+  - component: {fileID: 2929068492159236628}
+  - component: {fileID: 3734882329898191249}
+  m_Layer: 5
+  m_Name: Battlefield3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1526295447738290036
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6305014931459149926}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1592136043535796489}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2929068492159236628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6305014931459149926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc3d4fdf20b1de74998726f61ef48855, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnBattleEnd:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: CombatEvent, Assembly-CSharp
+        m_MethodName: EndEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &3734882329898191249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6305014931459149926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c097c8163606bd4181a39d4d8dcea5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 7713672028195492315}
+  enemyPrefab: {fileID: 9222545399552592174, guid: 479005510676ef04cb3d6e1c63b333cb, type: 3}
+  fieldManager: {fileID: 2929068492159236628}
+  encounterSpawnPoint: {fileID: 8691117472699193367}
+  upgradedAbilities: {fileID: 11400000, guid: 1e6aa9862c172824aa8512f7cc16ffd5, type: 2}
 --- !u!1 &7087254832578850392
 GameObject:
   m_ObjectHideFlags: 0
@@ -123,7 +366,7 @@ GameObject:
   - component: {fileID: 4132280650319891590}
   - component: {fileID: 3380206184803778416}
   m_Layer: 5
-  m_Name: Battlefield
+  m_Name: Battlefield1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -140,8 +383,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 8691117472699193367}
+  m_Children: []
   m_Father: {fileID: 1592136043535796489}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -161,6 +403,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc3d4fdf20b1de74998726f61ef48855, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OnBattleEnd:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: CombatEvent, Assembly-CSharp
+        m_MethodName: EndEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &3380206184803778416
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,6 +434,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 9222545399552592174, guid: d53a533d339860e47ad2501ede96f455, type: 3}
   fieldManager: {fileID: 4132280650319891590}
   encounterSpawnPoint: {fileID: 8691117472699193367}
+  upgradedAbilities: {fileID: 11400000, guid: 78cf3906a14d3ac499cf3f775ec64bf6, type: 2}
 --- !u!1 &8058176743904913551
 GameObject:
   m_ObjectHideFlags: 0
@@ -189,6 +447,8 @@ GameObject:
   - component: {fileID: 125223002771562816}
   - component: {fileID: 44814486245618642}
   - component: {fileID: 5449696903981165664}
+  - component: {fileID: 1774402464289187727}
+  - component: {fileID: 3546424385490290352}
   m_Layer: 5
   m_Name: CombatUI
   m_TagString: Untagged
@@ -209,7 +469,12 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8692341428245078497}
+  - {fileID: 8691117472699193367}
   - {fileID: 5692079812828618053}
+  - {fileID: 303108821562962372}
+  - {fileID: 1526295447738290036}
+  - {fileID: 8367494351180263169}
+  - {fileID: 6974187420260229218}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -280,6 +545,129 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &1774402464289187727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8058176743904913551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c96dd154d52eefb40a58972df3d47578, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Panel: {fileID: 2775803404078935516}
+  BattlefieldManagers:
+  - {fileID: 4132280650319891590}
+  - {fileID: 402223075000736309}
+  - {fileID: 2929068492159236628}
+  - {fileID: 4361286311006556775}
+  - {fileID: 8904094822288334838}
+  Encounters:
+  - {fileID: 3380206184803778416}
+  - {fileID: 6028795963836767324}
+  - {fileID: 3734882329898191249}
+  - {fileID: 9060920007950099948}
+  - {fileID: 744162879910032874}
+  GeneralCombatUI: {fileID: 3546424385490290352}
+--- !u!114 &3546424385490290352
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8058176743904913551}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4180176d7365e494cae2b4deaf529b25, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AttackTextAction: {fileID: 3619208607516370361}
+  DefendTextAction: {fileID: 7144938199379921198}
+  HealTextAction: {fileID: 323819787236457929}
+  ManaTextAction: {fileID: 9104596160635929816}
+--- !u!1 &8903443729262156661
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 303108821562962372}
+  - component: {fileID: 402223075000736309}
+  - component: {fileID: 6028795963836767324}
+  m_Layer: 5
+  m_Name: Battlefield2
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &303108821562962372
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8903443729262156661}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1592136043535796489}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &402223075000736309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8903443729262156661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc3d4fdf20b1de74998726f61ef48855, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnBattleEnd:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: CombatEvent, Assembly-CSharp
+        m_MethodName: EndEvent
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &6028795963836767324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8903443729262156661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c097c8163606bd4181a39d4d8dcea5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 7713672028195492315}
+  enemyPrefab: {fileID: 9222545399552592174, guid: 4b256f9f222d505448a99f0219ee1e1a, type: 3}
+  fieldManager: {fileID: 402223075000736309}
+  encounterSpawnPoint: {fileID: 8691117472699193367}
+  upgradedAbilities: {fileID: 11400000, guid: eb69f95e2f2fd8548910fa76e8bfd562, type: 2}
 --- !u!1001 &7947966223145004979
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -339,6 +727,22 @@ PrefabInstance:
     - target: {fileID: 3362479190873923387, guid: 546aaae0b25d98e4595f3d79effcaeea, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4248967055511463163, guid: 546aaae0b25d98e4595f3d79effcaeea, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 1212
+      objectReference: {fileID: 0}
+    - target: {fileID: 4248967055511463163, guid: 546aaae0b25d98e4595f3d79effcaeea, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -198
+      objectReference: {fileID: 0}
+    - target: {fileID: 5396669427568701028, guid: 546aaae0b25d98e4595f3d79effcaeea, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 333
+      objectReference: {fileID: 0}
+    - target: {fileID: 5396669427568701028, guid: 546aaae0b25d98e4595f3d79effcaeea, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -73
       objectReference: {fileID: 0}
     - target: {fileID: 5482822530288775515, guid: 546aaae0b25d98e4595f3d79effcaeea, type: 3}
       propertyPath: m_AnchorMax.y
@@ -477,11 +881,44 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 546aaae0b25d98e4595f3d79effcaeea, type: 3}
+--- !u!114 &323819787236457929 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7652364852218090106, guid: 546aaae0b25d98e4595f3d79effcaeea, type: 3}
+  m_PrefabInstance: {fileID: 7947966223145004979}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &428112938880790828 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7763131914375962271, guid: 546aaae0b25d98e4595f3d79effcaeea, type: 3}
   m_PrefabInstance: {fileID: 7947966223145004979}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &3619208607516370361 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6662752559281785354, guid: 546aaae0b25d98e4595f3d79effcaeea, type: 3}
+  m_PrefabInstance: {fileID: 7947966223145004979}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &7144938199379921198 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 966921815550371485, guid: 546aaae0b25d98e4595f3d79effcaeea, type: 3}
+  m_PrefabInstance: {fileID: 7947966223145004979}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7713672028195492315 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 378494767046721128, guid: 546aaae0b25d98e4595f3d79effcaeea, type: 3}
@@ -491,5 +928,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6c01e8375894a2e43bc6157409f319e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &9104596160635929816 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1159356753751272299, guid: 546aaae0b25d98e4595f3d79effcaeea, type: 3}
+  m_PrefabInstance: {fileID: 7947966223145004979}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

@@ -12,6 +12,7 @@ public class Entity : MonoBehaviour {
     public event Action<Entity> OnDeath;
     public event Action<float> OnDamageTaken;
     public event Action<float> OnHealed;
+    private UpgradedAbilities UpgradedAbilities;
 
     private void Awake() {
         Initialize();
@@ -20,6 +21,9 @@ public class Entity : MonoBehaviour {
     private void Initialize() {
         ResetStats();
         UpdateView();
+    }
+    public void SetUpgradedAbilities(UpgradedAbilities upgradedAbilities) {
+        UpgradedAbilities = upgradedAbilities;
     }
 
     public void ResetStats() {
@@ -79,16 +83,16 @@ public class Entity : MonoBehaviour {
 
         Debug.Log($"[Combat] {name} took {finalDamage:F1} damage");
 
-        // Анімація шкоди вже викликається через OnDamageTaken подію
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ OnDamageTaken пїЅпїЅпїЅпїЅ
     }
 
     public void Attack(Entity target) {
         if (IsDead || target == null || target.IsDead) return;
 
-        float damage = Stats.Attack.CurrentValue;
+        float damage = Stats.Attack.CurrentValue * UpgradedAbilities.AttackUpgraded ? 1.5f : 1f;
         target.TakeDamage(damage, this);
 
-        // Показуємо анімацію атаки для атакуючого
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         entityView?.ShowDealDamage(damage);
 
         Debug.Log($"[Combat] {name} attacks {target.name} for {damage:F1} damage");
@@ -97,10 +101,10 @@ public class Entity : MonoBehaviour {
     public void Heal(float amount) {
         if (IsDead) return;
 
-        Stats.Health.Heal(amount);
+        Stats.Health.Heal(amount * UpgradedAbilities.HealUpgraded ? 1.5f : 1f);
         OnHealed?.Invoke(amount);
 
-        // Показуємо анімацію лікування
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         entityView?.ShowHeal(amount);
 
         Debug.Log($"[Combat] {name} healed for {amount:F1} HP");
@@ -109,9 +113,9 @@ public class Entity : MonoBehaviour {
     public void ApplyDefenseBuff(float amount) {
         if (IsDead) return;
 
-        Stats.Defense.Add(amount);
+        Stats.Defense.Add(amount * UpgradedAbilities.DefenseUpgraded ? 1.5f : 1f);
 
-        // Показуємо анімацію баффа захисту
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         entityView?.ShowDefenseBuff(amount);
 
         Debug.Log($"[Combat] {name} gained {amount:F1} defense");
@@ -122,7 +126,7 @@ public class Entity : MonoBehaviour {
     public virtual async UniTask DoActionAsync(BattleContext context, CancellationToken cancellationToken = default) {
         if (IsDead) return;
 
-        // За замовчуванням - випадкова дія з невеликою затримкою
+        // пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         await UniTask.Delay(500, cancellationToken: cancellationToken);
         PerformRandomAction(context);
     }
