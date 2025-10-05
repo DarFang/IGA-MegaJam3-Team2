@@ -73,7 +73,7 @@ public class Player : Entity {
                 break;
 
             case PlayerAction.Defense:
-                float defenseBoost = Stats.Attack.CurrentValue * 0.3f;
+                float defenseBoost = Stats.Attack.CurrentValue * defencePercentage;
                 ApplyDefenseBuff(defenseBoost);
                 break;
 
@@ -85,7 +85,7 @@ public class Player : Entity {
                 break;
 
             case PlayerAction.Heal:
-                float healAmount = Stats.Health.MaxValue * 0.3f;
+                float healAmount = Stats.Health.MaxValue * healPercentage;
                 Heal(healAmount);
                 break;
         }
