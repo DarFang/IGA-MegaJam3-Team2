@@ -16,6 +16,7 @@ public class Encounter : MonoBehaviour {
 
         EnemyReference.transform.SetParent(encounterSpawnPoint);
         EnemyReference.transform.position = encounterSpawnPoint.transform.position;
+        EnemyReference.transform.localScale = Vector3.one;
 
         fieldManager.StartBattle(player, EnemyReference, upgradedAbilities);
     }
