@@ -13,6 +13,9 @@ public class Entity : MonoBehaviour {
     public event Action<float> OnDamageTaken;
     public event Action<float> OnHealed;
     private UpgradedAbilities UpgradedAbilities;
+
+    [SerializeField] private SoundList actionSoundList;
+
     private void OnEnable() {
         Initialize();
     }
@@ -88,6 +91,7 @@ public class Entity : MonoBehaviour {
         float finalDamage = CalculateDamage(rawDamage, Stats.Defense.CurrentValue);
         Stats.Health.TakeDamage(finalDamage);
 
+        SoundManager.Instance.CreateSound().AutoDuckMusic().Play(actionSoundList.GetSound("TakeDamage"));
         Debug.Log($"[Combat] {name} took {finalDamage:F1} damage");
 
         // �������� ����� ��� ����������� ����� OnDamageTaken ����
@@ -105,6 +109,7 @@ public class Entity : MonoBehaviour {
 
         // �������� �������� ����� ��� ����������
         entityView?.ShowDealDamage(damage);
+        SoundManager.Instance.CreateSound().AutoDuckMusic().Play(actionSoundList.GetSound("Attack"));
 
         Debug.Log($"[Combat] {name} attacks {target.name} for {damage:F1} damage");
     }
@@ -121,6 +126,7 @@ public class Entity : MonoBehaviour {
 
         // �������� �������� ��������
         entityView?.ShowHeal(amount);
+        SoundManager.Instance.CreateSound().AutoDuckMusic().Play(actionSoundList.GetSound("Heal"));
 
         Debug.Log($"[Combat] {name} healed for {amount:F1} HP");
     }
@@ -137,6 +143,7 @@ public class Entity : MonoBehaviour {
 
         // �������� �������� ����� �������
         entityView?.ShowDefenseBuff(modifiedAmount);
+        SoundManager.Instance.CreateSound().AutoDuckMusic().Play(actionSoundList.GetSound("Defend"));
 
         Debug.Log($"[Combat] {name} gained {amount:F1} defense");
     }
