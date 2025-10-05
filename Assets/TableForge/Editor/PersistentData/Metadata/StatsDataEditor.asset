@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b79e36b3a8534235852035ac7e993606, type: 3}
-  m_Name: StatsData (1)
+  m_Name: StatsDataEditor
   m_EditorClassIdentifier: 
   expandedTables:
     values: 
@@ -18,25 +18,14 @@ MonoBehaviour:
     values: 
   hiddenFields:
     values: 
-  itemsTypeName: StatsData, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-  bindingTypeName: StatsData
+  itemsTypeName: StatsDataEditor, Assembly-CSharp-Editor, Version=0.0.0.0, Culture=neutral,
+    PublicKeyToken=null
+  bindingTypeName: StatsDataEditor
   itemGUIDs:
     values: []
   cellAnchorMetadata:
-    mKeys: 2ae528b6870d684b1adf1d7600113ddd143c4321e097593f
-    mValues:
-    - position: 1
-      size: {x: 0, y: 0}
-    - position: 2
-      size: {x: 0, y: 0}
-    - position: 3
-      size: {x: 0, y: 0}
-    - position: 4
-      size: {x: 0, y: 0}
-    - position: 5
-      size: {x: 0, y: 0}
-    - position: 6
-      size: {x: 0, y: 0}
+    mKeys: 
+    mValues: []
   functions:
     mKeys: 
     mValues: []

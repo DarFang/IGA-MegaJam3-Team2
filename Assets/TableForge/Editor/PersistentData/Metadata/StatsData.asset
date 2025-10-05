@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: StatsData
   m_EditorClassIdentifier: 
   expandedTables:
-    values: 
+    values: 91a4f488
   transposedTables:
     values: 
   hiddenFields:
@@ -26,9 +26,9 @@ MonoBehaviour:
     mKeys: 2ae528b6870d684b1adf1d7600113ddd143c4321e097593f649a4e34
     mValues:
     - position: 1
-      size: {x: 0, y: 25}
+      size: {x: 0, y: 50}
     - position: 2
-      size: {x: 0, y: 0}
+      size: {x: 0, y: 25}
     - position: 3
       size: {x: 0, y: 0}
     - position: 4
@@ -38,7 +38,7 @@ MonoBehaviour:
     - position: 6
       size: {x: 0, y: 0}
     - position: 0
-      size: {x: 98, y: 0}
+      size: {x: 429, y: 0}
   functions:
     mKeys: 
     mValues: []
