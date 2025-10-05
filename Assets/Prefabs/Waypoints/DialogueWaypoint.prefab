@@ -67,7 +67,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   _dialogueSystemEvents: {fileID: 0}
-  _conversationName: TestConvo
+  _conversationName: Test
 --- !u!1 &7543894204024817223
 GameObject:
   m_ObjectHideFlags: 0
