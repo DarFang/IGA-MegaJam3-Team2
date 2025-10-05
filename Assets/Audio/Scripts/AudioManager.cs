@@ -23,6 +23,11 @@ public class AudioManager : PersistentSingleton<AudioManager>
     protected override void Awake()
     {
         base.Awake();
+
+        if (soundEmitterPrefab == null) {
+            Debug.LogWarning("Sound emitter prefab is null");
+            return;
+        }
         InitializePool();
     }
 
