@@ -23,4 +23,12 @@ public class CombatManager : MonoBehaviour
         Panel.SetActive(true);
         GeneralCombatUI.UpdateButtonText(Encounters[index-1].upgradedAbilities);
     }
+
+    public class ManaManager {
+        public int Mana;
+        public int MaxMana;
+        public void UpdateMana(int mana) {
+            Mana = mana;
+        }
+    }
 }

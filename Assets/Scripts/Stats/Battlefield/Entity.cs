@@ -13,8 +13,7 @@ public class Entity : MonoBehaviour {
     public event Action<float> OnDamageTaken;
     public event Action<float> OnHealed;
     private UpgradedAbilities UpgradedAbilities;
-
-    private void Awake() {
+    private void OnEnable() {
         Initialize();
     }
 
@@ -44,6 +43,14 @@ public class Entity : MonoBehaviour {
 
         HandleHealthChanged(Stats.Health.CurrentValue);
         HandleDefenceUpdate(Stats.Defense.CurrentValue);
+        HandleManaUpdate();
+        
+    }
+    private void HandleManaUpdate() {
+        Debug.Log($"[Entity] Mana updated for {name}: {Stats.Mana.CurrentValue}/{Stats.Mana.MaxValue}");
+        string manaText = $"{Stats.Mana.CurrentValue} / {Stats.Mana.MaxValue}";
+        float percentage = Stats.Mana.CurrentValue / Stats.Mana.MaxValue;
+        entityView.UpdateMana(percentage, manaText);
     }
 
     private void HandleDamageTaken(float damage) {
@@ -89,7 +96,7 @@ public class Entity : MonoBehaviour {
     public void Attack(Entity target) {
         if (IsDead || target == null || target.IsDead) return;
 
-        float damage = Stats.Attack.CurrentValue * UpgradedAbilities.AttackUpgraded ? 1.5f : 1f;
+        float damage = Stats.Attack.CurrentValue * (UpgradedAbilities.AttackUpgraded ? 1.5f : 1f);
         target.TakeDamage(damage, this);
 
         // �������� �������� ����� ��� ����������
@@ -101,7 +108,7 @@ public class Entity : MonoBehaviour {
     public void Heal(float amount) {
         if (IsDead) return;
 
-        Stats.Health.Heal(amount * UpgradedAbilities.HealUpgraded ? 1.5f : 1f);
+        Stats.Health.Heal(amount * (UpgradedAbilities.HealUpgraded ? 1.5f : 1f));
         OnHealed?.Invoke(amount);
 
         // �������� �������� ��������
@@ -112,13 +119,25 @@ public class Entity : MonoBehaviour {
 
     public void ApplyDefenseBuff(float amount) {
         if (IsDead) return;
-
-        Stats.Defense.Add(amount * UpgradedAbilities.DefenseUpgraded ? 1.5f : 1f);
+        float modifiedAmount = amount * (UpgradedAbilities.DefenseUpgraded ? 1.5f : 1f);
+        Stats.Defense.Add(modifiedAmount);
 
         // �������� �������� ����� �������
-        entityView?.ShowDefenseBuff(amount);
+        entityView?.ShowDefenseBuff(modifiedAmount);
 
         Debug.Log($"[Combat] {name} gained {amount:F1} defense");
+    }
+
+    public void ApplyManaBuff(float amount) {
+        if (IsDead) return;
+
+        float modifiedAmount = amount * (UpgradedAbilities.ManaUpgraded ? 1.5f : 1f);
+        Stats.Mana.Add(modifiedAmount);
+        HandleManaUpdate();
+        // �������� �������� ����� �������
+        entityView?.ShowManaBuff(modifiedAmount);
+
+        Debug.Log($"[Combat] {name} gained {amount:F1} mana");
     }
 
     // ==================== BATTLE LOGIC ====================

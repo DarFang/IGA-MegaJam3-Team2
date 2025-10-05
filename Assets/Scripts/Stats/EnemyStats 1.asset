@@ -27,11 +27,11 @@ MonoBehaviour:
     maxValue: 50
     minValue: 0
   manaData:
-    baseValue: 0
-    maxValue: 0
+    baseValue: 10
+    maxValue: 100
     minValue: 0
     regeneration: 1
-    hasRegeneration: 0
+    hasRegeneration: 1
   speedData:
     baseValue: 0
     maxValue: 0
