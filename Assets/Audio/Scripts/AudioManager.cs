@@ -71,6 +71,7 @@ public class AudioManager : PersistentSingleton<AudioManager>
 
     void OnDestroyPoolObject(SoundEmitter soundEmitter)
     {
+        if (soundEmitter != null) 
         Destroy(soundEmitter.gameObject);
     }
 

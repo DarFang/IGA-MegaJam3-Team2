@@ -392,67 +392,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!1001 &1571320568
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 7554420288744594786, guid: 6783dc9598f16514aaa2593e60206a61, type: 3}
-      propertyPath: soundsOnObject.Array.data[0].name
-      value: Attack
-      objectReference: {fileID: 0}
-    - target: {fileID: 7751990587170297135, guid: 6783dc9598f16514aaa2593e60206a61, type: 3}
-      propertyPath: m_Name
-      value: PlayerSounds
-      objectReference: {fileID: 0}
-    - target: {fileID: 8296821590312589797, guid: 6783dc9598f16514aaa2593e60206a61, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8296821590312589797, guid: 6783dc9598f16514aaa2593e60206a61, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8296821590312589797, guid: 6783dc9598f16514aaa2593e60206a61, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8296821590312589797, guid: 6783dc9598f16514aaa2593e60206a61, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8296821590312589797, guid: 6783dc9598f16514aaa2593e60206a61, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8296821590312589797, guid: 6783dc9598f16514aaa2593e60206a61, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8296821590312589797, guid: 6783dc9598f16514aaa2593e60206a61, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8296821590312589797, guid: 6783dc9598f16514aaa2593e60206a61, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8296821590312589797, guid: 6783dc9598f16514aaa2593e60206a61, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8296821590312589797, guid: 6783dc9598f16514aaa2593e60206a61, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 6783dc9598f16514aaa2593e60206a61, type: 3}
 --- !u!1 &1820221147
 GameObject:
   m_ObjectHideFlags: 0
@@ -606,6 +545,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3507400647972054570, guid: 307b54aba077fa8469d8d0791d1413c1, type: 3}
+      propertyPath: soundList
+      value: 
+      objectReference: {fileID: 11400000, guid: 3238cd599d2d71e4094be4c4694bae79, type: 2}
+    - target: {fileID: 3567984297303761596, guid: 307b54aba077fa8469d8d0791d1413c1, type: 3}
+      propertyPath: soundList
+      value: 
+      objectReference: {fileID: 11400000, guid: 67703f1064113c6498ffc67be07425b9, type: 2}
     - target: {fileID: 4308839608548874214, guid: 307b54aba077fa8469d8d0791d1413c1, type: 3}
       propertyPath: m_Name
       value: Combat
@@ -725,89 +672,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 5357444729238651447, guid: 307b54aba077fa8469d8d0791d1413c1, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 2234357079315794999}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 307b54aba077fa8469d8d0791d1413c1, type: 3}
---- !u!1 &2234357079315794998 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5357444729238651447, guid: 307b54aba077fa8469d8d0791d1413c1, type: 3}
-  m_PrefabInstance: {fileID: 2234357079315794997}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2234357079315794999
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2234357079315794998}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: acbf354e4c5610b428f7eb4bd907c796, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  soundsOnObject:
-  - name: Attack
-    frequentSound: 0
-    mute: 0
-    clips:
-    - {fileID: 8300000, guid: 8ccfdb72cf527674ca5cdfbc9362ee48, type: 3}
-    soundSettings:
-      mixerGroup: {fileID: 6899448223994471096, guid: 200eb56313a83da4a9e284b188c37c29, type: 2}
-      loop: 0
-      randomizeVolume: 0
-      volumeRange: {x: 1, y: 0}
-      randomizePitch: 0
-      pitchRange: {x: 1, y: 0}
-  - name: Defend
-    frequentSound: 0
-    mute: 0
-    clips:
-    - {fileID: 8300000, guid: 3b085c427dc684d4b877fb0de1646f0b, type: 3}
-    soundSettings:
-      mixerGroup: {fileID: 6899448223994471096, guid: 200eb56313a83da4a9e284b188c37c29, type: 2}
-      loop: 0
-      randomizeVolume: 0
-      volumeRange: {x: 1, y: 0}
-      randomizePitch: 0
-      pitchRange: {x: 1, y: 0}
-  - name: Heal
-    frequentSound: 0
-    mute: 0
-    clips:
-    - {fileID: 8300000, guid: 5467960b258011743ac9cc44656d484e, type: 3}
-    soundSettings:
-      mixerGroup: {fileID: 6899448223994471096, guid: 200eb56313a83da4a9e284b188c37c29, type: 2}
-      loop: 0
-      randomizeVolume: 0
-      volumeRange: {x: 1, y: 0}
-      randomizePitch: 0
-      pitchRange: {x: 1, y: 0}
-  - name: TakeMana
-    frequentSound: 0
-    mute: 0
-    clips:
-    - {fileID: 8300000, guid: 529283b917b9a654eb6b372ca6bdf292, type: 3}
-    soundSettings:
-      mixerGroup: {fileID: 6899448223994471096, guid: 200eb56313a83da4a9e284b188c37c29, type: 2}
-      loop: 0
-      randomizeVolume: 0
-      volumeRange: {x: 1, y: 0}
-      randomizePitch: 0
-      pitchRange: {x: 1, y: 0}
-  - name: TakeDamage
-    frequentSound: 0
-    mute: 0
-    clips:
-    - {fileID: 8300000, guid: 4a15894b9c3732143ab9b9ba8c6fea47, type: 3}
-    soundSettings:
-      mixerGroup: {fileID: 6899448223994471096, guid: 200eb56313a83da4a9e284b188c37c29, type: 2}
-      loop: 0
-      randomizeVolume: 0
-      volumeRange: {x: 1, y: 0}
-      randomizePitch: 0
-      pitchRange: {x: 1, y: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -816,5 +682,4 @@ SceneRoots:
   - {fileID: 1820221149}
   - {fileID: 307579945}
   - {fileID: 2234357079315794997}
-  - {fileID: 1571320568}
   - {fileID: 1021574369}
