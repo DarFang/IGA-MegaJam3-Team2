@@ -3,71 +3,49 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class ItemDetailPanel : MonoBehaviour {
-    [Header("Basic Info")]
+    [SerializeField] private GameObject panel;
+    [SerializeField] private Image itemIcon;
     [SerializeField] private TextMeshProUGUI itemNameText;
-    [SerializeField] private Image itemIconLarge;
-    [SerializeField] private TextMeshProUGUI itemLoreText;
+    [SerializeField] private TextMeshProUGUI rarityText;
+    [SerializeField] private TextMeshProUGUI descriptionText;
+    [SerializeField] private GameObject unknownWarning;
 
-    [Header("Ability Section")]
-    [SerializeField] private GameObject abilitySection;
-    [SerializeField] private TextMeshProUGUI abilityNameText;
-    [SerializeField] private Image abilityIconImage;
-    [SerializeField] private TextMeshProUGUI abilityDescriptionText;
-    [SerializeField] private TextMeshProUGUI cooldownText;
-    [SerializeField] private TextMeshProUGUI manaCostText;
-
-    [Header("Animation")]
-    [SerializeField] private Animator abilityAnimator; // Для GIF-анімації
-
-    public void ShowItemDetails(InventoryItem item) {
-        if (item == null) {
-            gameObject.SetActive(false);
+    public void ShowItemDetails(InventorySlot slot) {
+        if (slot == null) {
+            Toggle(false);
             return;
         }
 
-        gameObject.SetActive(true);
+        Toggle(true);
 
-        // Basic info
-        UpdateName(item.ItemName);
-        UpdateItemSprite(item.ItemIcon);
-        UpdateDescription(item.ItemLore);
 
-        // Ability section
-        if (abilitySection == null) return;
+        bool isIdentified = slot.IsIdentified;
 
-        if (item.HasAbility && item.Ability != null && item.Ability.HasAbility) {
-            abilitySection.SetActive(true);
-            abilityNameText.text = item.Ability.AbilityName;
-            abilityIconImage.sprite = item.Ability.AbilityIcon;
-            abilityDescriptionText.text = item.Ability.AbilityDescription;
-            cooldownText.text = $"Cooldown: {item.Ability.Cooldown}s";
-            manaCostText.text = $"Mana: {item.Ability.ManaCost}";
+        if (itemIcon != null) {
+            itemIcon.sprite = slot.GetDisplayIcon();
+            itemIcon.color = isIdentified ? Color.white : new Color(0.5f, 0.5f, 0.5f);
+        }
 
-            // Якщо є аніматор, можна використати RuntimeAnimatorController для GIF
-            if (abilityAnimator != null) {
-                // Тут можна встановити анімацію здібності
-            }
-        } else {
-            abilitySection.SetActive(false);
+        if (itemNameText != null) {
+            itemNameText.text = slot.GetDisplayName();
+        }
+
+        if (rarityText != null) {
+            rarityText.text = slot.GetDisplayRarity().ToString();
+            rarityText.color = RarityUtility.GetRarityColor(slot.GetDisplayRarity());
+        }
+
+        if (descriptionText != null) {
+            descriptionText.text = slot.GetDisplayDescription();
+        }
+
+        if (unknownWarning != null) {
+            unknownWarning.SetActive(!isIdentified);
         }
     }
 
-    public void UpdateDescription(string description) {
-        if (itemLoreText == null) return;
-        itemLoreText.text = description;
-    }
-
-    public void UpdateName(string name) {
-        if (itemNameText == null) return;
-        itemNameText.text = name;
-    }
-
-    public void UpdateItemSprite(Sprite newSprite) {
-        if (itemIconLarge == null) return;
-        itemIconLarge.sprite = newSprite;
-    }
-
-    public void Hide() {
-        gameObject.SetActive(false);
+    public void Toggle(bool isEnabled) {
+        if (panel == null) return;
+        panel.SetActive(isEnabled);
     }
 }
