@@ -3,6 +3,13 @@ using UnityEngine;
 
 public class PlayerAnimations : MonoBehaviour
 {
+    #region Exposed Fields
+
+    [SerializeField] private PlayerUI _playerUI;
+    [SerializeField]private bool _testing;
+
+    #endregion
+
     #region Private Fields
 
     private Animator _animator;
@@ -22,15 +29,21 @@ public class PlayerAnimations : MonoBehaviour
 
     #endregion
 
-    #region Private Methods
+    #region Event Handling Methods
 
     /// <summary>
     /// Subscribe to <see cref="PlayerMovement"/>'s instance events
     /// </summary>
     private void StartListening()
     {
-        _playerMovement.OnStartedMoving += SetMoveTrigger;
-        _playerMovement.OnArrived += SetIdleTrigger;
+        if (_playerMovement && _playerUI)
+        {
+            _playerMovement.OnStartedMoving += SetMoveTrigger;
+            _playerMovement.OnArrived += SetIdleTrigger;
+            _playerUI.OnActionSelected += PlayerUI_OnActionSelected;
+        }
+        else if (!_testing)
+            Debug.LogError($"Missing component references on {this}.", this);
     }
 
     /// <summary>
@@ -38,12 +51,40 @@ public class PlayerAnimations : MonoBehaviour
     /// </summary>
     private void StopListening()
     {
-        _playerMovement.OnStartedMoving -= SetMoveTrigger;
-        _playerMovement.OnArrived -= SetIdleTrigger;
+        if(_playerMovement && _playerUI)
+        {
+            _playerMovement.OnStartedMoving -= SetMoveTrigger;
+            _playerMovement.OnArrived -= SetIdleTrigger;
+            _playerUI.OnActionSelected -= PlayerUI_OnActionSelected;
+        }
+        else if (!_testing)
+            Debug.LogError($"Missing component references on {this}." , this);
     }
+
+    #endregion
+
+    #region Animator Methods
 
     private void SetMoveTrigger() => _animator.SetTrigger("Move");
     private void SetIdleTrigger() => _animator.SetTrigger("Idle");
+    private void PlayerUI_OnActionSelected(PlayerAction action)
+    {
+        switch(action)
+        {
+            case PlayerAction.Attack:
+                _animator.SetTrigger("Attack");
+                break;
+            case PlayerAction.Defense:
+                _animator.SetTrigger("Defend");
+                break;
+            case PlayerAction.Mana:
+                _animator.SetTrigger("Mana");
+                break;
+            case PlayerAction.Heal:
+                _animator.SetTrigger("Heal");
+                break;
+        }
+    }
 
     #endregion
 }
