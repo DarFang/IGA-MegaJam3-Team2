@@ -69,6 +69,8 @@ MonoBehaviour:
   healthSlider: {fileID: 1035571189391239155}
   healthText: {fileID: 1034340481165495159}
   componentsToFadeOnDeath: []
+  manaSlider: {fileID: 5506608401808605468}
+  manaText: {fileID: 2201500923829245316}
   characterNameText: {fileID: 462872473136553378}
   defenseText: {fileID: 4117786359780721456}
   actionText: {fileID: 8381703855950709900}
@@ -79,6 +81,7 @@ MonoBehaviour:
   buffColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   defaultDefenseText: 'Defence:'
   defaultHealthText: 'HP: '
+  defaultManaText: 'MP: '
   aliveColor: {r: 1, g: 1, b: 1, a: 1}
   deadColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
 --- !u!1 &3613035117421085755
@@ -888,7 +891,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 395.50485, y: -220.6613}
+  m_AnchoredPosition: {x: 1212, y: -198}
   m_SizeDelta: {x: 600, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &101224237540806408
@@ -1240,6 +1243,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: EntityStats
       objectReference: {fileID: 0}
+    - target: {fileID: 4956107799878699007, guid: 260b25ca00f13fe4198a961faee82023, type: 3}
+      propertyPath: m_text
+      value: Action
+      objectReference: {fileID: 0}
     - target: {fileID: 8823317715190525207, guid: 260b25ca00f13fe4198a961faee82023, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1302,11 +1309,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8823317715190525207, guid: 260b25ca00f13fe4198a961faee82023, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 1239.5845
+      value: 333
       objectReference: {fileID: 0}
     - target: {fileID: 8823317715190525207, guid: 260b25ca00f13fe4198a961faee82023, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -220.6613
+      value: -73
       objectReference: {fileID: 0}
     - target: {fileID: 8823317715190525207, guid: 260b25ca00f13fe4198a961faee82023, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1358,6 +1365,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2201500923829245316 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3322292699938133751, guid: 260b25ca00f13fe4198a961faee82023, type: 3}
+  m_PrefabInstance: {fileID: 3501103367842087795}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4117786359780721456 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 698966234167443523, guid: 260b25ca00f13fe4198a961faee82023, type: 3}
@@ -1374,6 +1392,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 8823317715190525207, guid: 260b25ca00f13fe4198a961faee82023, type: 3}
   m_PrefabInstance: {fileID: 3501103367842087795}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5506608401808605468 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9006370069040398959, guid: 260b25ca00f13fe4198a961faee82023, type: 3}
+  m_PrefabInstance: {fileID: 3501103367842087795}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8381703855950709900 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4956107799878699007, guid: 260b25ca00f13fe4198a961faee82023, type: 3}

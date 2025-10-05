@@ -13,15 +13,11 @@ public class Entity : MonoBehaviour {
     public event Action<Entity> OnDeath;
     public event Action<float> OnDamageTaken;
     public event Action<float> OnHealed;
+    private UpgradedAbilities UpgradedAbilities;
 
-    [Range(0, 1f)]
-    [SerializeField] protected float healPercentage = 0.2f;
-    [Range(0, 1f)]
-    [SerializeField] protected float defencePercentage = 0.3f;
+    [SerializeField] private SoundList actionSoundList;
 
-    private CancellationTokenSource _currentActionCts;
-
-    private void Awake() {
+    private void OnEnable() {
         Initialize();
     }
 
@@ -31,6 +27,9 @@ public class Entity : MonoBehaviour {
         }
         ResetStats();
         UpdateView();
+    }
+    public void SetUpgradedAbilities(UpgradedAbilities upgradedAbilities) {
+        UpgradedAbilities = upgradedAbilities;
     }
 
     public void ResetStats() {
@@ -51,6 +50,14 @@ public class Entity : MonoBehaviour {
 
         HandleHealthChanged(Stats.Health.CurrentValue);
         HandleDefenceUpdate(Stats.Defense.CurrentValue);
+        HandleManaUpdate();
+        
+    }
+    private void HandleManaUpdate() {
+        Debug.Log($"[Entity] Mana updated for {name}: {Stats.Mana.CurrentValue}/{Stats.Mana.MaxValue}");
+        string manaText = $"{Stats.Mana.CurrentValue} / {Stats.Mana.MaxValue}";
+        float percentage = Stats.Mana.CurrentValue / Stats.Mana.MaxValue;
+        entityView.UpdateMana(percentage, manaText);
     }
 
     private void HandleDamageTaken(float damage) {
@@ -88,16 +95,25 @@ public class Entity : MonoBehaviour {
         float finalDamage = CalculateDamage(rawDamage, Stats.Defense.CurrentValue);
         Stats.Health.TakeDamage(finalDamage);
 
+        SoundManager.Instance.CreateSound().AutoDuckMusic().Play(actionSoundList.GetSound("TakeDamage"));
         Debug.Log($"[Combat] {name} took {finalDamage:F1} damage");
+
+        // �������� ����� ��� ����������� ����� OnDamageTaken ����
     }
 
     public void Attack(Entity target) {
         if (IsDead || target == null || target.IsDead) return;
+        if (Stats.Mana.CurrentValue < 10) {
+            Debug.LogWarning($"[Combat] {name} does not have enough mana to attack.");
+            return;
+        }
+        CombatManager.Instance.ManaManager.ConsumeMana(this, 10);
+        float damage = Stats.Attack.CurrentValue * (UpgradedAbilities.AttackUpgraded ? 1.5f : 1f);
+        target.TakeDamage(damage, this);
 
-        float damage = Stats.Attack.CurrentValue;
-        float resultDamage = damage = Mathf.Round(damage * 100f) / 100f;
-
-        target.TakeDamage(resultDamage, this);
+        // �������� �������� ����� ��� ����������
+        entityView?.ShowDealDamage(damage);
+        SoundManager.Instance.CreateSound().AutoDuckMusic().Play(actionSoundList.GetSound("Attack"));
 
         entityView?.ShowDealDamage(resultDamage);
 
@@ -106,11 +122,17 @@ public class Entity : MonoBehaviour {
 
     public void Heal(float amount) {
         if (IsDead) return;
+        if (Stats.Mana.CurrentValue < 10) {
+            Debug.LogWarning($"[Combat] {name} does not have enough mana to attack.");
+            return;
+        }
+        CombatManager.Instance.ManaManager.ConsumeMana(this, 10);
+        Stats.Health.Heal(amount * (UpgradedAbilities.HealUpgraded ? 1.5f : 1f));
+        OnHealed?.Invoke(amount);
 
-        float resultHeal = amount = Mathf.Round(amount * 100f) / 100f;
-
-        Stats.Health.Heal(resultHeal);
-        OnHealed?.Invoke(resultHeal);
+        // �������� �������� ��������
+        entityView?.ShowHeal(amount);
+        SoundManager.Instance.CreateSound().AutoDuckMusic().Play(actionSoundList.GetSound("Heal"));
 
         entityView?.ShowHeal(resultHeal);
 
@@ -118,14 +140,36 @@ public class Entity : MonoBehaviour {
     }
 
     public void ApplyDefenseBuff(float amount) {
+        if (Stats.Mana.CurrentValue < 10) {
+            Debug.LogWarning($"[Combat] {name} does not have enough mana to attack.");
+            return;
+        }
         if (IsDead) return;
+         CombatManager.Instance.ManaManager.ConsumeMana(this, 10);
+        float modifiedAmount = amount * (UpgradedAbilities.DefenseUpgraded ? 1.5f : 1f);
+        Stats.Defense.Add(modifiedAmount);
 
-        float resultDefence = Mathf.Round(amount * 100f) / 100f;
-        Stats.Defense.Add(resultDefence);
-
-        entityView?.ShowDefenseBuff(resultDefence);
+        // �������� �������� ����� �������
+        entityView?.ShowDefenseBuff(modifiedAmount);
+        SoundManager.Instance.CreateSound().AutoDuckMusic().Play(actionSoundList.GetSound("Defend"));
 
         Debug.Log($"[Combat] {name} gained {resultDefence:F1} defense");
+    }
+
+    public void ApplyManaBuff(float amount) {
+        if (IsDead) return;
+
+        float modifiedAmount = amount * (UpgradedAbilities.ManaUpgraded ? 1.5f : 1f);
+        if( modifiedAmount < 0) {
+            Stats.Mana.ConsumeMana(-modifiedAmount);
+        } else {
+            Stats.Mana.Add(modifiedAmount);
+        }
+        HandleManaUpdate();
+        // �������� �������� ����� �������
+        entityView?.ShowManaBuff(modifiedAmount);
+
+        Debug.Log($"[Combat] {name} gained {amount:F1} mana");
     }
 
     // ==================== BATTLE LOGIC ====================
@@ -133,33 +177,15 @@ public class Entity : MonoBehaviour {
     public virtual async UniTask DoActionAsync(BattleContext context, CancellationToken cancellationToken = default) {
         if (IsDead) return;
 
-        _currentActionCts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
-
-        try {
-            await UniTask.Delay(500, cancellationToken: _currentActionCts.Token);
-
-            if (_currentActionCts.Token.IsCancellationRequested) return;
-
-            PerformRandomAction(context);
-        } catch (OperationCanceledException) {
-            Debug.Log($"[Entity] Action cancelled for: {name}");
-        } finally {
-            _currentActionCts?.Dispose();
-            _currentActionCts = null;
-        }
-    }
-
-    public void CancelCurrentAction() {
-        if (_currentActionCts != null) {
-            _currentActionCts.Cancel();
-            _currentActionCts.Dispose();
-            _currentActionCts = null;
-
-            Debug.Log($"[Entity] Previous action cancelled for: {name}");
-        }
+        // �� ������������� - ��������� �� � ��������� ���������
+        await UniTask.Delay(500, cancellationToken: cancellationToken);
+        PerformRandomAction(context);
     }
 
     protected void PerformRandomAction(BattleContext context) {
+        if (Stats.Mana.CurrentValue < 10) {
+            CombatManager.Instance.ManaManager.GainMana(this, 10);
+        }
         if (context.Opponent == null || context.Opponent.IsDead) return;
 
         int action = UnityEngine.Random.Range(0, 3);
