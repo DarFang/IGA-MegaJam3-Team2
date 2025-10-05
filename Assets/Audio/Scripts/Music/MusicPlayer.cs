@@ -35,6 +35,17 @@ namespace AudioSystem
 
         }
 
+        public void PlayDelayed(int layerID, float waitTime)
+        {
+
+        }
+
+        private IEnumerator IPlayDelayed(int layerID, float waitTime)
+        {
+            yield return new WaitForSeconds(waitTime);
+            AddLayer(layerID, 0);
+        }
+
         public void AddAndRemoveLayers(int[] layerIDsToAdd, int[] layerIDsToRemove, float crossfadeTime)
         {
             foreach (int layerID in layerIDsToAdd) 

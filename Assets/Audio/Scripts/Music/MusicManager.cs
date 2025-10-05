@@ -21,6 +21,22 @@ public class MusicManager : PersistentSingleton<MusicManager>
 
     }
 
+    public void StartCombatMusic()
+    {
+        if (AudioManager.Instance.muteAllAudio) return;
+        if (muteAllMusic) return;
+        if (!loadedMusicPlayers.ContainsKey(allMusicEvents[0].name))
+        {
+            MusicPlayer newMusicPlayer = gameObject.AddComponent<MusicPlayer>();
+            newMusicPlayer.Initialize(allMusicEvents[0]);
+            loadedMusicPlayers.Add(newMusicPlayer.name, newMusicPlayer);
+        }
+        
+        MusicPlayer playerToStart = loadedMusicPlayers[allMusicEvents[0].name];
+
+
+    }
+
     /// <summary>
     /// Starts a song. See the MusicManager for the musicEventIDs.
     /// </summary>
