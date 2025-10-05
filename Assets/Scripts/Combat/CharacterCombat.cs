@@ -11,6 +11,7 @@ public class CharacterCombat : MonoBehaviour
     public UnityEvent<int> onDefenceChange;
     [SerializeField] bool isPlayer = false;
     public bool IsPlayer => isPlayer;
+    public SoundList soundList;
     /// <summary>
     /// Load the combat stats for the character
     /// </summary>
@@ -27,6 +28,7 @@ public class CharacterCombat : MonoBehaviour
         this.combatSystem = combatSystem;
         onHealthChange.Invoke(GetHealthPercentage());
         onDefenceChange.Invoke(defence);
+        soundList = gameObject.GetOrAdd<SoundList>();
     }
 
     /// <summary>
@@ -45,6 +47,7 @@ public class CharacterCombat : MonoBehaviour
             Die();
         }
         onHealthChange.Invoke(GetHealthPercentage());
+        SoundManager.Instance.CreateSound().AutoDuckMusic().Play(soundList.GetSound("TakeDamage"));
         Debug.Log(gameObject.name + " has taken " + damage + " damage");
         Debug.Log(gameObject.name + " has " + health + " health");
     }
@@ -87,6 +90,7 @@ public class CharacterCombat : MonoBehaviour
     {
         Debug.Log(gameObject.name + " is attacking");
         combatSystem.Attack(this, 20);
+        SoundManager.Instance.CreateSound().AutoDuckMusic().Play(soundList.GetSound("Attack"));
     }
     /// <summary>
     /// Defend the character, this is called by Unity Inspector
@@ -95,6 +99,7 @@ public class CharacterCombat : MonoBehaviour
     {
         Debug.Log(gameObject.name + " is defending");
         combatSystem.Defend(this);
+        SoundManager.Instance.CreateSound().AutoDuckMusic().Play(soundList.GetSound("Defend"));
     }
     /// <summary>
     /// Heal the character, this is called by Unity Inspector
@@ -103,6 +108,7 @@ public class CharacterCombat : MonoBehaviour
     {
         Debug.Log(gameObject.name + " is healing");
         combatSystem.Heal(this);
+        SoundManager.Instance.CreateSound().AutoDuckMusic().Play(soundList.GetSound("Heal"));
     }
     /// <summary>
     /// Gain resources the character, this is called by Unity Inspector
