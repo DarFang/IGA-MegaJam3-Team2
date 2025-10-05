@@ -6,15 +6,17 @@ public class Encounter : MonoBehaviour {
     [SerializeField] BattleFieldManager fieldManager;
     [SerializeField] private RectTransform encounterSpawnPoint;
     [SerializeField] public UpgradedAbilities upgradedAbilities;
+    public Player Player => player;
+    public Enemy EnemyReference { get; private set;}
     void Start()
     {
-        Enemy enemy = Instantiate(enemyPrefab);
+        EnemyReference = Instantiate(enemyPrefab);
         
-        if (enemy == null || player == null) return;
+        if (EnemyReference == null || player == null) return;
 
-        enemy.transform.SetParent(encounterSpawnPoint);
-        enemy.transform.position = encounterSpawnPoint.transform.position;
+        EnemyReference.transform.SetParent(encounterSpawnPoint);
+        EnemyReference.transform.position = encounterSpawnPoint.transform.position;
 
-        fieldManager.StartBattle(player, enemy, upgradedAbilities);
+        fieldManager.StartBattle(player, EnemyReference, upgradedAbilities);
     }
 }

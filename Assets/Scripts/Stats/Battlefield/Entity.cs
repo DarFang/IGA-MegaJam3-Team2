@@ -95,7 +95,11 @@ public class Entity : MonoBehaviour {
 
     public void Attack(Entity target) {
         if (IsDead || target == null || target.IsDead) return;
-
+        if (Stats.Mana.CurrentValue < 10) {
+            Debug.LogWarning($"[Combat] {name} does not have enough mana to attack.");
+            return;
+        }
+        CombatManager.Instance.ManaManager.ConsumeMana(this, 10);
         float damage = Stats.Attack.CurrentValue * (UpgradedAbilities.AttackUpgraded ? 1.5f : 1f);
         target.TakeDamage(damage, this);
 
@@ -107,7 +111,11 @@ public class Entity : MonoBehaviour {
 
     public void Heal(float amount) {
         if (IsDead) return;
-
+        if (Stats.Mana.CurrentValue < 10) {
+            Debug.LogWarning($"[Combat] {name} does not have enough mana to attack.");
+            return;
+        }
+        CombatManager.Instance.ManaManager.ConsumeMana(this, 10);
         Stats.Health.Heal(amount * (UpgradedAbilities.HealUpgraded ? 1.5f : 1f));
         OnHealed?.Invoke(amount);
 
@@ -118,7 +126,12 @@ public class Entity : MonoBehaviour {
     }
 
     public void ApplyDefenseBuff(float amount) {
+        if (Stats.Mana.CurrentValue < 10) {
+            Debug.LogWarning($"[Combat] {name} does not have enough mana to attack.");
+            return;
+        }
         if (IsDead) return;
+         CombatManager.Instance.ManaManager.ConsumeMana(this, 10);
         float modifiedAmount = amount * (UpgradedAbilities.DefenseUpgraded ? 1.5f : 1f);
         Stats.Defense.Add(modifiedAmount);
 
@@ -132,7 +145,11 @@ public class Entity : MonoBehaviour {
         if (IsDead) return;
 
         float modifiedAmount = amount * (UpgradedAbilities.ManaUpgraded ? 1.5f : 1f);
-        Stats.Mana.Add(modifiedAmount);
+        if( modifiedAmount < 0) {
+            Stats.Mana.ConsumeMana(-modifiedAmount);
+        } else {
+            Stats.Mana.Add(modifiedAmount);
+        }
         HandleManaUpdate();
         // �������� �������� ����� �������
         entityView?.ShowManaBuff(modifiedAmount);
@@ -151,6 +168,9 @@ public class Entity : MonoBehaviour {
     }
 
     protected void PerformRandomAction(BattleContext context) {
+        if (Stats.Mana.CurrentValue < 10) {
+            CombatManager.Instance.ManaManager.GainMana(this, 10);
+        }
         if (context.Opponent == null || context.Opponent.IsDead) return;
 
         int action = UnityEngine.Random.Range(0, 3);
