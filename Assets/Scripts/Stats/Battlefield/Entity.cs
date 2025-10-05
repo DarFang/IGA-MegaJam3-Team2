@@ -118,10 +118,11 @@ public class Entity : MonoBehaviour {
     public void Attack(Entity target) {
         if (IsDead || target == null || target.IsDead) return;
 
-        if (Stats.Mana.CurrentValue < 10) {
+        if (Stats.Mana.CurrentValue < UpgradedAbilities.AttackManaCost) {
             Debug.LogWarning($"[Combat] {name} does not have enough mana to attack.");
             return;
         }
+        CombatManager.Instance?.ManaManager.ConsumeMana(this, UpgradedAbilities.AttackManaCost);
         float damage = Stats.Attack.CurrentValue;
         float upgradedDamage = damage;
         if (UpgradedAbilities != null)
@@ -149,11 +150,11 @@ public class Entity : MonoBehaviour {
 
     public void Heal(float amount) {
         if (IsDead) return;
-        if (Stats.Mana.CurrentValue < 10) {
+        if (Stats.Mana.CurrentValue < UpgradedAbilities.HealManaCost) {
             Debug.LogWarning($"[Combat] {name} does not have enough mana to attack.");
             return;
         }
-        CombatManager.Instance?.ManaManager.ConsumeMana(this, 10);
+        CombatManager.Instance?.ManaManager.ConsumeMana(this, UpgradedAbilities.HealManaCost);
 
         float upgradedHeal = amount;
         if (UpgradedAbilities != null) {
@@ -174,11 +175,11 @@ public class Entity : MonoBehaviour {
 
     public void ApplyDefenseBuff(float amount) {
         if (IsDead) return;
-        if (Stats.Mana.CurrentValue < 10) {
+        if (Stats.Mana.CurrentValue < UpgradedAbilities.DefenseManaCost) {
             Debug.LogWarning($"[Combat] {name} does not have enough mana to attack.");
             return;
         }
-        CombatManager.Instance?.ManaManager.ConsumeMana(this, 10);
+        CombatManager.Instance?.ManaManager.ConsumeMana(this, UpgradedAbilities.DefenseManaCost);
         float modifiedAmount = amount;
         if (UpgradedAbilities != null) {
             modifiedAmount = amount * (UpgradedAbilities.DefenseUpgraded ? 1.5f : 1f);

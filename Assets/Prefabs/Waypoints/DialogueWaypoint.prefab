@@ -60,8 +60,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e1d11c8bc706cc4fba10f39dda8e415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <OnEventStart>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
+  <OnEventEnd>k__BackingField:
+    m_PersistentCalls:
+      m_Calls: []
   _dialogueSystemEvents: {fileID: 0}
-  _conversationName: 
+  _conversationName: Test
 --- !u!1 &7543894204024817223
 GameObject:
   m_ObjectHideFlags: 0
@@ -126,7 +132,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: f0ac5df53611f604d96a2ce6da719911, type: 2}
+  - {fileID: 2100000, guid: da56469caf0450449a7ca013a274cda6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
