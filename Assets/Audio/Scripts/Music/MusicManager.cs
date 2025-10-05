@@ -17,7 +17,7 @@ public class MusicManager : PersistentSingleton<MusicManager>
     private void Start()
     {
 
-        PlaySong(0, 5);
+        StartCombatMusic();
 
     }
 
@@ -33,8 +33,9 @@ public class MusicManager : PersistentSingleton<MusicManager>
         }
         
         MusicPlayer playerToStart = loadedMusicPlayers[allMusicEvents[0].name];
-
-
+        playerToStart.Play(0.5f);
+        playerToStart.PlayDelayed(1, 12.8f);
+        activeMusicPlayers.Add(playerToStart.name, playerToStart);
     }
 
     /// <summary>

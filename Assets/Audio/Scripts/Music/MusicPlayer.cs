@@ -37,13 +37,22 @@ namespace AudioSystem
 
         public void PlayDelayed(int layerID, float waitTime)
         {
-
+            StartCoroutine(IPlayDelayed(layerID, waitTime));
         }
 
         private IEnumerator IPlayDelayed(int layerID, float waitTime)
         {
+            float volume = _musicEvent.musicLayers[layerID].defaultVolume + _musicEvent.volume;
+            print("Volume = " + volume);
+            _musicLayerEventEmitters[layerID].AudioSource.volume = 0;
+            _musicLayerEventEmitters[layerID].PlayMusic();
+
             yield return new WaitForSeconds(waitTime);
-            AddLayer(layerID, 0);
+
+            _musicLayerEventEmitters[layerID].AudioSource.time = 0; 
+            _musicLayerEventEmitters[layerID].AudioSource.volume = volume;
+            //AddLayer(layerID, 0);
+
         }
 
         public void AddAndRemoveLayers(int[] layerIDsToAdd, int[] layerIDsToRemove, float crossfadeTime)
@@ -181,6 +190,7 @@ namespace AudioSystem
                 SoundEmitter se = AudioManager.Instance.Get();
                 se.transform.parent = gameObject.transform;
                 se.AudioSource.clip = _musicEvent.musicLayers[i].clip;
+                se.AudioSource.loop = _musicEvent.musicLayers[i].loop;
                 se.gameObject.name = _musicEvent.musicLayers[i].name + " Layer";
                 soundEmitters.Add(se);
 
@@ -192,7 +202,6 @@ namespace AudioSystem
             {
                 soundEmitter.AudioSource.playOnAwake = false;
                 soundEmitter.AudioSource.volume = 0f;
-                soundEmitter.AudioSource.loop = true;
                 soundEmitter.AudioSource.outputAudioMixerGroup = AudioMixerController.Instance.MusicGroup;
                 soundEmitter.PlayMusic();
             }
