@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class AnimationsHandler : MonoBehaviour
+public class PlayerAnimations : MonoBehaviour
 {
     #region Private Fields
 
