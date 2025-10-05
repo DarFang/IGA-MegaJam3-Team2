@@ -16,6 +16,6 @@ MonoBehaviour:
   musicLayers:
   - {fileID: 11400000, guid: b64d1498ba99f1e48954244bf7864f9b, type: 2}
   musicLayerBehavior: 0
-  volume: -0.183
+  volume: -0.8
   mute: 0
   defaultLayer: 0
