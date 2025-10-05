@@ -514,7 +514,7 @@ PrefabInstance:
     - target: {fileID: 11426072, guid: 58ac37417e60e534f91138088a3e6f70, type: 3}
       propertyPath: initialDatabase
       value: 
-      objectReference: {fileID: 11400000, guid: 557800e099495854aa9c25c434f5f735, type: 2}
+      objectReference: {fileID: 11400000, guid: 8ef9282072a1554439a6f3986deba1c3, type: 2}
     - target: {fileID: 11426072, guid: 58ac37417e60e534f91138088a3e6f70, type: 3}
       propertyPath: displaySettings.subtitleSettings.continueButton
       value: 1
@@ -1208,7 +1208,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: c4650e72254fc3941a55a164c7cee89d, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 3e7183852f659904197e8a93249a0f4a, type: 2}
   m_BuildHeightMesh: 0
 --- !u!64 &1227262172
 MeshCollider:

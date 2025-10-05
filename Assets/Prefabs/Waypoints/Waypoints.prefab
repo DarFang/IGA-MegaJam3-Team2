@@ -816,6 +816,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2557420968513472070, guid: 17f90129ebdc7ac4cad5c6ab7f9adb91, type: 3}
+      propertyPath: _conversationName
+      value: Fear
+      objectReference: {fileID: 0}
     - target: {fileID: 2787258560373486834, guid: 17f90129ebdc7ac4cad5c6ab7f9adb91, type: 3}
       propertyPath: m_Name
       value: DialogueWaypoint (1)
@@ -2061,6 +2065,10 @@ PrefabInstance:
     - target: {fileID: 102267285617438705, guid: 17f90129ebdc7ac4cad5c6ab7f9adb91, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2557420968513472070, guid: 17f90129ebdc7ac4cad5c6ab7f9adb91, type: 3}
+      propertyPath: _conversationName
+      value: Intro
       objectReference: {fileID: 0}
     - target: {fileID: 2787258560373486834, guid: 17f90129ebdc7ac4cad5c6ab7f9adb91, type: 3}
       propertyPath: m_Name
