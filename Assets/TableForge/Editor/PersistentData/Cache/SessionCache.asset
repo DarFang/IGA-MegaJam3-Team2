@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e1795d1b862b4b4db11941c6a9aa857e, type: 3}
+  m_Name: SessionCache
+  m_EditorClassIdentifier: 
+  openTabs:
+    values:
+    - {fileID: 11400000, guid: 434ce182b7c045b44a0000a29c4b2763, type: 2}
+    - {fileID: 11400000, guid: 934451cc58330ae4cb30755918c830d4, type: 2}
+    - {fileID: 11400000, guid: a040564a68b27274389cf8511bb529d1, type: 2}
+    - {fileID: 11400000, guid: 7e276b256dac41e43ae411790e574933, type: 2}
+    - {fileID: 11400000, guid: 1a3c1c09f417a054f9a106086376658e, type: 2}

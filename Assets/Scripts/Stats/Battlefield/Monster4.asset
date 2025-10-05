@@ -16,3 +16,7 @@ MonoBehaviour:
   DefenseUpgraded: 1
   HealUpgraded: 0
   ManaUpgraded: 1
+  AttackManaCost: 10
+  DefenseManaCost: 10
+  HealManaCost: 10
+  ManaManaCost: 0

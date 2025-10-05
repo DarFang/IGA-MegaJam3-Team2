@@ -21,7 +21,7 @@ MonoBehaviour:
   unknownDescription: You don't know what this item is. Use an identification scroll
     or visit a merchant to identify it.
   isStackable: 1
-  maxStackSize: 99
+  maxStackSize: 1
   rarity: 0
   itemType: 3
   equipmentSlot: 0
