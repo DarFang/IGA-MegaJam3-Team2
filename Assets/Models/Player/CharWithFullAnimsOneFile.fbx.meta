@@ -8,11 +8,11 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Default2
-    second: {fileID: 2100000, guid: 6ba41b541497e20418a91c2329ced68f, type: 2}
+    second: {fileID: 2100000, guid: e9de4e6c1efccc9458ee5ac5ac9576f2, type: 2}
   materials:
     materialImportMode: 2
-    materialName: 0
-    materialSearch: 1
+    materialName: 2
+    materialSearch: 2
     materialLocation: 1
   animations:
     legacyGenerateAnimations: 4
@@ -244,35 +244,6 @@ ModelImporter:
       internalID: -3043556113870356410
       firstFrame: 0
       lastFrame: 194
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 0
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask: []
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: Attack_Silly_02
-      takeName: Attack_Silly_02
-      internalID: -7277908344162337844
-      firstFrame: 0
-      lastFrame: 264
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
