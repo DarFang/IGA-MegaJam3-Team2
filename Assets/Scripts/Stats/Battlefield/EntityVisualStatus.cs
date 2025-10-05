@@ -5,16 +5,20 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class EntityVisualStatus : MonoBehaviour {
-    // UI-Компоненти
+    // UI-пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     [Header("Health UI")]
     [SerializeField] private Image healthSlider;
     [SerializeField] private TextMeshProUGUI healthText;
     [SerializeField] private Graphic[] componentsToFadeOnDeath;
 
+    [Header("Mana UI")]
+    [SerializeField] private Image manaSlider;
+    [SerializeField] private TextMeshProUGUI manaText;
+
     [Header("Text Fields")]
     [SerializeField] private TextMeshProUGUI characterNameText;
     [SerializeField] private TextMeshProUGUI defenseText;
-    [SerializeField] private TextMeshProUGUI actionText; // Новий текст для дій
+    [SerializeField] private TextMeshProUGUI actionText; // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅ
 
     [Header("Action Text Animation")]
     [SerializeField] private float actionTextFadeDuration = 1.5f;
@@ -26,6 +30,7 @@ public class EntityVisualStatus : MonoBehaviour {
     [Header("Formatting")]
     [SerializeField] private string defaultDefenseText = "Defence: ";
     [SerializeField] private string defaultHealthText = "HP: ";
+    [SerializeField] private string defaultManaText = "MP: ";
     [SerializeField] private Color aliveColor = Color.white;
     [SerializeField] private Color deadColor = Color.grey;
 
@@ -39,6 +44,17 @@ public class EntityVisualStatus : MonoBehaviour {
         if (healthText != null) {
             healthText.text = defaultHealthText + displayText;
         }
+    }
+    public void UpdateMana(float percentage, string displayText) {
+        Debug.Log($"[EntityVisualStatus] Updating Mana: {displayText} ({percentage:P1})");
+        if (manaSlider != null) {
+            manaSlider.fillAmount = Mathf.Clamp01(percentage);
+        }
+        if (manaText != null) {
+            manaText.text = defaultManaText + displayText;
+        }
+        Debug.Log(manaText.text);
+        Debug.Log(manaSlider.fillAmount);
     }
 
     public void UpdateName(string characterName) {
@@ -56,7 +72,7 @@ public class EntityVisualStatus : MonoBehaviour {
     public void SetActiveState(bool isAlive) {
         Color targetColor = isAlive ? aliveColor : deadColor;
 
-        // Зміна кольору для візуального ефекту "смерті"
+        // пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ "пїЅпїЅпїЅпїЅпїЅ"
         foreach (var graphic in componentsToFadeOnDeath) {
             if (graphic != null) {
                 graphic.color = targetColor;
@@ -64,22 +80,24 @@ public class EntityVisualStatus : MonoBehaviour {
         }
     }
 
-    public void UpdateStats(float currentHealth, float maxHealth, float defenseValue) {
-        // 1. Здоров'я
+    public void UpdateStats(float currentHealth, float maxHealth, float defenseValue, float currentMana, float maxMana) {
+        // 1. пїЅпїЅпїЅпїЅпїЅпїЅ'пїЅ
         float percentage = currentHealth / maxHealth;
         string healthStr = $"{currentHealth:F0} / {maxHealth:F0}";
         UpdateHealth(percentage, healthStr);
 
-        // 2. Захист
-        // Форматування та округлення відбувається тут (або краще - у Presenter)
+        // 2. пїЅпїЅпїЅпїЅпїЅпїЅ
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ (пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ - пїЅ Presenter)
         float trimmedDefenseValue = Mathf.Round(defenseValue * 100f) / 100f;
-        UpdateDefense(trimmedDefenseValue.ToString("F1")); // "F1" для відображення одного знака
+        UpdateDefense(trimmedDefenseValue.ToString("F1")); // "F1" пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 
-        // 3. Стан
+        // 3. пїЅпїЅпїЅпїЅ
         SetActiveState(currentHealth > 0);
+        float manaPercentage = currentMana / maxMana;
+        UpdateMana(manaPercentage, currentMana.ToString("F0"));
     }
     public void ShowAction(string actionMessage, Color textColor) {
-        // Скасовуємо попередню анімацію якщо вона є
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ
         currentActionSequence?.Kill();
         currentFadeTween?.Kill();
 
@@ -87,28 +105,28 @@ public class EntityVisualStatus : MonoBehaviour {
 
         textColor.a = 1.0f;
 
-        // Встановлюємо текст та колір
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ
         actionText.text = actionMessage;
-        actionText.color = textColor; //.WithAlpha(1f); // Повна непрозорість
+        actionText.color = textColor; //.WithAlpha(1f); // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         actionText.gameObject.SetActive(true);
 
-        // Створюємо послідовність анімацій
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         currentActionSequence = DOTween.Sequence();
 
-        // Спочатку невелике збільшення (ефект появи)
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ)
         currentActionSequence.Append(actionText.transform.DOScale(1.2f, 0.2f));
         currentActionSequence.Append(actionText.transform.DOScale(1f, 0.2f));
 
-        // Чекаємо певний час
+        // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ
         currentActionSequence.AppendInterval(actionTextDisplayTime);
 
-        // Плавне затухання
+        // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         currentActionSequence.Append(actionText.DOFade(0f, actionTextFadeDuration));
 
-        // В кінці вимикаємо об'єкт
+        // пїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ'пїЅпїЅпїЅ
         currentActionSequence.OnComplete(() => {
             actionText.gameObject.SetActive(false);
-            actionText.color = textColor; //.WithAlpha(1f); // Відновлюємо колір
+            actionText.color = textColor; //.WithAlpha(1f); // ВіпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
         });
     }
 
@@ -124,6 +142,11 @@ public class EntityVisualStatus : MonoBehaviour {
 
     public void ShowDefenseBuff(float amount) {
         string message = $"Defense! +{amount:F1}";
+        ShowAction(message, buffColor);
+    }
+
+    public void ShowManaBuff(float amount) {
+        string message = $"Mana! +{amount:F1}";
         ShowAction(message, buffColor);
     }
 
