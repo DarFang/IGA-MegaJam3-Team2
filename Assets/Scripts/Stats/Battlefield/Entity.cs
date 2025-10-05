@@ -2,6 +2,7 @@ using Cysharp.Threading.Tasks;
 using System;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Entity : MonoBehaviour {
     [SerializeField] private EntityVisualStatus entityView;
@@ -13,11 +14,21 @@ public class Entity : MonoBehaviour {
     public event Action<float> OnDamageTaken;
     public event Action<float> OnHealed;
 
+    [Range(0, 1f)]
+    [SerializeField] protected float healPercentage = 0.2f;
+    [Range(0, 1f)]
+    [SerializeField] protected float defencePercentage = 0.3f;
+
+    private CancellationTokenSource _currentActionCts;
+
     private void Awake() {
         Initialize();
     }
 
-    private void Initialize() {
+    private void Initialize(CharacterData characterData = null) {
+        if (characterData != null) {
+            this.characterData = characterData;
+        }
         ResetStats();
         UpdateView();
     }
@@ -78,43 +89,43 @@ public class Entity : MonoBehaviour {
         Stats.Health.TakeDamage(finalDamage);
 
         Debug.Log($"[Combat] {name} took {finalDamage:F1} damage");
-
-        // Анімація шкоди вже викликається через OnDamageTaken подію
     }
 
     public void Attack(Entity target) {
         if (IsDead || target == null || target.IsDead) return;
 
         float damage = Stats.Attack.CurrentValue;
-        target.TakeDamage(damage, this);
+        float resultDamage = damage = Mathf.Round(damage * 100f) / 100f;
 
-        // Показуємо анімацію атаки для атакуючого
-        entityView?.ShowDealDamage(damage);
+        target.TakeDamage(resultDamage, this);
 
-        Debug.Log($"[Combat] {name} attacks {target.name} for {damage:F1} damage");
+        entityView?.ShowDealDamage(resultDamage);
+
+        Debug.Log($"[Combat] {name} attacks {target.name} for {resultDamage:F1} damage");
     }
 
     public void Heal(float amount) {
         if (IsDead) return;
 
-        Stats.Health.Heal(amount);
-        OnHealed?.Invoke(amount);
+        float resultHeal = amount = Mathf.Round(amount * 100f) / 100f;
 
-        // Показуємо анімацію лікування
-        entityView?.ShowHeal(amount);
+        Stats.Health.Heal(resultHeal);
+        OnHealed?.Invoke(resultHeal);
 
-        Debug.Log($"[Combat] {name} healed for {amount:F1} HP");
+        entityView?.ShowHeal(resultHeal);
+
+        Debug.Log($"[Combat] {name} healed for {resultHeal:F1} HP");
     }
 
     public void ApplyDefenseBuff(float amount) {
         if (IsDead) return;
 
-        Stats.Defense.Add(amount);
+        float resultDefence = Mathf.Round(amount * 100f) / 100f;
+        Stats.Defense.Add(resultDefence);
 
-        // Показуємо анімацію баффа захисту
-        entityView?.ShowDefenseBuff(amount);
+        entityView?.ShowDefenseBuff(resultDefence);
 
-        Debug.Log($"[Combat] {name} gained {amount:F1} defense");
+        Debug.Log($"[Combat] {name} gained {resultDefence:F1} defense");
     }
 
     // ==================== BATTLE LOGIC ====================
@@ -122,9 +133,30 @@ public class Entity : MonoBehaviour {
     public virtual async UniTask DoActionAsync(BattleContext context, CancellationToken cancellationToken = default) {
         if (IsDead) return;
 
-        // За замовчуванням - випадкова дія з невеликою затримкою
-        await UniTask.Delay(500, cancellationToken: cancellationToken);
-        PerformRandomAction(context);
+        _currentActionCts = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
+
+        try {
+            await UniTask.Delay(500, cancellationToken: _currentActionCts.Token);
+
+            if (_currentActionCts.Token.IsCancellationRequested) return;
+
+            PerformRandomAction(context);
+        } catch (OperationCanceledException) {
+            Debug.Log($"[Entity] Action cancelled for: {name}");
+        } finally {
+            _currentActionCts?.Dispose();
+            _currentActionCts = null;
+        }
+    }
+
+    public void CancelCurrentAction() {
+        if (_currentActionCts != null) {
+            _currentActionCts.Cancel();
+            _currentActionCts.Dispose();
+            _currentActionCts = null;
+
+            Debug.Log($"[Entity] Previous action cancelled for: {name}");
+        }
     }
 
     protected void PerformRandomAction(BattleContext context) {
@@ -137,11 +169,11 @@ public class Entity : MonoBehaviour {
                 Attack(context.Opponent);
                 break;
             case 1:
-                float healAmount = Stats.Health.MaxValue * 0.2f;
+                float healAmount = Stats.Health.MaxValue * healPercentage;
                 Heal(healAmount);
                 break;
             case 2:
-                float defenseBoost = Stats.Attack.CurrentValue * 0.5f;
+                float defenseBoost = Stats.Attack.CurrentValue * defencePercentage;
                 ApplyDefenseBuff(defenseBoost);
                 break;
         }
@@ -150,10 +182,16 @@ public class Entity : MonoBehaviour {
     private float CalculateDamage(float rawDamage, float defense) {
         float damageReduction = 100f / (100f + defense);
         float finalDamage = rawDamage * damageReduction;
+
+        finalDamage = Mathf.Round(finalDamage * 100f) / 100f;
         return Mathf.Max(1f, finalDamage);
     }
 
     public float GetHealthPercentage() => Stats.Health.GetPercentage();
+
+    private void OnDestroy() {
+        CancelCurrentAction();
+    }
 }
 
 public class BattleContext {
