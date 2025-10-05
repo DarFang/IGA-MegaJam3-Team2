@@ -27,8 +27,8 @@ public class Inventory : MonoBehaviour {
 
     public void InitInventoryData(InventoryData inventoryData) {
         if (inventoryData == null) return;
-        foreach (var item in inventoryData.inventoryItems) {
-            AddItem(item);
+        foreach (var collection in inventoryData.itemCollections) {
+            AddItem(collection.item, collection.quantity);
         }
     }
 
