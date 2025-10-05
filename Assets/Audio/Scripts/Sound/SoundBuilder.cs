@@ -55,7 +55,7 @@ public class SoundBuilder
     {
         if (sound == null)
         {
-            Debug.LogError("Sound is null");
+            Debug.LogWarning("Sound is null");
             return;
         }
 
@@ -99,7 +99,7 @@ public class SoundBuilder
 
         if (sound == null)
         {
-            Debug.LogError("Sound is null");
+            Debug.LogWarning("Sound is null");
             return;
         }
 

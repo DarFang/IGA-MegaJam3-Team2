@@ -12,19 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 191be68f0522b8f46b31c83ce1194cbc, type: 3}
   m_Name: Pony Orb
   m_EditorClassIdentifier: 
-  itemName: Orb of Corosion
-  itemIcon: {fileID: 21300000, guid: 5eedec2fe6ad77d4db55aec5f0fb03e6, type: 3}
-  itemLore: In this randomized trial, neither carbocisteine nor hypertonic saline
-    reduced the number of pulmonary exacerbations over a period of 52 weeks in participants
-    with bronchiectasis.
-  itemType: 4
-  rarity: 0
+  itemName: Pony Orb
+  itemIcon: {fileID: 21300000, guid: 7f944d4e07c49d54097af5cd15a2b354, type: 3}
+  description: 
+  startsUnknown: 0
+  unknownName: Unknown Item
+  unknownIcon: {fileID: 0}
+  unknownDescription: You don't know what this item is. Use an identification scroll
+    or visit a merchant to identify it.
   isStackable: 1
   maxStackSize: 99
-  hasAbility: 1
-  ability:
-    abilityName: Pony Sommon Ability
-    abilityIcon: {fileID: 21300000, guid: 7f944d4e07c49d54097af5cd15a2b354, type: 3}
-    abilityDescription: Summons Pony
-    cooldown: 2
+  rarity: 0
+  itemType: 3
+  equipmentSlot: 0
+  primaryAbility:
+    abilityName: 
+    abilityIcon: {fileID: 0}
+    abilityDescription: 
+    cooldown: 0
     manaCost: 0

@@ -28,7 +28,6 @@ public class CharacterCombat : MonoBehaviour
         this.combatSystem = combatSystem;
         onHealthChange.Invoke(GetHealthPercentage());
         onDefenceChange.Invoke(defence);
-        soundList = gameObject.GetOrAdd<SoundList>();
     }
 
     /// <summary>

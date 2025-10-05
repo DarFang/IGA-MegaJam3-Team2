@@ -347,7 +347,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 6
   m_TargetDisplay: 0
 --- !u!114 &6225662326924480223
 MonoBehaviour:
@@ -806,6 +806,9 @@ MonoBehaviour:
   canvasGroup: {fileID: 744926771613592820}
   bookAnimator: {fileID: 0}
   settingsMenu: {fileID: 0}
+  onResume:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &6181302903704826207
 GameObject:
   m_ObjectHideFlags: 0

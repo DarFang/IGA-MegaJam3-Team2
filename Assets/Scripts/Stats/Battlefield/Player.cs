@@ -28,18 +28,18 @@ public class Player : Entity {
         if (IsDead) return;
 
         if (playerUI != null) {
-            // Активуємо UI для вводу
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ UI пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
             _isWaitingForInput = true;
             playerUI.SetButtonsInteractable(true);
 
-            // Створюємо задачу для очікування дії
+            // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ дії
             _currentActionSource = new UniTaskCompletionSource<PlayerAction>();
             _actionCancellationTokenSource = CancellationTokenSource.CreateLinkedTokenSource(cancellationToken);
 
             try {
-                // Чекаємо на вибір дії з таймаутом
+                // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ дії пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                 var playerAction = await _currentActionSource.Task
-                    .Timeout(TimeSpan.FromSeconds(30)) // Захист від "зависання"
+                    .Timeout(TimeSpan.FromSeconds(30)) // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ"
                     .AttachExternalCancellation(_actionCancellationTokenSource.Token);
 
                 ExecutePlayerAction(playerAction, context);
@@ -51,7 +51,7 @@ public class Player : Entity {
                 Debug.Log("[Player] Action selection was cancelled");
                 await base.DoActionAsync(context, cancellationToken);
             } finally {
-                // Завершуємо режим очікування
+                // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
                 _isWaitingForInput = false;
                 playerUI.SetButtonsInteractable(false);
                 _currentActionSource = null;
@@ -73,20 +73,19 @@ public class Player : Entity {
                 break;
 
             case PlayerAction.Defense:
-                float defenseBoost = Stats.Attack.CurrentValue * 0.3f;
+                float defenseBoost = Stats.Attack.CurrentValue * defencePercentage;
                 ApplyDefenseBuff(defenseBoost);
                 break;
 
             case PlayerAction.Mana:
                 if (context.Opponent != null && !context.Opponent.IsDead) {
-                    float magicDamage = Stats.Attack.CurrentValue * 1.5f;
-                    context.Opponent.TakeDamage(magicDamage, this);
-                    Debug.Log($"[Combat] {name} used magic attack for {magicDamage:F1} damage");
+                    float manaBoost = Stats.Mana.RegenerationRate * 10f;
+                    CombatManager.Instance.ManaManager.GainMana(this, (int)manaBoost);
                 }
                 break;
 
             case PlayerAction.Heal:
-                float healAmount = Stats.Health.MaxValue * 0.3f;
+                float healAmount = Stats.Health.MaxValue * healPercentage;
                 Heal(healAmount);
                 break;
         }

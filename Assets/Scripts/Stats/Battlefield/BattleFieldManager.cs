@@ -15,7 +15,7 @@ public class BattleFieldManager : MonoBehaviour {
     public event Action<Entity> OnTurnStarted;
 
     // ������ 1: � ������������� UniTask
-    public async void StartBattle(Entity playerEntity, Entity enemyEntity) {
+    public async void StartBattle(Entity playerEntity, Entity enemyEntity, UpgradedAbilities upgradedAbilities) {
         if (playerEntity == null || enemyEntity == null) {
             Debug.LogError("[BattleField] Cannot start battle with null entities");
             return;
@@ -23,6 +23,8 @@ public class BattleFieldManager : MonoBehaviour {
 
         player = playerEntity;
         enemy = enemyEntity;
+        player.SetUpgradedAbilities(upgradedAbilities);
+        enemy.SetUpgradedAbilities(upgradedAbilities);
         battleActive = true;
 
         player.OnDeath += HandleEntityDeath;
@@ -91,6 +93,7 @@ public class BattleFieldManager : MonoBehaviour {
         Entity winner = player.IsDead ? enemy : player;
 
         Debug.Log($"[BattleField] Battle ended. Winner: {winner.name}");
+        Destroy(enemy.gameObject);
 
         OnBattleEnd?.Invoke(winner);
 
