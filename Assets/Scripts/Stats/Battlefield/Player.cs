@@ -85,7 +85,7 @@ public class Player : Entity {
                 break;
 
             case PlayerAction.Heal:
-                float healAmount = Stats.Health.MaxValue * healPercentage;
+                float healAmount = Stats.Attack.CurrentValue * healPercentage;
                 Heal(healAmount);
                 break;
         }
