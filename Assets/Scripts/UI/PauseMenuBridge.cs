@@ -59,6 +59,12 @@ public class PauseMenuBridge : MonoBehaviour
 
 		isWorking = true;
 		isPaused = !isPaused;
+
+		if (!isPaused && pauseController.GetBookOpenState())
+		{
+			pauseController.SetBookOpenState(false);
+			yield return new WaitForSecondsRealtime(2f);
+		}
 		
 		foreach (CanvasGroup group in canvases)
 		{
