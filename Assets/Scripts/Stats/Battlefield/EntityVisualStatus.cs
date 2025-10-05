@@ -49,12 +49,15 @@ public class EntityVisualStatus : MonoBehaviour {
         Debug.Log($"[EntityVisualStatus] Updating Mana: {displayText} ({percentage:P1})");
         if (manaSlider != null) {
             manaSlider.fillAmount = Mathf.Clamp01(percentage);
+            Debug.Log(manaSlider.fillAmount);
         }
+
         if (manaText != null) {
             manaText.text = defaultManaText + displayText;
+            Debug.Log(manaText.text);
         }
-        Debug.Log(manaText.text);
-        Debug.Log(manaSlider.fillAmount);
+       
+        
     }
 
     public void UpdateName(string characterName) {
@@ -107,26 +110,21 @@ public class EntityVisualStatus : MonoBehaviour {
 
         // ������������ ����� �� ����
         actionText.text = actionMessage;
-        actionText.color = textColor; //.WithAlpha(1f); // ����� �����������
+        actionText.color = textColor; 
         actionText.gameObject.SetActive(true);
 
-        // ��������� ������������ ��������
         currentActionSequence = DOTween.Sequence();
 
-        // �������� �������� ��������� (����� �����)
         currentActionSequence.Append(actionText.transform.DOScale(1.2f, 0.2f));
         currentActionSequence.Append(actionText.transform.DOScale(1f, 0.2f));
 
-        // ������ ������ ���
         currentActionSequence.AppendInterval(actionTextDisplayTime);
 
-        // ������ ���������
         currentActionSequence.Append(actionText.DOFade(0f, actionTextFadeDuration));
 
-        // � ���� �������� ��'���
         currentActionSequence.OnComplete(() => {
             actionText.gameObject.SetActive(false);
-            actionText.color = textColor; //.WithAlpha(1f); // ³��������� ����
+            actionText.color = textColor;
         });
     }
 
@@ -152,5 +150,9 @@ public class EntityVisualStatus : MonoBehaviour {
 
     public void ShowCustomAction(string action, Color color) {
         ShowAction(action, color);
+    }
+
+    public void OnDestroy() {
+        transform.DOKill();
     }
 }

@@ -4,77 +4,129 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventorySlotUI : MonoBehaviour, IPointerClickHandler {
+public class InventorySlotUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler {
     [Header("UI References")]
     [SerializeField] private Image itemIcon;
     [SerializeField] private TextMeshProUGUI itemNameText;
     [SerializeField] private TextMeshProUGUI quantityText;
-    [SerializeField] private Image selectedBorder;
+    [SerializeField] private Image selectionHighlight;
     [SerializeField] private Image rarityBorder;
+    [SerializeField] private Image hoverHighlight;
+    [SerializeField] private GameObject unknownMarker; // "?" icon
 
-    public event Action<InventorySlotUI, int> OnClicked;
+    [Header("Colors")]
+    [SerializeField] private Color unknownTextColor = new Color(0.7f, 0.7f, 0.7f);
+    [SerializeField] private Color identifiedTextColor = Color.white;
 
-    public int Index { get; private set; }
+    [Header("Animation")]
+    [SerializeField] private float scaleOnHover = 1.05f;
 
-    public void UpdateSlot(InventorySlot slot) {
-        if (slot == null || slot.IsEmpty) {
-            itemIcon.enabled = false;
-            quantityText.text = "";
-            if (rarityBorder != null) rarityBorder.enabled = false;
-            return;
+    private InventorySlot slot;
+    private int index;
+    private Vector3 originalScale;
+
+    public event Action<int> OnClicked;
+    public event Action<int> OnRightClicked;
+
+    public int Index => index;
+    public InventorySlot Slot => slot;
+
+    private void Awake() {
+        originalScale = transform.localScale;
+
+        if (selectionHighlight != null) {
+            selectionHighlight.gameObject.SetActive(false);
         }
 
-        UpdateItemSprite(slot.Item.ItemIcon);
-        UpdateItemName(slot.Item.ItemName);
-
-
-        string resultText = string.Empty;
-        if (slot.Item.IsStackable && slot.Quantity > 1) {
-            resultText = slot.Quantity.ToString();
+        if (hoverHighlight != null) {
+            hoverHighlight.gameObject.SetActive(false);
         }
 
-        UpdateItemQuantity(resultText);
-
-        UpdateRarity(RarityUtility.GetRarityColor(slot.Item.Rarity));
+        if (unknownMarker != null) {
+            unknownMarker.SetActive(false);
+        }
     }
 
-    public void UpdateItemName(string itemName) {
-        if (itemNameText == null) return;
-
-        itemNameText.text = itemName;
+    public void Initialize(InventorySlot slot, int index) {
+        this.slot = slot;
+        this.index = index;
+        UpdateDisplay();
     }
 
-    public void UpdateItemSprite(Sprite newSprite) {
-        if (itemIcon == null) return;
+    public void UpdateDisplay() {
+        if (slot == null || slot.Item == null) return;
 
-        itemIcon.enabled = true;
-        itemIcon.sprite = newSprite;
-    }
+        bool isIdentified = slot.IsIdentified;
 
-    public void UpdateItemQuantity(string quantity) {
-        if (quantityText == null) return;
+        // Icon
+        if (itemIcon != null) {
+            itemIcon.sprite = slot.GetDisplayIcon();
+            itemIcon.color = isIdentified ? Color.white : new Color(0.5f, 0.5f, 0.5f);
+        }
 
-        quantityText.text = quantity;
-    }
+        // Name
+        if (itemNameText != null) {
+            itemNameText.text = slot.GetDisplayName();
+            itemNameText.color = isIdentified ? identifiedTextColor : unknownTextColor;
 
-    public void UpdateRarity(Color rarity) {
-        if (rarityBorder == null) return;
+            // Додати italic для невідомих
+            if (!isIdentified) {
+                itemNameText.fontStyle = FontStyles.Italic;
+            } else {
+                itemNameText.fontStyle = FontStyles.Normal;
+            }
+        }
 
-        rarityBorder.enabled = true;
-        rarityBorder.color = rarity;
+        // Quantity
+        if (quantityText != null) {
+            if (slot.Item.IsStackable && slot.Quantity > 1) {
+                quantityText.gameObject.SetActive(true);
+                quantityText.text = $"x{slot.Quantity}";
+            } else {
+                quantityText.gameObject.SetActive(false);
+            }
+        }
+
+        // Rarity border
+        if (rarityBorder != null) {
+            Color rarityColor = RarityUtility.GetRarityColor(slot.GetDisplayRarity());
+            rarityBorder.color = isIdentified ? rarityColor : Color.gray;
+        }
+
+        // Unknown marker
+        if (unknownMarker != null) {
+            unknownMarker.SetActive(!isIdentified);
+        }
     }
 
     public void SetSelected(bool selected) {
-        if (selectedBorder == null) return;
-
-        selectedBorder.enabled = selected;
+        if (selectionHighlight != null) {
+            selectionHighlight.gameObject.SetActive(selected);
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData) {
-        OnClicked?.Invoke(this, Index);
+        if (eventData.button == PointerEventData.InputButton.Left) {
+            OnClicked?.Invoke(index);
+        } else if (eventData.button == PointerEventData.InputButton.Right) {
+            OnRightClicked?.Invoke(index);
+        }
     }
 
-    public void SetIndex(int i) {
-        Index = i;
+    public void OnPointerEnter(PointerEventData eventData) {
+        if (hoverHighlight != null) {
+            hoverHighlight.gameObject.SetActive(true);
+        }
+
+        transform.localScale = originalScale * scaleOnHover;
+    }
+
+    public void OnPointerExit(PointerEventData eventData) {
+        if (hoverHighlight != null) {
+            hoverHighlight.gameObject.SetActive(false);
+        }
+
+        transform.localScale = originalScale;
     }
 }
+

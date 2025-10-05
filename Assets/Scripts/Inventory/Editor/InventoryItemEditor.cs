@@ -1,214 +1,209 @@
-﻿using UnityEngine;
-using UnityEditor;
+﻿using UnityEditor;
+using UnityEngine;
 
 [CustomEditor(typeof(InventoryItem), true)]
 public class InventoryItemEditor : Editor {
-    private SerializedProperty itemNameProp;
-    private SerializedProperty itemIconProp;
-    private SerializedProperty itemLoreProp;
-    private SerializedProperty itemTypeProp;
-    private SerializedProperty rarityProp;
-    private SerializedProperty isStackableProp;
-    private SerializedProperty maxStackSizeProp;
-    private SerializedProperty hasAbilityProp;
-    private SerializedProperty abilityProp;
+    private SerializedProperty itemName;
+    private SerializedProperty itemIcon;
+    private SerializedProperty description;
+    private SerializedProperty startsUnknown;
+    private SerializedProperty unknownName;
+    private SerializedProperty unknownIcon;
+    private SerializedProperty unknownDescription;
+    private SerializedProperty isStackable;
+    private SerializedProperty maxStackSize;
+    private SerializedProperty rarity;
+    private SerializedProperty itemType;
+    private SerializedProperty equipmentSlot;
+    private SerializedProperty primaryAbility;
 
     private bool showBasicInfo = true;
-    private bool showStackSettings = true;
-    private bool showAbility = true;
-    private bool showPreview = true;
+    private bool showUnknownState = false;
+    private bool showStackSettings = false;
+    private bool showProperties = true;
+    private bool showEquipmentSettings = false;
+    private bool showAbilitySettings = false;
 
     private void OnEnable() {
-        itemNameProp = serializedObject.FindProperty("itemName");
-        itemIconProp = serializedObject.FindProperty("itemIcon");
-        itemLoreProp = serializedObject.FindProperty("itemLore");
-        itemTypeProp = serializedObject.FindProperty("itemType");
-        rarityProp = serializedObject.FindProperty("rarity");
-        isStackableProp = serializedObject.FindProperty("isStackable");
-        maxStackSizeProp = serializedObject.FindProperty("maxStackSize");
-        hasAbilityProp = serializedObject.FindProperty("hasAbility");
-        abilityProp = serializedObject.FindProperty("ability");
+        itemName = serializedObject.FindProperty("itemName");
+        itemIcon = serializedObject.FindProperty("itemIcon");
+        description = serializedObject.FindProperty("description");
+        startsUnknown = serializedObject.FindProperty("startsUnknown");
+        unknownName = serializedObject.FindProperty("unknownName");
+        unknownIcon = serializedObject.FindProperty("unknownIcon");
+        unknownDescription = serializedObject.FindProperty("unknownDescription");
+        isStackable = serializedObject.FindProperty("isStackable");
+        maxStackSize = serializedObject.FindProperty("maxStackSize");
+        rarity = serializedObject.FindProperty("rarity");
+        itemType = serializedObject.FindProperty("itemType");
+        equipmentSlot = serializedObject.FindProperty("equipmentSlot");
+        primaryAbility = serializedObject.FindProperty("primaryAbility");
     }
 
     public override void OnInspectorGUI() {
         serializedObject.Update();
 
-        // Header with item name
-        EditorGUILayout.Space(5);
-        DrawHeader();
+        EditorGUILayout.Space(10);
 
         // Basic Info Section
-        showBasicInfo = EditorGUILayout.Foldout(showBasicInfo, "📦 Basic Information", true, EditorStyles.foldoutHeader);
+        showBasicInfo = EditorGUILayout.BeginFoldoutHeaderGroup(showBasicInfo, "📝 Basic Information");
         if (showBasicInfo) {
-            EditorGUILayout.BeginVertical("box");
-            DrawBasicInfo();
-            EditorGUILayout.EndVertical();
-            EditorGUILayout.Space(5);
+            EditorGUILayout.PropertyField(itemName);
+            EditorGUILayout.PropertyField(itemIcon);
+            EditorGUILayout.PropertyField(description);
         }
+        EditorGUILayout.EndFoldoutHeaderGroup();
+
+        EditorGUILayout.Space(5);
+
+        // Unknown State Section
+        showUnknownState = EditorGUILayout.BeginFoldoutHeaderGroup(showUnknownState, "❓ Unknown State Settings");
+        if (showUnknownState) {
+            EditorGUILayout.PropertyField(startsUnknown);
+
+            if (startsUnknown.boolValue) {
+                EditorGUILayout.PropertyField(unknownName);
+                EditorGUILayout.PropertyField(unknownIcon);
+                EditorGUILayout.PropertyField(unknownDescription);
+
+                EditorGUILayout.HelpBox("When unidentified, item will show unknown information instead of its actual properties.", MessageType.Info);
+            } else {
+                EditorGUILayout.HelpBox("Item will always be identified. No unknown state.", MessageType.Info);
+            }
+        }
+        EditorGUILayout.EndFoldoutHeaderGroup();
+
+        EditorGUILayout.Space(5);
 
         // Stack Settings Section
-        showStackSettings = EditorGUILayout.Foldout(showStackSettings, "📚 Stack Settings", true, EditorStyles.foldoutHeader);
+        showStackSettings = EditorGUILayout.BeginFoldoutHeaderGroup(showStackSettings, "📦 Stack Settings");
         if (showStackSettings) {
-            EditorGUILayout.BeginVertical("box");
-            DrawStackSettings();
-            EditorGUILayout.EndVertical();
-            EditorGUILayout.Space(5);
-        }
+            EditorGUILayout.PropertyField(isStackable);
 
-        // Ability Section
-        showAbility = EditorGUILayout.Foldout(showAbility, "✨ Item Ability", true, EditorStyles.foldoutHeader);
-        if (showAbility) {
-            EditorGUILayout.BeginVertical("box");
-            DrawAbilitySection();
-            EditorGUILayout.EndVertical();
+            if (isStackable.boolValue) {
+                EditorGUILayout.PropertyField(maxStackSize);
+                EditorGUILayout.HelpBox($"Maximum stack size: {maxStackSize.intValue}", MessageType.None);
+            } else {
+                EditorGUILayout.HelpBox("This item cannot be stacked.", MessageType.Info);
+            }
+        }
+        EditorGUILayout.EndFoldoutHeaderGroup();
+
+        EditorGUILayout.Space(5);
+
+        // Properties Section
+        showProperties = EditorGUILayout.BeginFoldoutHeaderGroup(showProperties, "⚙️ Properties");
+        if (showProperties) {
+            EditorGUILayout.PropertyField(itemType);
+            EditorGUILayout.PropertyField(rarity);
+
+            // Show rarity color indicator
+            var rarityValue = (Rarity)rarity.enumValueIndex;
+            string rarityText = $"Current Rarity: {rarityValue}";
+            MessageType messageType = MessageType.None;
+
+            switch (rarityValue) {
+                case Rarity.Common:
+                    messageType = MessageType.Info;
+                    break;
+                case Rarity.Uncommon:
+                    messageType = MessageType.Info;
+                    break;
+                case Rarity.Rare:
+                    messageType = MessageType.Warning;
+                    break;
+                case Rarity.Epic:
+                    messageType = MessageType.Warning;
+                    break;
+                case Rarity.Legendary:
+                    messageType = MessageType.Error;
+                    break;
+            }
+
+            EditorGUILayout.HelpBox(rarityText, messageType);
+        }
+        EditorGUILayout.EndFoldoutHeaderGroup();
+
+        EditorGUILayout.Space(5);
+
+        // Equipment Settings (only show if item type is Equipment)
+        if (itemType.enumValueIndex == (int)ItemType.Equipment) {
+            showEquipmentSettings = EditorGUILayout.BeginFoldoutHeaderGroup(showEquipmentSettings, "⚔️ Equipment Settings");
+            if (showEquipmentSettings) {
+                EditorGUILayout.PropertyField(equipmentSlot);
+
+                // Show equipment slot icon
+                string slotInfo = $"Equipment Slot: {((EquipmentSlot)equipmentSlot.enumValueIndex)}";
+                EditorGUILayout.HelpBox(slotInfo, MessageType.Info);
+            }
+            EditorGUILayout.EndFoldoutHeaderGroup();
+
             EditorGUILayout.Space(5);
+
+            // Ability Settings
+            showAbilitySettings = EditorGUILayout.BeginFoldoutHeaderGroup(showAbilitySettings, "✨ Ability Settings");
+            if (showAbilitySettings) {
+                DrawAbilityProperty(primaryAbility);
+            }
+            EditorGUILayout.EndFoldoutHeaderGroup();
         }
 
         // Preview Section
-        showPreview = EditorGUILayout.Foldout(showPreview, "👁️ Preview", true, EditorStyles.foldoutHeader);
-        if (showPreview) {
-            EditorGUILayout.BeginVertical("box");
-            DrawPreview();
-            EditorGUILayout.EndVertical();
-        }
-
-        // Draw specialized properties if exist
-        DrawSpecializedProperties();
+        EditorGUILayout.Space(10);
+        DrawPreviewSection();
 
         serializedObject.ApplyModifiedProperties();
     }
 
-    private void DrawHeader() {
-        EditorGUILayout.BeginVertical("box");
+    private void DrawAbilityProperty(SerializedProperty abilityProperty) {
+        SerializedProperty abilityName = abilityProperty.FindPropertyRelative("abilityName");
+        SerializedProperty abilityIcon = abilityProperty.FindPropertyRelative("abilityIcon");
+        SerializedProperty abilityDescription = abilityProperty.FindPropertyRelative("abilityDescription");
+        SerializedProperty cooldown = abilityProperty.FindPropertyRelative("cooldown");
+        SerializedProperty manaCost = abilityProperty.FindPropertyRelative("manaCost");
 
-        GUIStyle titleStyle = new GUIStyle(EditorStyles.boldLabel);
-        titleStyle.fontSize = 16;
-        titleStyle.alignment = TextAnchor.MiddleCenter;
+        EditorGUILayout.PropertyField(abilityName, new GUIContent("Ability Name"));
+        EditorGUILayout.PropertyField(abilityIcon, new GUIContent("Ability Icon"));
+        EditorGUILayout.PropertyField(abilityDescription, new GUIContent("Ability Description"));
+        EditorGUILayout.PropertyField(cooldown, new GUIContent("Cooldown (seconds)"));
+        EditorGUILayout.PropertyField(manaCost, new GUIContent("Mana Cost"));
 
-        string itemName = string.IsNullOrEmpty(itemNameProp.stringValue) ? "New Item" : itemNameProp.stringValue;
-        EditorGUILayout.LabelField(itemName, titleStyle);
+        bool hasAbility = !string.IsNullOrEmpty(abilityName.stringValue);
+        if (hasAbility) {
+            EditorGUILayout.HelpBox($"Ability: {abilityName.stringValue}\nCooldown: {cooldown.floatValue}s | Mana Cost: {manaCost.floatValue}",
+                MessageType.Info);
+        } else {
+            EditorGUILayout.HelpBox("No ability configured.", MessageType.Info);
+        }
+    }
 
-        // Rarity color indicator
-        Color rarityColor = RarityUtility.GetRarityColor((Rarity)rarityProp.enumValueIndex);
-        Rect colorRect = GUILayoutUtility.GetRect(100, 3);
-        EditorGUI.DrawRect(colorRect, rarityColor);
-
-        EditorGUILayout.EndVertical();
+    private void DrawPreviewSection() {
+        EditorGUILayout.LabelField("🎯 Item Preview", EditorStyles.boldLabel);
         EditorGUILayout.Space(5);
-    }
 
-    private void DrawBasicInfo() {
-        EditorGUILayout.PropertyField(itemNameProp, new GUIContent("Item Name"));
-        EditorGUILayout.PropertyField(itemIconProp, new GUIContent("Item Icon"));
-        EditorGUILayout.PropertyField(itemTypeProp, new GUIContent("Item Type"));
-        EditorGUILayout.PropertyField(rarityProp, new GUIContent("Rarity"));
-        EditorGUILayout.Space(5);
-        EditorGUILayout.LabelField("Item Lore", EditorStyles.boldLabel);
-        EditorGUILayout.PropertyField(itemLoreProp, GUIContent.none);
-    }
+        // Basic preview
+        string previewName = string.IsNullOrEmpty(itemName.stringValue) ? "Unnamed Item" : itemName.stringValue;
+        string previewType = $"Type: {(ItemType)itemType.enumValueIndex}";
+        string previewRarity = $"Rarity: {(Rarity)rarity.enumValueIndex}";
 
-    private void DrawStackSettings() {
-        EditorGUILayout.PropertyField(isStackableProp, new GUIContent("Is Stackable"));
+        EditorGUILayout.HelpBox($"{previewName}\n{previewType}\n{previewRarity}", MessageType.Info);
 
-        if (isStackableProp.boolValue) {
-            EditorGUILayout.PropertyField(maxStackSizeProp, new GUIContent("Max Stack Size"));
-
-            if (maxStackSizeProp.intValue < 1) {
-                maxStackSizeProp.intValue = 1;
-            }
-        } else {
-            EditorGUILayout.HelpBox("This item cannot be stacked.", MessageType.Info);
-        }
-    }
-
-    private void DrawAbilitySection() {
-        EditorGUILayout.PropertyField(hasAbilityProp, new GUIContent("Has Ability"));
-
-        if (hasAbilityProp.boolValue) {
-            EditorGUILayout.Space(5);
-            EditorGUI.indentLevel++;
-
-            SerializedProperty abilityNameProp = abilityProp.FindPropertyRelative("abilityName");
-            SerializedProperty abilityIconProp = abilityProp.FindPropertyRelative("abilityIcon");
-            SerializedProperty abilityDescProp = abilityProp.FindPropertyRelative("abilityDescription");
-            SerializedProperty cooldownProp = abilityProp.FindPropertyRelative("cooldown");
-            SerializedProperty manaCostProp = abilityProp.FindPropertyRelative("manaCost");
-
-            EditorGUILayout.PropertyField(abilityNameProp, new GUIContent("Ability Name"));
-            EditorGUILayout.PropertyField(abilityIconProp, new GUIContent("Ability Icon/GIF"));
-
+        // Unknown state preview if enabled
+        if (startsUnknown.boolValue) {
             EditorGUILayout.Space(3);
-            EditorGUILayout.LabelField("Ability Description", EditorStyles.boldLabel);
-            EditorGUILayout.PropertyField(abilityDescProp, GUIContent.none);
+            EditorGUILayout.LabelField("Unknown State Preview:", EditorStyles.miniBoldLabel);
 
+            string unknownPreviewName = string.IsNullOrEmpty(unknownName.stringValue) ? "Unknown Item" : unknownName.stringValue;
+            EditorGUILayout.HelpBox($"❓ {unknownPreviewName}\n(Unidentified State)", MessageType.Warning);
+        }
+
+        // Stack info
+        if (isStackable.boolValue) {
             EditorGUILayout.Space(3);
-            EditorGUILayout.BeginHorizontal();
-            EditorGUILayout.PropertyField(cooldownProp, new GUIContent("Cooldown (sec)"));
-            EditorGUILayout.PropertyField(manaCostProp, new GUIContent("Mana Cost"));
-            EditorGUILayout.EndHorizontal();
-
-            EditorGUI.indentLevel--;
+            EditorGUILayout.LabelField($"Stackable: Yes (Max: {maxStackSize.intValue})", EditorStyles.miniLabel);
         } else {
-            EditorGUILayout.HelpBox("This item has no special ability.", MessageType.Info);
+            EditorGUILayout.Space(3);
+            EditorGUILayout.LabelField("Stackable: No", EditorStyles.miniLabel);
         }
-    }
-
-    private void DrawPreview() {
-        InventoryItem item = (InventoryItem)target;
-
-        EditorGUILayout.BeginHorizontal();
-
-        // Icon preview
-        if (item.ItemIcon != null) {
-            GUILayout.Box(item.ItemIcon.texture, GUILayout.Width(64), GUILayout.Height(64));
-        } else {
-            GUILayout.Box("No Icon", GUILayout.Width(64), GUILayout.Height(64));
-        }
-
-        // Item info
-        EditorGUILayout.BeginVertical();
-        EditorGUILayout.LabelField(item.ItemName, EditorStyles.boldLabel);
-        EditorGUILayout.LabelField($"Type: {item.Type}");
-        EditorGUILayout.LabelField($"Rarity: {item.Rarity}");
-
-        if (item.IsStackable) {
-            EditorGUILayout.LabelField($"Stackable: Yes (Max: {item.MaxStackSize})");
-        } else {
-            EditorGUILayout.LabelField($"Stackable: No");
-        }
-        EditorGUILayout.EndVertical();
-
-        EditorGUILayout.EndHorizontal();
-
-        // Ability preview
-        if (item.HasAbility && item.Ability != null && item.Ability.HasAbility) {
-            EditorGUILayout.Space(5);
-            EditorGUILayout.BeginVertical("helpBox");
-            EditorGUILayout.LabelField("⚡ " + item.Ability.AbilityName, EditorStyles.boldLabel);
-
-            if (item.Ability.AbilityIcon != null) {
-                GUILayout.Box(item.Ability.AbilityIcon.texture, GUILayout.Width(48), GUILayout.Height(48));
-            }
-
-            EditorGUILayout.LabelField(item.Ability.AbilityDescription, EditorStyles.wordWrappedLabel);
-            EditorGUILayout.LabelField($"Cooldown: {item.Ability.Cooldown}s | Mana: {item.Ability.ManaCost}");
-            EditorGUILayout.EndVertical();
-        }
-    }
-
-    private void DrawSpecializedProperties() {
-        // Draw additional properties from derived classes
-        DrawPropertiesExcluding(serializedObject,
-            "m_Script",
-            "itemName",
-            "itemIcon",
-            "itemLore",
-            "itemType",
-            "rarity",
-            "isStackable",
-            "maxStackSize",
-            "hasAbility",
-            "ability"
-        );
     }
 }
