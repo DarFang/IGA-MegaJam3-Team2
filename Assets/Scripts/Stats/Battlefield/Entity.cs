@@ -122,9 +122,14 @@ public class Entity : MonoBehaviour {
             Debug.LogWarning($"[Combat] {name} does not have enough mana to attack.");
             return;
         }
-
         float damage = Stats.Attack.CurrentValue;
-        float resultDamage = damage = Mathf.Round(damage * 100f) / 100f;
+        float upgradedDamage = damage;
+        if (UpgradedAbilities != null)
+        {
+            upgradedDamage = damage * (UpgradedAbilities.AttackUpgraded ? 1.5f : 1f);
+        }
+
+        float resultDamage = upgradedDamage = Mathf.Round(upgradedDamage * 100f) / 100f;
 
         target.TakeDamage(resultDamage, this);
 
@@ -240,8 +245,10 @@ public class Entity : MonoBehaviour {
     protected void PerformRandomAction(BattleContext context) {
         if (context.Opponent == null || context.Opponent.IsDead) return;
 
-        if (Stats.Mana.CurrentValue < 10) {
+        if (Stats.Mana.CurrentValue < 10)
+        {
             CombatManager.Instance?.ManaManager.GainMana(this, 10);
+            return;
         }
 
         int action = UnityEngine.Random.Range(0, 3);
