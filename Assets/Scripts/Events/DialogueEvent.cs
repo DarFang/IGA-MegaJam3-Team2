@@ -5,8 +5,8 @@ using UnityEngine.Events;
 
 public class DialogueEvent : Event
 {
-	public override UnityEvent OnEventStart { get; set; }
-	public override UnityEvent OnEventEnd { get; set; }
+	[field: SerializeField] public override UnityEvent OnEventStart { get; set; }
+	[field: SerializeField] public override UnityEvent OnEventEnd { get; set; }
 
 	[SerializeField]
 	private DialogueSystemEvents _dialogueSystemEvents;
