@@ -16,7 +16,7 @@ public class Stats {
             return;
         }
 
-        // Кожна характеристика створюється зі своїми спеціалізованими даними
+        // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
         Health = new Health(statsData.HealthData);
         Attack = new Stat(statsData.AttackData);
         Defense = new Stat(statsData.DefenseData);
@@ -81,7 +81,7 @@ public class Health : Stat {
     public event Action<float> OnHealed;
     public event Action OnDeath;
 
-    // Конструктор з HealthData
+    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ HealthData
     public Health(RegenerableStatData healthData) : base(healthData) {
         if (healthData != null) {
             HasRegeneration = healthData.HasRegeneration;
@@ -89,7 +89,7 @@ public class Health : Stat {
         }
     }
 
-    // Старий конструктор для сумісності
+    // пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     public Health(float currentValue, float maxValue = -1) : base(currentValue, maxValue) {
         HasRegeneration = false;
         RegenerationRate = 0f;
@@ -133,6 +133,14 @@ public class Mana : Stat {
     public void Regenerate() {
         if (CurrentValue < MaxValue) {
             Add(RegenerationRate * Time.deltaTime);
+        }
+    }
+    public void ConsumeMana(float mana) {
+        if (mana <= 0) return;
+
+        Subtract(mana);
+        if (CurrentValue <= MinValue) {
+            mana = 0;
         }
     }
 }

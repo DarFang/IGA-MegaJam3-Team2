@@ -12,14 +12,17 @@ public class Entity : MonoBehaviour {
     public event Action<Entity> OnDeath;
     public event Action<float> OnDamageTaken;
     public event Action<float> OnHealed;
-
-    private void Awake() {
+    private UpgradedAbilities UpgradedAbilities;
+    private void OnEnable() {
         Initialize();
     }
 
     private void Initialize() {
         ResetStats();
         UpdateView();
+    }
+    public void SetUpgradedAbilities(UpgradedAbilities upgradedAbilities) {
+        UpgradedAbilities = upgradedAbilities;
     }
 
     public void ResetStats() {
@@ -40,6 +43,14 @@ public class Entity : MonoBehaviour {
 
         HandleHealthChanged(Stats.Health.CurrentValue);
         HandleDefenceUpdate(Stats.Defense.CurrentValue);
+        HandleManaUpdate();
+        
+    }
+    private void HandleManaUpdate() {
+        Debug.Log($"[Entity] Mana updated for {name}: {Stats.Mana.CurrentValue}/{Stats.Mana.MaxValue}");
+        string manaText = $"{Stats.Mana.CurrentValue} / {Stats.Mana.MaxValue}";
+        float percentage = Stats.Mana.CurrentValue / Stats.Mana.MaxValue;
+        entityView.UpdateMana(percentage, manaText);
     }
 
     private void HandleDamageTaken(float damage) {
@@ -79,16 +90,20 @@ public class Entity : MonoBehaviour {
 
         Debug.Log($"[Combat] {name} took {finalDamage:F1} damage");
 
-        // Анімація шкоди вже викликається через OnDamageTaken подію
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ OnDamageTaken пїЅпїЅпїЅпїЅ
     }
 
     public void Attack(Entity target) {
         if (IsDead || target == null || target.IsDead) return;
-
-        float damage = Stats.Attack.CurrentValue;
+        if (Stats.Mana.CurrentValue < 10) {
+            Debug.LogWarning($"[Combat] {name} does not have enough mana to attack.");
+            return;
+        }
+        CombatManager.Instance.ManaManager.ConsumeMana(this, 10);
+        float damage = Stats.Attack.CurrentValue * (UpgradedAbilities.AttackUpgraded ? 1.5f : 1f);
         target.TakeDamage(damage, this);
 
-        // Показуємо анімацію атаки для атакуючого
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         entityView?.ShowDealDamage(damage);
 
         Debug.Log($"[Combat] {name} attacks {target.name} for {damage:F1} damage");
@@ -96,25 +111,50 @@ public class Entity : MonoBehaviour {
 
     public void Heal(float amount) {
         if (IsDead) return;
-
-        Stats.Health.Heal(amount);
+        if (Stats.Mana.CurrentValue < 10) {
+            Debug.LogWarning($"[Combat] {name} does not have enough mana to attack.");
+            return;
+        }
+        CombatManager.Instance.ManaManager.ConsumeMana(this, 10);
+        Stats.Health.Heal(amount * (UpgradedAbilities.HealUpgraded ? 1.5f : 1f));
         OnHealed?.Invoke(amount);
 
-        // Показуємо анімацію лікування
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         entityView?.ShowHeal(amount);
 
         Debug.Log($"[Combat] {name} healed for {amount:F1} HP");
     }
 
     public void ApplyDefenseBuff(float amount) {
+        if (Stats.Mana.CurrentValue < 10) {
+            Debug.LogWarning($"[Combat] {name} does not have enough mana to attack.");
+            return;
+        }
         if (IsDead) return;
+         CombatManager.Instance.ManaManager.ConsumeMana(this, 10);
+        float modifiedAmount = amount * (UpgradedAbilities.DefenseUpgraded ? 1.5f : 1f);
+        Stats.Defense.Add(modifiedAmount);
 
-        Stats.Defense.Add(amount);
-
-        // Показуємо анімацію баффа захисту
-        entityView?.ShowDefenseBuff(amount);
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        entityView?.ShowDefenseBuff(modifiedAmount);
 
         Debug.Log($"[Combat] {name} gained {amount:F1} defense");
+    }
+
+    public void ApplyManaBuff(float amount) {
+        if (IsDead) return;
+
+        float modifiedAmount = amount * (UpgradedAbilities.ManaUpgraded ? 1.5f : 1f);
+        if( modifiedAmount < 0) {
+            Stats.Mana.ConsumeMana(-modifiedAmount);
+        } else {
+            Stats.Mana.Add(modifiedAmount);
+        }
+        HandleManaUpdate();
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+        entityView?.ShowManaBuff(modifiedAmount);
+
+        Debug.Log($"[Combat] {name} gained {amount:F1} mana");
     }
 
     // ==================== BATTLE LOGIC ====================
@@ -122,12 +162,15 @@ public class Entity : MonoBehaviour {
     public virtual async UniTask DoActionAsync(BattleContext context, CancellationToken cancellationToken = default) {
         if (IsDead) return;
 
-        // За замовчуванням - випадкова дія з невеликою затримкою
+        // пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         await UniTask.Delay(500, cancellationToken: cancellationToken);
         PerformRandomAction(context);
     }
 
     protected void PerformRandomAction(BattleContext context) {
+        if (Stats.Mana.CurrentValue < 10) {
+            CombatManager.Instance.ManaManager.GainMana(this, 10);
+        }
         if (context.Opponent == null || context.Opponent.IsDead) return;
 
         int action = UnityEngine.Random.Range(0, 3);

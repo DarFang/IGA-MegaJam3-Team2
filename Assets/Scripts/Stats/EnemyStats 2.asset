@@ -10,29 +10,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 791a443a66cee554996cf3473d0e9f82, type: 3}
-  m_Name: PlayerStats
+  m_Name: EnemyStats 2
   m_EditorClassIdentifier: 
   healthData:
-    baseValue: 100
-    maxValue: 100
+    baseValue: 20
+    maxValue: 20
     minValue: 0
     regeneration: 1
     hasRegeneration: 0
   attackData:
+    baseValue: 4
+    maxValue: 20
+    minValue: 0
+  defenseData:
+    baseValue: 2
+    maxValue: 30
+    minValue: 0
+  manaData:
     baseValue: 10
     maxValue: 100
     minValue: 0
-  defenseData:
-    baseValue: 5
-    maxValue: 100
-    minValue: 0
-  manaData:
-    baseValue: 50
-    maxValue: 100
-    minValue: 0
     regeneration: 1
-    hasRegeneration: 0
+    hasRegeneration: 1
   speedData:
-    baseValue: 5
-    maxValue: 20
+    baseValue: 0
+    maxValue: 0
     minValue: 0
