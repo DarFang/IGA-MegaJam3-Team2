@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39b40bbd038656340a5aba05bff214fd, type: 3}
   m_Name: Combat_intro
   m_EditorClassIdentifier: 
-  layerName: Layer Name
-  clip: {fileID: 0}
+  layerName: Combat_intro
+  clip: {fileID: 8300000, guid: 7b7094a7cb3088648b7458bd7e652100, type: 3}
   defaultVolume: 1
+  loop: 0
