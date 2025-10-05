@@ -102,7 +102,7 @@ public class InventoryUI : MonoBehaviour {
             slotUIPool[index].UpdateDisplay();
         }
 
-        // Оновити detail panel якщо це вибраний item
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ detail panel пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ item
         if (selectedIndex == index) {
             UpdateSelectionDisplay();
         }
@@ -224,11 +224,22 @@ public class InventoryUI : MonoBehaviour {
             Debug.Log("Item identified!");
         }
     }
+    public void IdentifyItem(int Index)
+    {
+        if (Index < 0) return;
 
-    private void UpdateActionButtons() {
+        bool identified = inventory.IdentifyItemAt(Index);
+        if (identified) {
+            Debug.Log("Item identified!");
+        }
+    }
+
+    private void UpdateActionButtons()
+    {
         bool hasSelection = selectedIndex >= 0 && selectedIndex < inventory.Count;
 
-        if (hasSelection) {
+        if (hasSelection)
+        {
             var slot = inventory.GetItemAt(selectedIndex);
             bool isIdentified = slot.IsIdentified;
             bool canUse = isIdentified && slot.Item is ConsumableItem;
@@ -237,7 +248,9 @@ public class InventoryUI : MonoBehaviour {
             if (dropButton != null) dropButton.interactable = true;
             if (dropAllButton != null) dropAllButton.interactable = slot.Quantity > 1;
             if (identifyButton != null) identifyButton.interactable = !isIdentified;
-        } else {
+        }
+        else
+        {
             if (useButton != null) useButton.interactable = false;
             if (dropButton != null) dropButton.interactable = false;
             if (dropAllButton != null) dropAllButton.interactable = false;
@@ -245,7 +258,8 @@ public class InventoryUI : MonoBehaviour {
         }
 
         // Identify All button
-        if (identifyAllButton != null) {
+        if (identifyAllButton != null)
+        {
             identifyAllButton.interactable = inventory.GetUnidentifiedCount() > 0;
         }
     }

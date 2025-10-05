@@ -42,7 +42,7 @@ public class Inventory : MonoBehaviour {
         int remainingAmount = amount;
         bool shouldBeIdentified = isIdentified ?? !item.StartsUnknown;
 
-        // Якщо stackable - знайти існуючий стек з таким самим станом ідентифікації
+        // пїЅпїЅпїЅпїЅ stackable - пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         if (item.IsStackable) {
             InventorySlot existingSlot = items.FirstOrDefault(s =>
                 s.Item == item && s.IsIdentified == shouldBeIdentified);
@@ -59,7 +59,7 @@ public class Inventory : MonoBehaviour {
             }
         }
 
-        // Створити нові слоти
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
         while (remainingAmount > 0) {
             if (!item.IsStackable && items.Count >= maxCapacity) {
                 break;

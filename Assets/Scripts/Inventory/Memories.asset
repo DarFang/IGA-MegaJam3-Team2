@@ -15,14 +15,14 @@ MonoBehaviour:
   itemName: Memory from past
   itemIcon: {fileID: 21300000, guid: 5eedec2fe6ad77d4db55aec5f0fb03e6, type: 3}
   description: You remember that was good time
-  startsUnknown: 0
+  startsUnknown: 1
   unknownName: Unknown Item
   unknownIcon: {fileID: 0}
   unknownDescription: You don't know what this item is. Use an identification scroll
     or visit a merchant to identify it.
   isStackable: 1
-  maxStackSize: 99
-  rarity: 3
+  maxStackSize: 1
+  rarity: 0
   itemType: 3
   equipmentSlot: 0
   primaryAbility:
