@@ -1,8 +1,10 @@
+using System;
 using UnityEngine;
 
 public class CameraLookAt : MonoBehaviour
 {
-    [SerializeField] private Transform _target;
+    public Transform Target { get; set; }
+
     // Update is called once per frame
-    void LateUpdate() => transform.LookAt(_target);
+    void LateUpdate() => transform.LookAt(Target);
 }
