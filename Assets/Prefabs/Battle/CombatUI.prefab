@@ -816,9 +816,9 @@ Canvas:
   m_GameObject: {fileID: 8058176743904913551}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
+  m_PlaneDistance: 3
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -896,17 +896,7 @@ MonoBehaviour:
   - {fileID: 9060920007950099948}
   - {fileID: 744162879910032874}
   GeneralCombatUI: {fileID: 3546424385490290352}
-  ManaManager:
-    NeutralMana: 0
-    Player: {fileID: 0}
-    Enemy: {fileID: 0}
-    MaxMana: 0
-    OnMaxManaChanged:
-      m_PersistentCalls:
-        m_Calls: []
-  OnManaChanged:
-    m_PersistentCalls:
-      m_Calls: []
+  ManaManager: {fileID: 0}
   manaPercentageImage: {fileID: 2020257714949642593}
   manaText: {fileID: 6902059609082774370}
 --- !u!114 &3546424385490290352
