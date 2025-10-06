@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cade9b60313aed547b08fc088978603d, type: 3}
+  m_Name: MusEvent_Cutscenes
+  m_EditorClassIdentifier: 
+  name: Cutscenes
+  musicLayers:
+  - {fileID: 11400000, guid: 8c78a1792624e964398f829d2dbf5e97, type: 2}
+  - {fileID: 11400000, guid: dfdad33d743d7a9468f3a190a1614dec, type: 2}
+  - {fileID: 11400000, guid: f861ddbdecdc63647965b29e68033b3f, type: 2}
+  - {fileID: 11400000, guid: f677b1eb0d0eb1040a17f5ab2953f723, type: 2}
+  - {fileID: 11400000, guid: 9cd3c0fc820363044bf8c73c06923ca6, type: 2}
+  - {fileID: 11400000, guid: d8fc582ab23abd84f9c76990486cb6a5, type: 2}
+  volume: 0
+  mute: 0
+  defaultLayer: 0
