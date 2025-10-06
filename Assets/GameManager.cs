@@ -53,4 +53,8 @@ public class GameManager : MonoBehaviour
     {
         SceneController.Instance.StartSceneSwitch(SceneType.Level);
     }
+    public void EndGame()
+    {
+        SceneController.Instance.StartSceneSwitch(SceneType.Credits);
+    }
 }
