@@ -140,7 +140,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5757a6c54f680464fa4591b1f102c10d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e4deccb62e368354e8452c3218bf743a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -281,6 +281,9 @@ MonoBehaviour:
   selectionHighlight: {fileID: 7069340188897898299}
   rarityBorder: {fileID: 2135521596925202797}
   hoverHighlight: {fileID: 0}
+  unknownMarker: {fileID: 0}
+  unknownTextColor: {r: 0.7, g: 0.7, b: 0.7, a: 1}
+  identifiedTextColor: {r: 1, g: 1, b: 1, a: 1}
   scaleOnHover: 1.05
 --- !u!1 &5317872846658667609
 GameObject:

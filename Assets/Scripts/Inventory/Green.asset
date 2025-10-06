@@ -12,9 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 191be68f0522b8f46b31c83ce1194cbc, type: 3}
   m_Name: Green
   m_EditorClassIdentifier: 
-  itemName: Green
+  itemName: "The Everempty\u2019s Nourished Spirit Orb"
   itemIcon: {fileID: 21300000, guid: bfc49e4a2dadead4f863050df6205f86, type: 3}
-  description: 
+  description: "A faint warmth lingers, like the quiet calm after a long, gnawing
+    ache. The emptiness softens, and for a moment, it feels complete.\r\n\nThe orb
+    evokes a time when Wen Ruyi, absentmindedly sketched on a napkin and gave it
+    to a curious child nearby. The child\u2019s delight made her spirit feel full.
+    \r\n\nThat sketch was far from monumental, yet it felt meaningful. The child\u2019s
+    delight healed the lingering ache within her."
   startsUnknown: 1
   unknownName: Unknown Item
   unknownIcon: {fileID: 21300000, guid: fbbbefd184988a24cbfda9d0187d93c4, type: 3}

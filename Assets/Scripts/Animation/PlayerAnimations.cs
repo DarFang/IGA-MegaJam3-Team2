@@ -36,14 +36,14 @@ public class PlayerAnimations : MonoBehaviour
     /// </summary>
     private void StartListening()
     {
-        if (_playerMovement && _playerUI)
+        if (_playerMovement != null)
         {
             _playerMovement.OnStartedMoving += SetMoveTrigger;
             _playerMovement.OnArrived += SetIdleTrigger;
-            _playerUI.OnActionSelected += PlayerUI_OnActionSelected;
         }
-        else if (!_testing)
-            Debug.LogError($"Missing component references on {this}.", this);
+
+        if (_playerUI != null)
+            _playerUI.OnActionSelected += PlayerUI_OnActionSelected;
     }
 
     /// <summary>
@@ -51,14 +51,14 @@ public class PlayerAnimations : MonoBehaviour
     /// </summary>
     private void StopListening()
     {
-        if(_playerMovement && _playerUI)
+        if(_playerMovement != null)
         {
             _playerMovement.OnStartedMoving -= SetMoveTrigger;
             _playerMovement.OnArrived -= SetIdleTrigger;
-            _playerUI.OnActionSelected -= PlayerUI_OnActionSelected;
         }
-        else if (!_testing)
-            Debug.LogError($"Missing component references on {this}." , this);
+
+        if (_playerUI != null)
+            _playerUI.OnActionSelected -= PlayerUI_OnActionSelected;
     }
 
     #endregion
