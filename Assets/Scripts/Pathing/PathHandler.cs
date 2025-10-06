@@ -163,8 +163,10 @@ public class PathHandler : MonoBehaviour
 
     private void HandleArrival()
     {
-        if(CurrentWaypoint.Event != null)
+        if (CurrentWaypoint.Event != null)
             CurrentWaypoint.Event.StartEvent();
+            if (CurrentWaypoint.Event.SkippEvent)
+                HandleWaypointEventEnd();
         else
             Debug.LogError($"{CurrentWaypoint.name} has no event assigned.", this);
     }
