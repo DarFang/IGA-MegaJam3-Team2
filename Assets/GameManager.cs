@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -47,5 +48,9 @@ public class GameManager : MonoBehaviour
     public void TurnOffInventory()
     {
         InventoryUI.CloseInventory();
+    }
+    public void GameOver()
+    {
+        SceneController.Instance.StartSceneSwitch(SceneType.Level);
     }
 }

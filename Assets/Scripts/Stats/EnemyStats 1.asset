@@ -19,8 +19,8 @@ MonoBehaviour:
     regeneration: 1
     hasRegeneration: 0
   attackData:
-    baseValue: 15
-    maxValue: 15
+    baseValue: 100
+    maxValue: 100
     minValue: 0
   defenseData:
     baseValue: 10
