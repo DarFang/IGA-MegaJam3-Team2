@@ -63,10 +63,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if(_inputActions.Player.Move.WasPressedThisFrame())
         {
-            if(!_isMoving && !_pathHandler.IsBusy && !_pathHandler.HasFinished)
+            if (!_isMoving && !_pathHandler.IsBusy && !_pathHandler.HasFinished)
             {
                 GoTo(_pathHandler.CurrentWaypoint);
                 OnStartedMoving?.Invoke();
+                GameManager.Instance.TurnOffInventory();
+                GameManager.Instance.TriggerPlayerAction(false);
             }
             else
             {

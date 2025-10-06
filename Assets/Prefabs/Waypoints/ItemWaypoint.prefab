@@ -48,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Order>k__BackingField: 0
   <Event>k__BackingField: {fileID: 3077119537605873559}
+  <AutoStart>k__BackingField: 0
 --- !u!114 &3077119537605873559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,6 +61,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b07d334201593e4eb6b29073ad2feca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SkippEvent: 1
   <OnEventStart>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
