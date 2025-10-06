@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cade9b60313aed547b08fc088978603d, type: 3}
   m_Name: MusEvent_Combat
   m_EditorClassIdentifier: 
-  name: Song Name
+  name: Combat
   musicLayers:
-  - {fileID: 11400000, guid: b64d1498ba99f1e48954244bf7864f9b, type: 2}
-  musicLayerBehavior: 0
+  - {fileID: 11400000, guid: 030113d2464a5814080bf327c805c5dc, type: 2}
+  - {fileID: 11400000, guid: 924b79a1686e1b04c973f4aae3054345, type: 2}
   volume: -0.8
   mute: 0
   defaultLayer: 0
