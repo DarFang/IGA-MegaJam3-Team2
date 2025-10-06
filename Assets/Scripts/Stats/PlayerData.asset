@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84bf66454a725494690e88ab1b75f6f4, type: 3}
   m_Name: PlayerData
   m_EditorClassIdentifier: 
-  Name: Player
+  Name: Wen Ruyi
   StatsData: {fileID: 11400000, guid: f01fc8e05f9fd624a8f02a6710eae80b, type: 2}

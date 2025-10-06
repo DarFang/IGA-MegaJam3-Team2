@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84bf66454a725494690e88ab1b75f6f4, type: 3}
   m_Name: EnemyData 1
   m_EditorClassIdentifier: 
-  Name: Enemy1
+  Name: Metus
   StatsData: {fileID: 11400000, guid: cc53725f4bc0d034190ea8b90b489ee2, type: 2}
