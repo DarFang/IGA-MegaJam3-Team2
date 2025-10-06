@@ -24,7 +24,7 @@ MonoBehaviour:
     minValue: 0
   defenseData:
     baseValue: 15
-    maxValue: 30
+    maxValue: 40
     minValue: 0
   manaData:
     baseValue: 20

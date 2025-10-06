@@ -43,7 +43,27 @@ public class PlayerMovement : MonoBehaviour
         _inputActions?.Dispose();
     }
 
-    private void Start() => Debug.Log("Move anywhere to start moving through the path (Input System Bindings)");
+    private void Start()
+    {
+        Invoke("StartMoving", .1f);
+    }
+    private void StartMoving()
+    {
+        if (!_isMoving && !_pathHandler.IsBusy && !_pathHandler.HasFinished)
+            {
+                GoTo(_pathHandler.CurrentWaypoint);
+                OnStartedMoving?.Invoke();
+                GameManager.Instance.TurnOffInventory();
+                GameManager.Instance.TriggerPlayerAction(false);
+            }
+            else
+            {
+                if (_isMoving)
+                    Debug.Log("Already moving to a waypoint...");
+                else if (_pathHandler.IsBusy)
+                    Debug.Log("Path is currently busy...");
+            }
+    }
 
     private void Update()
     {
@@ -52,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
         if (_inputActions != null)
             HandleInput();
 
-        if(_isMoving && HasArrived())
+        if (_isMoving && HasArrived())
         {
             _isMoving = false;
             OnArrived?.Invoke();
