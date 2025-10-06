@@ -8,5 +8,4 @@ public class FootstepPlayer : MonoBehaviour
     {
         SoundManager.Instance.CreateSound().SetParent(gameObject).Play(footstepSound);
     }
-
 }
