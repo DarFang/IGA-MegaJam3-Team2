@@ -11,4 +11,5 @@ public abstract class Event : MonoBehaviour
     public abstract void StartEvent();
     public abstract void EndEvent();
     public abstract new string GetType();
+    [SerializeField] public bool SkippEvent = false;
 }

@@ -246,7 +246,7 @@ MonoBehaviour:
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: -1
+        value: 1
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
@@ -272,7 +272,7 @@ MonoBehaviour:
       - originConversationID: 1
         originDialogueID: 0
         destinationConversationID: 1
-        destinationDialogueID: 1
+        destinationDialogueID: 6
         isConnector: 0
         priority: 2
       conditionsString: 
@@ -513,33 +513,46 @@ MonoBehaviour:
       - title: Title
         value: 
         type: 0
-        typeString: 
+        typeString: CustomFieldType_Text
       - title: Description
         value: 
         type: 0
-        typeString: 
+        typeString: CustomFieldType_Text
       - title: Actor
         value: 1
         type: 5
         typeString: CustomFieldType_Actor
       - title: Conversant
-        value: -1
+        value: 1
         type: 5
         typeString: CustomFieldType_Actor
       - title: Menu Text
         value: 
         type: 0
-        typeString: 
+        typeString: CustomFieldType_Text
       - title: Dialogue Text
         value: 
         type: 0
-        typeString: 
+        typeString: CustomFieldType_Text
       - title: Sequence
-        value: 'Fade(out, 0.5, #000000);
+        value: 'SetContinueMode(false);
 
-          Fade(in, 0.5, #000000);'
+          HidePanel(0);
+
+          Fade(stay,
+          0.5, #000000);
+
+          SetActive(StartCutscene, false) @ 0.5;
+
+          Fade(unstay,
+          0.5, #000000) @ 1;
+
+          SetContinueMode(original) @ 1.5;
+
+          continue()
+          @ 1.5;'
         type: 0
-        typeString: 
+        typeString: CustomFieldType_Text
       conversationID: 1
       isRoot: 0
       isGroup: 0
@@ -555,13 +568,81 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 163.29672
-        y: 381.09897
+        x: 165.31308
+        y: 382.90927
+        width: 160
+        height: 30
+    - id: 6
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Description
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Actor
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Dialogue Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Sequence
+        value: 'required SetContinueMode(false);
+
+          required Fade(stay, 0,
+          #000000);
+
+          required SetActive(StartCutscene, true);
+
+          required
+          Fade(unstay, 0.5, #000000) @ .5;
+
+          required SetContinueMode(original)
+          @ 1.5;
+
+          Continue() @ 1.5;'
+        type: 0
+        typeString: CustomFieldType_Text
+      conversationID: 1
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 1
+        originDialogueID: 6
+        destinationConversationID: 1
+        destinationDialogueID: 1
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 160.55652
+        y: 105.91086
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 0.9100001
+    canvasScrollPosition: {x: 72.714905, y: 71.723915}
+    canvasZoom: 1.1199999
   - id: 2
     fields:
     - title: Title
@@ -1139,9 +1220,21 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: 'Fade(out, 0.5, #000000);
+        value: 'required SetContinueMode(false);
 
-          Fade(in, 0.5, #000000);'
+          required Fade(stay, 0.5,
+          #000000);
+
+          required Fade(unstay, 0.5, #000000) @ 1;
+
+          required
+          SetContinueMode(true) @ 1.5;
+
+          continue() @ 1.5;'
+        type: 0
+        typeString: 
+      - title: Response Menu Sequence
+        value: 
         type: 0
         typeString: 
       conversationID: 2
@@ -1159,13 +1252,13 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 160
+        x: 161.17647
         y: 480
         width: 160
         height: 30
     entryGroups: []
     canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 1
+    canvasZoom: 0.85000014
   - id: 3
     fields:
     - title: Title
@@ -1766,7 +1859,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 160.82172
+        x: 159.90427
         y: 537.7344
         width: 160
         height: 30
@@ -1852,9 +1945,17 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: 'Fade(out, 0.5, #000000);
+        value: 'required SetContinueMode(false);
 
-          Fade(in, 0.5, #000000);'
+          required Fade(stay, 0.5,
+          #000000);
+
+          required Fade(unstay, 0.5, #000000) @ 1;
+
+          required
+          SetContinueMode(true) @ 1.5;
+
+          continue() @ 1.5;'
         type: 0
         typeString: 
       conversationID: 3
@@ -1878,7 +1979,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 160
+        x: 158.57141
         y: 130
         width: 160
         height: 30
@@ -1909,9 +2010,17 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: 'Fade(out, 0.5, #000000);
+        value: 'required SetContinueMode(false);
 
-          Fade(in, 0.5, #000000);'
+          required Fade(stay, 0.5,
+          #000000);
+
+          required Fade(unstay, 0.5, #000000) @ 1;
+
+          required
+          SetContinueMode(true) @ 1.5;
+
+          continue() @ 1.5;'
         type: 0
         typeString: 
       conversationID: 3
@@ -1934,8 +2043,8 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 220.18347}
-    canvasZoom: 1.0899999
+    canvasScrollPosition: {x: 38.50837, y: 34.242844}
+    canvasZoom: 0.7000002
   - id: 4
     fields:
     - title: Title
@@ -2289,9 +2398,17 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: 'Fade(out, 0.5, #000000);
+        value: 'required SetContinueMode(false);
 
-          Fade(in, 0.5, #000000);'
+          required Fade(stay, 0.5,
+          #000000);
+
+          required Fade(unstay, 0.5, #000000) @ 1;
+
+          required
+          SetContinueMode(true) @ 1.5;
+
+          continue() @ 1.5;'
         type: 0
         typeString: 
       conversationID: 4
@@ -2782,9 +2899,17 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: 'Fade(out, 0.5, #000000);
+        value: 'required SetContinueMode(false);
 
-          Fade(in, 0.5, #000000);'
+          required Fade(stay, 0.5,
+          #000000);
+
+          required Fade(unstay, 0.5, #000000) @ 1;
+
+          required
+          SetContinueMode(true) @ 1.5;
+
+          continue() @ 1.5;'
         type: 0
         typeString: 
       conversationID: 5
@@ -3331,9 +3456,17 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: 'Fade(out, 0.5, #000000);
+        value: 'required SetContinueMode(false);
 
-          Fade(in, 0.5, #000000);'
+          required Fade(stay, 0.5,
+          #000000);
+
+          required Fade(unstay, 0.5, #000000) @ 1;
+
+          required
+          SetContinueMode(true) @ 1.5;
+
+          continue() @ 1.5;'
         type: 0
         typeString: 
       conversationID: 6
@@ -3709,9 +3842,17 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: 'Fade(out, 0.5, #000000);
+        value: 'required SetContinueMode(false);
 
-          Fade(in, 0.5, #000000);'
+          required Fade(stay, 0.5,
+          #000000);
+
+          required Fade(unstay, 0.5, #000000) @ 1;
+
+          required
+          SetContinueMode(true) @ 1.5;
+
+          continue() @ 1.5;'
         type: 0
         typeString: 
       conversationID: 7
@@ -3734,8 +3875,8 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 1
+    canvasScrollPosition: {x: 33.36624, y: 39.627827}
+    canvasZoom: 1.1499999
   - id: 8
     fields:
     - title: Title
@@ -3979,9 +4120,17 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: 'Fade(out, 0.5, #000000);
+        value: 'required SetContinueMode(false);
 
-          Fade(in, 0.5, #000000);'
+          required Fade(stay, 0.5,
+          #000000);
+
+          required Fade(unstay, 0.5, #000000) @ 1;
+
+          required
+          SetContinueMode(true) @ 1.5;
+
+          continue() @ 1.5;'
         type: 0
         typeString: 
       conversationID: 8
@@ -4280,11 +4429,11 @@ MonoBehaviour:
       - title: Title
         value: 
         type: 0
-        typeString: 
+        typeString: CustomFieldType_Text
       - title: Description
         value: 
         type: 0
-        typeString: 
+        typeString: CustomFieldType_Text
       - title: Actor
         value: 4
         type: 5
@@ -4296,17 +4445,25 @@ MonoBehaviour:
       - title: Menu Text
         value: 
         type: 0
-        typeString: 
+        typeString: CustomFieldType_Text
       - title: Dialogue Text
         value: 
         type: 0
-        typeString: 
+        typeString: CustomFieldType_Text
       - title: Sequence
-        value: 'Fade(out, 0.5, #000000);
+        value: 'required SetContinueMode(false);
 
-          Fade(in, 0.5, #000000);'
+          required Fade(stay, 0.5,
+          #000000);
+
+          required Fade(unstay, 0.5, #000000) @ 1;
+
+          required
+          SetContinueMode(true) @ 1.5;
+
+          continue() @ 1.5;'
         type: 0
-        typeString: 
+        typeString: CustomFieldType_Text
       conversationID: 9
       isRoot: 0
       isGroup: 0
@@ -4625,9 +4782,21 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: 'Fade(out, 0.5, #000000);
+        value: 'required SetContinueMode(false);
 
-          Fade(in, 0.5, #000000);'
+          required Fade(stay, 0.5,
+          #000000);
+
+          required Fade(unstay, 0.5, #000000) @ 1;
+
+          required
+          SetContinueMode(true) @ 1.5;
+
+          continue() @ 1.5;'
+        type: 0
+        typeString: 
+      - title: Response Menu Sequence
+        value: 
         type: 0
         typeString: 
       conversationID: 10
@@ -5173,9 +5342,17 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: 'Fade(out, 0.5, #000000);
+        value: 'required SetContinueMode(false);
 
-          Fade(in, 0.5, #000000);'
+          required Fade(stay, 0.5,
+          #000000);
+
+          required Fade(unstay, 0.5, #000000) @ 1;
+
+          required
+          SetContinueMode(true) @ 1.5;
+
+          continue() @ 1.5;'
         type: 0
         typeString: 
       conversationID: 11
@@ -5194,7 +5371,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 160
-        y: 430
+        y: 432
         width: 160
         height: 30
     entryGroups: []
@@ -5586,11 +5763,11 @@ MonoBehaviour:
       - title: Title
         value: 
         type: 0
-        typeString: 
+        typeString: CustomFieldType_Text
       - title: Description
         value: 
         type: 0
-        typeString: 
+        typeString: CustomFieldType_Text
       - title: Actor
         value: 1
         type: 5
@@ -5602,15 +5779,23 @@ MonoBehaviour:
       - title: Menu Text
         value: 
         type: 0
-        typeString: 
+        typeString: CustomFieldType_Text
       - title: Dialogue Text
         value: 
         type: 0
-        typeString: 
+        typeString: CustomFieldType_Text
       - title: Sequence
-        value: Fade(out, 1.5, #000000);
+        value: 'required SetContinueMode(false);
+
+          required Fade(stay, 1.5,
+          #000000);
+
+          required SetContinueMode(true) @ 2;
+
+          Continue()
+          @ 2;'
         type: 0
-        typeString: 
+        typeString: CustomFieldType_Text
       conversationID: 12
       isRoot: 0
       isGroup: 0
