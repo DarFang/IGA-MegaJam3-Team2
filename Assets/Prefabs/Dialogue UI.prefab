@@ -3106,7 +3106,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 633517468189073045}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73ee3d99442035942b6dd1ede25ff7cd, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b80da6fdc7dd5d45a783b2ea2261bb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueUI: {fileID: 11424526}
@@ -3114,6 +3114,7 @@ MonoBehaviour:
   hideContinueButtonOnContinue: 0
   continueSubtitlePanel: 1
   continueAlertPanel: 1
+  _button: {fileID: 9149105875989853432}
 --- !u!1 &3135891125236910590
 GameObject:
   m_ObjectHideFlags: 0
@@ -3529,7 +3530,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6001084012961480820}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 73ee3d99442035942b6dd1ede25ff7cd, type: 3}
+  m_Script: {fileID: 11500000, guid: 8b80da6fdc7dd5d45a783b2ea2261bb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dialogueUI: {fileID: 11424526}
@@ -3537,6 +3538,7 @@ MonoBehaviour:
   hideContinueButtonOnContinue: 0
   continueSubtitlePanel: 1
   continueAlertPanel: 1
+  _button: {fileID: 3270901056001173725}
 --- !u!1 &6297849327950968747
 GameObject:
   m_ObjectHideFlags: 0
