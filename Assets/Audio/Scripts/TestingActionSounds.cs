@@ -6,8 +6,20 @@ public class TestingActionSounds : MonoBehaviour
 
     public void PlaySound(string soundName)
     {
-        print("soundName");
+        //print("soundName");
         SoundManager.Instance.CreateSound().Play(Sounds.GetSound(soundName));
+    }
+
+    private void OnEnable()
+    {
+        SoundManager.Instance.CreateSound().Play(Sounds.GetSound("OpenBook"));
+
+    }
+
+    private void OnDisable()
+    {
+        SoundManager.Instance.CreateSound().Play(Sounds.GetSound("OpenBook"));
+
     }
 
 }
