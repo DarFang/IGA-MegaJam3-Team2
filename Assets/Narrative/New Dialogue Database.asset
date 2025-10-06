@@ -272,7 +272,7 @@ MonoBehaviour:
       - originConversationID: 1
         originDialogueID: 0
         destinationConversationID: 1
-        destinationDialogueID: 1
+        destinationDialogueID: 6
         isConnector: 0
         priority: 2
       conditionsString: 
@@ -535,17 +535,22 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
-        value: 'required SetContinueMode(false);
+        value: 'SetContinueMode(false);
 
-          required Fade(stay, 0.5,
-          #000000);
+          HidePanel(0);
 
-          required Fade(unstay, 0.5, #000000) @ 1;
+          Fade(stay,
+          0.5, #000000);
 
-          required
-          SetContinueMode(true) @ 1.5;
+          SetActive(StartCutscene, false) @ 0.5;
 
-          continue() @ 1.5;'
+          Fade(unstay,
+          0.5, #000000) @ 1;
+
+          SetContinueMode(original) @ 1.5;
+
+          continue()
+          @ 1.5;'
         type: 0
         typeString: CustomFieldType_Text
       conversationID: 1
@@ -564,12 +569,80 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 165.31308
-        y: 382.01642
+        y: 382.90927
+        width: 160
+        height: 30
+    - id: 6
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Description
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Actor
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Dialogue Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Sequence
+        value: 'required SetContinueMode(false);
+
+          required Fade(stay, 0,
+          #000000);
+
+          required SetActive(StartCutscene, true);
+
+          required
+          Fade(unstay, 0.5, #000000) @ .5;
+
+          required SetContinueMode(original)
+          @ 1.5;
+
+          Continue() @ 1.5;'
+        type: 0
+        typeString: CustomFieldType_Text
+      conversationID: 1
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 1
+        originDialogueID: 6
+        destinationConversationID: 1
+        destinationDialogueID: 1
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 160.55652
+        y: 105.91086
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 54.256657, y: 43.252304}
-    canvasZoom: 1.0899999
+    canvasScrollPosition: {x: 72.714905, y: 71.723915}
+    canvasZoom: 1.1199999
   - id: 2
     fields:
     - title: Title
@@ -3802,8 +3875,8 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 1
+    canvasScrollPosition: {x: 33.36624, y: 39.627827}
+    canvasZoom: 1.1499999
   - id: 8
     fields:
     - title: Title
