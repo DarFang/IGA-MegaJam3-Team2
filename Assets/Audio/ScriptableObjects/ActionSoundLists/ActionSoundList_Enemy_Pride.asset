@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: acbf354e4c5610b428f7eb4bd907c796, type: 3}
+  m_Name: ActionSoundList_Enemy_Pride
+  m_EditorClassIdentifier: 
+  soundsOnObject:
+  - name: Attack
+    frequentSound: 0
+    mute: 0
+    clips:
+    - {fileID: 8300000, guid: 66391641cd4bded41b26df77263239a7, type: 3}
+    soundSettings:
+      mixerGroup: {fileID: 6899448223994471096, guid: 200eb56313a83da4a9e284b188c37c29, type: 2}
+      loop: 0
+      randomizeVolume: 0
+      volumeRange: {x: 1, y: 0}
+      randomizePitch: 0
+      pitchRange: {x: 1, y: 0}
+  - name: Defend
+    frequentSound: 0
+    mute: 0
+    clips:
+    - {fileID: 8300000, guid: 7176eb41d9d9d1d4da9bed02624ff707, type: 3}
+    soundSettings:
+      mixerGroup: {fileID: 6899448223994471096, guid: 200eb56313a83da4a9e284b188c37c29, type: 2}
+      loop: 0
+      randomizeVolume: 0
+      volumeRange: {x: 1, y: 0}
+      randomizePitch: 0
+      pitchRange: {x: 1, y: 0}
+  - name: Dead
+    frequentSound: 0
+    mute: 0
+    clips:
+    - {fileID: 8300000, guid: 82175bcf3cc937a469e60d2c9330ba28, type: 3}
+    soundSettings:
+      mixerGroup: {fileID: 6899448223994471096, guid: 200eb56313a83da4a9e284b188c37c29, type: 2}
+      loop: 0
+      randomizeVolume: 0
+      volumeRange: {x: 1, y: 0}
+      randomizePitch: 0
+      pitchRange: {x: 1, y: 0}
+  - name: Heal
+    frequentSound: 0
+    mute: 0
+    clips:
+    - {fileID: 8300000, guid: 8003201ddce9ab54abcf9b49caaff5ad, type: 3}
+    soundSettings:
+      mixerGroup: {fileID: 6899448223994471096, guid: 200eb56313a83da4a9e284b188c37c29, type: 2}
+      loop: 0
+      randomizeVolume: 0
+      volumeRange: {x: 1, y: 0}
+      randomizePitch: 0
+      pitchRange: {x: 1, y: 0}
+  - name: TakeDamage
+    frequentSound: 0
+    mute: 0
+    clips:
+    - {fileID: 8300000, guid: a4638f7e4c971b44a83cdd09ec88c033, type: 3}
+    soundSettings:
+      mixerGroup: {fileID: 6899448223994471096, guid: 200eb56313a83da4a9e284b188c37c29, type: 2}
+      loop: 0
+      randomizeVolume: 0
+      volumeRange: {x: 1, y: 0}
+      randomizePitch: 0
+      pitchRange: {x: 1, y: 0}
+  - name: TakeMana
+    frequentSound: 0
+    mute: 0
+    clips:
+    - {fileID: 8300000, guid: 529283b917b9a654eb6b372ca6bdf292, type: 3}
+    soundSettings:
+      mixerGroup: {fileID: 6899448223994471096, guid: 200eb56313a83da4a9e284b188c37c29, type: 2}
+      loop: 0
+      randomizeVolume: 0
+      volumeRange: {x: 1, y: 0}
+      randomizePitch: 0
+      pitchRange: {x: 1, y: 0}

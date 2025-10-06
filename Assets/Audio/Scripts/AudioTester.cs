@@ -2,9 +2,7 @@ using UnityEngine;
 
 public class AudioTester : MonoBehaviour
 {
-    public Sound testSound;
-    public GameObject playSoundObj, playSoundObj2, playSoundObj3;
-    SoundEmitter testingEmitter;
+    public SoundList list;
 
     private void Start()
     {
@@ -16,29 +14,23 @@ public class AudioTester : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            MusicManager.Instance.ChangeFromCutsceneToCombat();
-        }
-
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            MusicManager.Instance.SetEnemiesDefeated(1);
+            SoundManager.Instance.CreateSound().Play(list.GetSound("Attack"));
         }
 
         if (Input.GetKeyDown(KeyCode.W))
         {
-            MusicManager.Instance.ChangeFromCombatToCutscene();
-
+            SoundManager.Instance.CreateSound().Play(list.GetSound("Defend"));
         }
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            SoundManager.Instance.CreateSound().SetParent(playSoundObj3).PlayAndGetSoundEmitter(testSound, out testingEmitter);
+            SoundManager.Instance.CreateSound().Play(list.GetSound("TakeDamage"));
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
 
-            MusicManager.Instance.SetEnemiesDefeated(4);
+            SoundManager.Instance.ChangeAmbienceFromIndoorToBeach();
 
         }
 
