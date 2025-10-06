@@ -30,7 +30,7 @@ public class Player : Entity {
         if (playerUI != null) {
             // �������� UI ��� �����
             _isWaitingForInput = true;
-            playerUI.SetButtonsInteractable(true);
+            playerUI.SetButtonsInteractableBasedOnMana((int)Stats.Mana.CurrentValue, 10); 
 
             // ��������� ������ ��� ���������� 䳿
             _currentActionSource = new UniTaskCompletionSource<PlayerAction>();
@@ -79,13 +79,12 @@ public class Player : Entity {
 
             case PlayerAction.Mana:
                 if (context.Opponent != null && !context.Opponent.IsDead) {
-                    float manaBoost = Stats.Mana.RegenerationRate * 10f;
-                    CombatManager.Instance.ManaManager.GainMana(this, (int)manaBoost);
+                    CombatManager.Instance.ManaManager.GainMana(this);
                 }
                 break;
 
             case PlayerAction.Heal:
-                float healAmount = Stats.Health.MaxValue * healPercentage;
+                float healAmount = Stats.Attack.CurrentValue * healPercentage;
                 Heal(healAmount);
                 break;
         }
