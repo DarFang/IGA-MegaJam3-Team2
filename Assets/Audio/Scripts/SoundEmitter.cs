@@ -10,6 +10,7 @@ public class SoundEmitter : MonoBehaviour
     
     AudioSource audioSource;
     Coroutine playingCoroutine;
+    float volumeSaver;
 
     public AudioSource AudioSource => audioSource;
 
@@ -29,6 +30,37 @@ public class SoundEmitter : MonoBehaviour
         audioSource.Play();
         playingCoroutine = StartCoroutine(WaitForSoundToEnd());
         
+    }
+
+    public void Play(float fadeInTime)
+    {
+        StartCoroutine(IFadeIn(fadeInTime));
+    }
+
+    IEnumerator IFadeIn(float fadeInTime)
+    {
+        if (playingCoroutine != null)
+        {
+            StopCoroutine(playingCoroutine);
+
+        }
+
+        audioSource.volume = 0;
+        audioSource.Play();
+        playingCoroutine = StartCoroutine(WaitForSoundToEnd());
+
+        float elapsedTime = 0;
+
+        while (elapsedTime < fadeInTime)
+        {
+            float volume = Mathf.Lerp( 0, volumeSaver, elapsedTime / fadeInTime);
+            audioSource.volume = volume;
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        audioSource.volume = volumeSaver;
+
     }
 
     public void PlayMusic()
@@ -62,6 +94,29 @@ public class SoundEmitter : MonoBehaviour
 
     }
 
+    public void Stop(float fadeTime)
+    {
+        StartCoroutine(IFadeThenStop(fadeTime));
+    }
+
+    IEnumerator IFadeThenStop(float fadeTime)
+    {
+        float elapsedTime = 0;
+        float startVolume = audioSource.volume;
+
+        while (elapsedTime < fadeTime)
+        {
+            float volume = Mathf.Lerp(startVolume, 0, elapsedTime / fadeTime);
+            audioSource.volume = volume;
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        audioSource.volume = 0;
+        Stop();
+
+    }
+
     public void Initialize(Sound sound)
     {
         audioSource.clip = sound.GetAudioClip();
@@ -74,6 +129,7 @@ public class SoundEmitter : MonoBehaviour
         audioSource.spatialBlend = 0; //0 = full 2D, 1 = full 3D
         audioSource.spread = 0;
         audioSource.outputAudioMixerGroup = AudioMixerController.Instance.SFXGroup;
+        volumeSaver = audioSource.volume;
     }
 
 }

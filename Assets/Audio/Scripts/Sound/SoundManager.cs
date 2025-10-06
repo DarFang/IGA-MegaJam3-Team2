@@ -9,8 +9,8 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
     public bool muteAllSounds;
 
-    [SerializeField] private Sound ambience;
-    private SoundEmitter ambienceEmitter;
+    [SerializeField] private Sound ambience, beach;
+    private SoundEmitter ambienceEmitter, beachEmitter;
 
     /// <summary>
     /// Creates a sound to play. Contains the .AtPosition(Vector3), .SetParent(GameObject), .AutoDuckMusic(AudioMixerGroup), .Play(Sound), and .PlayAndGetSoundEmitter(Sound, out SoundEmiiter) extensions.
@@ -20,6 +20,18 @@ public class SoundManager : PersistentSingleton<SoundManager>
     private void Start()
     {
         CreateSound().SetParent(gameObject).PlayAndGetSoundEmitter(ambience, out ambienceEmitter);
+    }
+
+    public void ChangeAmbienceFromIndoorToBeach()
+    {
+        ambienceEmitter.Stop(7);
+        CreateSound().Play(beach, 7, out beachEmitter);
+    }
+
+    public void ChangeFromBeachToIndoor()
+    {
+        beachEmitter.Stop(7);
+        CreateSound().Play(ambience, 7, out ambienceEmitter);
     }
 
     public bool CanPlaySound(Sound sound)

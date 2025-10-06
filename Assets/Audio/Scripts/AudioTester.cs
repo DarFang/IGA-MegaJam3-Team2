@@ -3,7 +3,6 @@ using UnityEngine;
 public class AudioTester : MonoBehaviour
 {
     public SoundList list;
-    SoundEmitter testingEmitter;
 
     private void Start()
     {
@@ -31,7 +30,7 @@ public class AudioTester : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
 
-            MusicManager.Instance.SetEnemiesDefeated(4);
+            SoundManager.Instance.ChangeAmbienceFromIndoorToBeach();
 
         }
 
