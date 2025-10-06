@@ -1,6 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using System;
 using System.Threading;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -193,22 +194,27 @@ public class Entity : MonoBehaviour {
 
         Debug.Log($"[Combat] {name} gained {resultDefence:F1} defense");
     }
+    public void ConsumeMana(float amount)
+    {
+        if (IsDead) return;
+        Debug.Log($"[Combat] {name} consuming {amount} mana");
+        amount = math.abs(amount);
+        Stats.Mana.ConsumeMana(amount);
 
-    public void ApplyManaBuff(float amount) {
+    }
+    public float amountManaGained()
+    {
+        return Stats.Mana.RegenerationRate * 10f * (UpgradedAbilities.ManaUpgraded ? 1.5f : 1f);
+    }
+
+    public void ApplyManaBuff(float amount)
+    {
         if (IsDead) return;
 
-        float modifiedAmount = amount;
-        if (UpgradedAbilities != null) {
-            modifiedAmount = amount * (UpgradedAbilities.ManaUpgraded ? 1.5f : 1f);
-        }
-
-        if (modifiedAmount < 0) {
-            Stats.Mana.ConsumeMana(-modifiedAmount);
-        } else {
-            Stats.Mana.Add(modifiedAmount);
-        }
+        Stats.Mana.Add(amount);
+        
         // �������� �������� ����� �������
-        entityView?.ShowManaBuff(modifiedAmount);
+        entityView?.ShowManaBuff(amount);
 
         Debug.Log($"[Combat] {name} gained {amount:F1} mana");
     }
@@ -248,13 +254,14 @@ public class Entity : MonoBehaviour {
 
         if (Stats.Mana.CurrentValue < 10)
         {
-            CombatManager.Instance?.ManaManager.GainMana(this, 10);
+            CombatManager.Instance?.ManaManager.GainMana(this);
             return;
         }
 
         int action = UnityEngine.Random.Range(0, 3);
 
-        switch (action) {
+        switch (action)
+        {
             case 0:
                 Attack(context.Opponent);
                 break;
@@ -265,6 +272,9 @@ public class Entity : MonoBehaviour {
             case 2:
                 float defenseBoost = Stats.Attack.CurrentValue * defencePercentage;
                 ApplyDefenseBuff(defenseBoost);
+                break;
+            case 3:
+                CombatManager.Instance?.ManaManager.GainMana(this);
                 break;
         }
     }

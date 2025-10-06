@@ -24,15 +24,16 @@ using UnityEngine.Events;
             if (NeutralMana > MaxMana) NeutralMana = MaxMana;
             if(entity is Player)
             {
-                Player.ApplyManaBuff(-amountConsumed);
+                Player.ConsumeMana(-amountConsumed);
             }
             else if(entity is Enemy)
             {
-                Enemy.ApplyManaBuff(-amountConsumed);
+                Enemy.ConsumeMana(-amountConsumed);
             }
         }
-        public void GainMana(Entity entity, int amountGained) {
-            NeutralMana -= amountGained;
+        public void GainMana(Entity entity) {
+            float amountGained = (int)entity.amountManaGained();
+            NeutralMana -= (int)amountGained;
             float extraManaRequired = 0;
             Entity currentEntity = null;
             Entity otherEntity = null;
@@ -56,7 +57,7 @@ using UnityEngine.Events;
             Debug.Log(extraManaRequired + " extra mana required for " + otherEntity.name);
             if (extraManaRequired > 0)
             {
-                otherEntity.ApplyManaBuff(-extraManaRequired);
+                otherEntity.ConsumeMana(extraManaRequired);
             }
         }
     }

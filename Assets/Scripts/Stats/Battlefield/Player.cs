@@ -79,8 +79,7 @@ public class Player : Entity {
 
             case PlayerAction.Mana:
                 if (context.Opponent != null && !context.Opponent.IsDead) {
-                    float manaBoost = Stats.Mana.RegenerationRate * 10f;
-                    CombatManager.Instance.ManaManager.GainMana(this, (int)manaBoost);
+                    CombatManager.Instance.ManaManager.GainMana(this);
                 }
                 break;
 
