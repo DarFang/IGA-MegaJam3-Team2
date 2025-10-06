@@ -2,15 +2,29 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    public static GameManager Instance;
+    private bool isInCutScene = false;
+    public bool IsInCutScene { get { return isInCutScene; } set { isInCutScene = value; } }
+    private bool isInBattle = false;
+    public bool IsInBattle { get { return isInBattle; } set { isInBattle = value; } }
     void Start()
     {
-        
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
-
-    // Update is called once per frame
-    void Update()
+    public void SetIsInCutScene(bool value)
     {
-        
+        isInCutScene = value;
+    }
+    public void SetIsInBattle(bool value)
+    {
+        isInBattle = value;
     }
 }

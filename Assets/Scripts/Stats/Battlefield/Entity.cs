@@ -89,7 +89,7 @@ public class Entity : MonoBehaviour {
     private void HandleDefenceUpdate(float delta) {
         float defenceValue = Mathf.Round(Stats.Defense.CurrentValue * 100f) / 100f;
         string defenceText = defenceValue.ToString();
-        entityView.UpdateDefense(defenceText);
+        entityView.UpdateDefense(defenceText, Stats.Defense.MaxValue.ToString());
     }
 
     private void HandleDeath() {

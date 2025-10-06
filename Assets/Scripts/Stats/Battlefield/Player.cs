@@ -30,7 +30,7 @@ public class Player : Entity {
         if (playerUI != null) {
             // �������� UI ��� �����
             _isWaitingForInput = true;
-            playerUI.SetButtonsInteractable(true);
+            playerUI.SetButtonsInteractableBasedOnMana((int)Stats.Mana.CurrentValue, 10); 
 
             // ��������� ������ ��� ���������� 䳿
             _currentActionSource = new UniTaskCompletionSource<PlayerAction>();
