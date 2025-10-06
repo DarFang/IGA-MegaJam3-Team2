@@ -11,12 +11,14 @@ public class CombatEvent : Event
     {
         Debug.Log("Started combat event!");
         Debug.Log("Press (E) to start the combat");
+        MusicManager.Instance.ChangeFromCutsceneToCombat();
         OnEventStart?.Invoke();
     }
 
     public override void EndEvent()
     {
         Debug.Log("Ended combat event");
+        MusicManager.Instance.ChangeFromCombatToCutscene();
         OnEventEnd?.Invoke();
     }
 

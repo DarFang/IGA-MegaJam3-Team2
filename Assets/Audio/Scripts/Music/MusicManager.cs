@@ -13,11 +13,12 @@ public class MusicManager : PersistentSingleton<MusicManager>
     public MusicEvent[] allMusicEvents;
     private Dictionary<string, MusicPlayer> loadedMusicPlayers = new();
     private Dictionary<string, MusicPlayer> activeMusicPlayers = new();
+    private int enemiesDefeated = 0;
 
     private void Start()
     {
 
-        StartCutsceneMusic(4, 1);
+        StartCutsceneMusic(1);
 
     }
 
@@ -27,13 +28,26 @@ public class MusicManager : PersistentSingleton<MusicManager>
         StartCombatMusic();
     }
 
-    public void ChangeFromCombatToCutscene(int noOfItems)
+    public void ChangeFromCombatToCutscene()
     {
         StopSong(1, 1);
-        StartCutsceneMusic(noOfItems, 5);
+        StartCutsceneMusic(5);
     }
 
-    public void StartCutsceneMusic(int noOfItems, float fadeTime)
+    public void SetEnemiesDefeated(int numItems)
+    {
+        enemiesDefeated = numItems;
+
+        if (activeMusicPlayers.ContainsKey(allMusicEvents[0].name))
+        {
+            for  (int i = 0; i <= enemiesDefeated; ++i)
+            {
+                AddLayer(0, i, 5);
+            }
+        }
+    }
+
+    public void StartCutsceneMusic(float fadeTime)
     {
         if (AudioManager.Instance.muteAllAudio) return;
         if (muteAllMusic) return; 
@@ -44,13 +58,13 @@ public class MusicManager : PersistentSingleton<MusicManager>
             loadedMusicPlayers.Add(newMusicPlayer.name, newMusicPlayer);
         }
 
-        Mathf.Clamp(noOfItems, 0, allMusicEvents[0].musicLayers.Length);
+        //Mathf.Clamp(noOfItems, 0, allMusicEvents[0].musicLayers.Length);
 
         MusicPlayer playerToStart = loadedMusicPlayers[allMusicEvents[0].name];
         playerToStart.Play(fadeTime);
         activeMusicPlayers.Add(playerToStart.name, playerToStart);
 
-        for (int i = 0; i < noOfItems; ++i)
+        for (int i = 0; i <= enemiesDefeated; ++i)
         {
             AddLayer(0, i, fadeTime);
         }

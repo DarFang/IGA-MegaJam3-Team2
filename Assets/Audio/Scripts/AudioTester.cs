@@ -21,12 +21,12 @@ public class AudioTester : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.A))
         {
-            testingEmitter.Stop();
+            MusicManager.Instance.SetEnemiesDefeated(1);
         }
 
         if (Input.GetKeyDown(KeyCode.W))
         {
-            MusicManager.Instance.ChangeFromCombatToCutscene(5);
+            MusicManager.Instance.ChangeFromCombatToCutscene();
 
         }
 
@@ -38,7 +38,7 @@ public class AudioTester : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
 
-            MusicManager.Instance.ChangeLayers(0, new int[] { 2 }, new int[] { 1 }, 7);
+            MusicManager.Instance.SetEnemiesDefeated(4);
 
         }
 
