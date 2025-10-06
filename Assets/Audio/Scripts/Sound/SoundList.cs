@@ -20,7 +20,7 @@ public class SoundList : ScriptableObject
             if (sound.name == nameOfSound) return sound;
         }
 
-        Debug.LogWarning("No sound of name " + nameOfSound + " found");
+        //Debug.LogWarning("No sound of name " + nameOfSound + " found");
         return null;
 
     }
