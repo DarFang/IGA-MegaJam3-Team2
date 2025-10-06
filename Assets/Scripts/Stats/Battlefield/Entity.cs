@@ -17,7 +17,7 @@ public class Entity : MonoBehaviour {
     public event Action<float> OnHealed;
 
     [Range(0, 1f)]
-    [SerializeField] protected float healPercentage = 0.2f;
+    [SerializeField] protected float healPercentage = 0.6f;
     [Range(0, 1f)]
     [SerializeField] protected float defencePercentage = 0.3f;
 
@@ -266,7 +266,7 @@ public class Entity : MonoBehaviour {
                 Attack(context.Opponent);
                 break;
             case 1:
-                float healAmount = Stats.Health.MaxValue * healPercentage;
+                float healAmount = Stats.Attack.CurrentValue * healPercentage;
                 Heal(healAmount);
                 break;
             case 2:
