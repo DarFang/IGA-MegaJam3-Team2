@@ -31,4 +31,11 @@ public class PauseMenuController : BookMenuController
 	{
 		bookAnimator.SetBool("book_up", value);
 	}
+
+	public void SetBookOpenState(bool value)
+	{
+		bookAnimator.SetBool("book_open", value);
+	}
+
+	public bool GetBookOpenState() => bookAnimator.GetBool("book_open");
 }

@@ -414,8 +414,8 @@ Canvas:
   m_Enabled: 1
   serializedVersion: 3
   m_RenderMode: 1
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 10
+  m_Camera: {fileID: 5991131035992197739}
+  m_PlaneDistance: 1
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0
@@ -534,6 +534,18 @@ PrefabInstance:
     - target: {fileID: 11426072, guid: 58ac37417e60e534f91138088a3e6f70, type: 3}
       propertyPath: displaySettings.subtitleSettings.skipPCSubtitleAfterResponseMenu
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 22325660, guid: 58ac37417e60e534f91138088a3e6f70, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 5991131035992197739}
+    - target: {fileID: 22325660, guid: 58ac37417e60e534f91138088a3e6f70, type: 3}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 22325660, guid: 58ac37417e60e534f91138088a3e6f70, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -777,6 +789,10 @@ PrefabInstance:
     - target: {fileID: 125223002771562816, guid: 61c6caad7c64da74597a71ce39fa4187, type: 3}
       propertyPath: m_Camera
       value: 
+      objectReference: {fileID: 5991131035992197739}
+    - target: {fileID: 125223002771562816, guid: 61c6caad7c64da74597a71ce39fa4187, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 402223075000736309, guid: 61c6caad7c64da74597a71ce39fa4187, type: 3}
       propertyPath: OnBattleEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1928,6 +1944,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6559601a30c98e843befb7b451eb5ea2, type: 3}
+--- !u!20 &1804022126 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 6054857038203039715, guid: 6559601a30c98e843befb7b451eb5ea2, type: 3}
+  m_PrefabInstance: {fileID: 1804022125}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &2018972177 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1774402464289187727, guid: 61c6caad7c64da74597a71ce39fa4187, type: 3}
@@ -2903,7 +2924,8 @@ MonoBehaviour:
   m_RequiresDepthTextureOption: 2
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
-  m_Cameras: []
+  m_Cameras:
+  - {fileID: 1804022126}
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
