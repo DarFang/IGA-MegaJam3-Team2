@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,19 +36,19 @@ namespace AudioSystem
 
         }
 
-        public void PlayDelayed(int layerID, float waitTime)
+        public void PlayDelayed(int layerID, int layerToWaitFor)
         {
-            StartCoroutine(IPlayDelayed(layerID, waitTime));
+            StartCoroutine(IPlayDelayed(layerID, layerToWaitFor));
         }
 
-        private IEnumerator IPlayDelayed(int layerID, float waitTime)
+        private IEnumerator IPlayDelayed(int layerID, int layerToWaitFor)
         {
             float volume = _musicEvent.musicLayers[layerID].defaultVolume + _musicEvent.volume;
-            print("Volume = " + volume);
+            //print("Volume = " + volume);
             _musicLayerEventEmitters[layerID].AudioSource.volume = 0;
             _musicLayerEventEmitters[layerID].PlayMusic();
 
-            yield return new WaitForSeconds(waitTime);
+            yield return new WaitWhile(() => _musicLayerEventEmitters[layerToWaitFor].AudioSource.isPlaying);
 
             _musicLayerEventEmitters[layerID].AudioSource.time = 0; 
             _musicLayerEventEmitters[layerID].AudioSource.volume = volume;

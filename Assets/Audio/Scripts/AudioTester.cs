@@ -8,7 +8,7 @@ public class AudioTester : MonoBehaviour
 
     private void Start()
     {
-        //MusicManager.Instance.PlaySong(0, 5);
+        
 
     }
 
@@ -16,7 +16,7 @@ public class AudioTester : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            SoundManager.Instance.CreateSound().SetParent(playSoundObj).AutoDuckMusic().PlayAndGetSoundEmitter(testSound, out testingEmitter);
+            MusicManager.Instance.ChangeFromCutsceneToCombat();
         }
 
         if (Input.GetKeyDown(KeyCode.A))
@@ -26,7 +26,8 @@ public class AudioTester : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.W))
         {
-            SoundManager.Instance.CreateSound().SetParent(playSoundObj2).PlayAndGetSoundEmitter(testSound, out testingEmitter);
+            MusicManager.Instance.ChangeFromCombatToCutscene(5);
+
         }
 
         if (Input.GetKeyDown(KeyCode.E))

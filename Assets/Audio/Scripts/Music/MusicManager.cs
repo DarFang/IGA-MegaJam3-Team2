@@ -17,7 +17,43 @@ public class MusicManager : PersistentSingleton<MusicManager>
     private void Start()
     {
 
+        StartCutsceneMusic(4, 1);
+
+    }
+
+    public void ChangeFromCutsceneToCombat()
+    {
+        StopSong(0, 2);
         StartCombatMusic();
+    }
+
+    public void ChangeFromCombatToCutscene(int noOfItems)
+    {
+        StopSong(1, 1);
+        StartCutsceneMusic(noOfItems, 5);
+    }
+
+    public void StartCutsceneMusic(int noOfItems, float fadeTime)
+    {
+        if (AudioManager.Instance.muteAllAudio) return;
+        if (muteAllMusic) return; 
+        if (!loadedMusicPlayers.ContainsKey(allMusicEvents[0].name))
+        {
+            MusicPlayer newMusicPlayer = gameObject.AddComponent<MusicPlayer>();
+            newMusicPlayer.Initialize(allMusicEvents[0]);
+            loadedMusicPlayers.Add(newMusicPlayer.name, newMusicPlayer);
+        }
+
+        Mathf.Clamp(noOfItems, 0, allMusicEvents[0].musicLayers.Length);
+
+        MusicPlayer playerToStart = loadedMusicPlayers[allMusicEvents[0].name];
+        playerToStart.Play(fadeTime);
+        activeMusicPlayers.Add(playerToStart.name, playerToStart);
+
+        for (int i = 0; i < noOfItems; ++i)
+        {
+            AddLayer(0, i, fadeTime);
+        }
 
     }
 
@@ -25,16 +61,16 @@ public class MusicManager : PersistentSingleton<MusicManager>
     {
         if (AudioManager.Instance.muteAllAudio) return;
         if (muteAllMusic) return;
-        if (!loadedMusicPlayers.ContainsKey(allMusicEvents[0].name))
+        if (!loadedMusicPlayers.ContainsKey(allMusicEvents[1].name))
         {
             MusicPlayer newMusicPlayer = gameObject.AddComponent<MusicPlayer>();
-            newMusicPlayer.Initialize(allMusicEvents[0]);
+            newMusicPlayer.Initialize(allMusicEvents[1]);
             loadedMusicPlayers.Add(newMusicPlayer.name, newMusicPlayer);
         }
         
-        MusicPlayer playerToStart = loadedMusicPlayers[allMusicEvents[0].name];
+        MusicPlayer playerToStart = loadedMusicPlayers[allMusicEvents[1].name];
         playerToStart.Play(0.5f);
-        playerToStart.PlayDelayed(1, 12.8f);
+        playerToStart.PlayDelayed(1, 0);
         activeMusicPlayers.Add(playerToStart.name, playerToStart);
     }
 

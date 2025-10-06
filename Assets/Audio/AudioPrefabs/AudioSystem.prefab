@@ -245,4 +245,5 @@ MonoBehaviour:
   AutoUnparentOnAwake: 1
   muteAllMusic: 0
   allMusicEvents:
+  - {fileID: 11400000, guid: e7d16af62769ab14d8b08a6445fa7afc, type: 2}
   - {fileID: 11400000, guid: cd12db25eca5c8c4787c90e5743e8352, type: 2}
