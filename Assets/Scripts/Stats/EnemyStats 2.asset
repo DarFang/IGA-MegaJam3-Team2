@@ -24,11 +24,11 @@ MonoBehaviour:
     minValue: 0
   defenseData:
     baseValue: 15
-    maxValue: 30
+    maxValue: 40
     minValue: 0
   manaData:
     baseValue: 20
-    maxValue: 100
+    maxValue: 40
     minValue: 0
     regeneration: 1
     hasRegeneration: 1

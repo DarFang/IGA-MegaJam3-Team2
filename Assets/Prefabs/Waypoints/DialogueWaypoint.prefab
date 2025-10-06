@@ -48,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Order>k__BackingField: 0
   <Event>k__BackingField: {fileID: 2557420968513472070}
+  <AutoStart>k__BackingField: 0
 --- !u!114 &2557420968513472070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,6 +61,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e1d11c8bc706cc4fba10f39dda8e415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SkippEvent: 0
   <OnEventStart>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
@@ -85,7 +87,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2699540639754789148
 Transform:
   m_ObjectHideFlags: 0

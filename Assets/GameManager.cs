@@ -13,15 +13,7 @@ public class GameManager : MonoBehaviour
     public GameObject ActionsPanel;
     void Start()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        Instance = this;
     }
     public void SetIsInCutScene(bool value)
     {
@@ -52,5 +44,9 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         SceneController.Instance.StartSceneSwitch(SceneType.Level);
+    }
+    public void EndGame()
+    {
+        SceneController.Instance.StartSceneSwitch(SceneType.Credits);
     }
 }
