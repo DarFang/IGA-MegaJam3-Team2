@@ -97,7 +97,11 @@ public class BattleFieldManager : MonoBehaviour {
     private void EndBattle() {
         Entity winner = player.IsDead ? enemy : player;
         Debug.Log($"[BattleField] Battle ended. Winner: {winner.name}");
-
+        if (winner == enemy)
+        {
+            GameManager.Instance.GameOver();
+            return;
+        }
         Destroy(enemy.gameObject);
         OnBattleEnd?.Invoke(winner == player);
 
