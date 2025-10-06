@@ -167,6 +167,8 @@ public class PathHandler : MonoBehaviour
             CurrentWaypoint.Event.StartEvent();
             if (CurrentWaypoint.Event.SkippEvent)
                 HandleWaypointEventEnd();
+
+        // UNDONE: Error check
         else if (CurrentWaypoint.Event is not DialogueEvent)
             Debug.LogError($"{CurrentWaypoint.name} has no event assigned.", CurrentWaypoint);
     }
