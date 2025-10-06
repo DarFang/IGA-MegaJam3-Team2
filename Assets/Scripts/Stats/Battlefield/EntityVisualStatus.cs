@@ -7,16 +7,16 @@ using UnityEngine.UI;
 public class EntityVisualStatus : MonoBehaviour {
     // UI-����������
     [Header("Health UI")]
-    [SerializeField] private Image healthSlider;
+    [SerializeField] private SlicedFilledImage healthSlider;
     [SerializeField] private TextMeshProUGUI healthText;
     [SerializeField] private Graphic[] componentsToFadeOnDeath;
 
     [Header("Mana UI")]
-    [SerializeField] private Image manaSlider;
+    [SerializeField] private SlicedFilledImage manaSlider;
     [SerializeField] private TextMeshProUGUI manaText;
 
     [Header("Defence UI")]
-    [SerializeField] private Image defenceSlider;
+    [SerializeField] private SlicedFilledImage defenceSlider;
     [SerializeField] private TextMeshProUGUI defenceText;
 
     [Header("Text Fields")]

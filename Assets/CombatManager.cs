@@ -13,7 +13,7 @@ public class CombatManager : MonoBehaviour
     public List<Encounter> Encounters;
     public GeneralCombatUI GeneralCombatUI;
     public ManaManager ManaManager;
-    public Image manaPercentageImage;
+    public SlicedFilledImage manaPercentageImage;
     public TextMeshProUGUI manaText;
     private void Start() {
         DisableAllBattlefieldManagers();

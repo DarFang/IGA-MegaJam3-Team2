@@ -911,12 +911,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8b978571d55ec8459b1a2d802e6f710, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthSlider: {fileID: 0}
+  healthSlider: {fileID: 9095203963147411618}
   healthText: {fileID: 4525235651264366596}
   componentsToFadeOnDeath: []
-  manaSlider: {fileID: 0}
+  manaSlider: {fileID: 6372206903955299149}
   manaText: {fileID: 3322292699938133751}
-  defenceSlider: {fileID: 0}
+  defenceSlider: {fileID: 8477630165311207989}
   defenceText: {fileID: 1463280435897094131}
   characterNameText: {fileID: 3961512879097290449}
   actionText: {fileID: 8546731262627831729}

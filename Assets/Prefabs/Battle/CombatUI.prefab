@@ -1051,7 +1051,7 @@ MonoBehaviour:
   - {fileID: 744162879910032874}
   GeneralCombatUI: {fileID: 3546424385490290352}
   ManaManager: {fileID: 6348271069132072375}
-  manaPercentageImage: {fileID: 0}
+  manaPercentageImage: {fileID: 5338904109403234598}
   manaText: {fileID: 6902059609082774370}
 --- !u!114 &3546424385490290352
 MonoBehaviour:
