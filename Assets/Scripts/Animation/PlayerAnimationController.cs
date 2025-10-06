@@ -1,19 +1,24 @@
 using System;
 using UnityEngine;
 
-public class PlayerAnimations : MonoBehaviour
+public class PlayerAnimationController : AnimationController
 {
     #region Exposed Fields
 
     [SerializeField] private PlayerUI _playerUI;
-    [SerializeField]private bool _testing;
+    [SerializeField] private bool _testing;
 
     #endregion
 
     #region Private Fields
 
-    private Animator _animator;
     private PlayerMovement _playerMovement;
+
+    #endregion
+
+    #region Protected Fields
+
+    protected override Animator Animator { get; set; }
 
     #endregion
 
@@ -21,7 +26,7 @@ public class PlayerAnimations : MonoBehaviour
 
     private void Awake()
     {
-        _animator = GetComponent<Animator>();
+        Animator = GetComponent<Animator>();
         _playerMovement = GetComponentInParent<PlayerMovement>();
     }
     private void Start() => StartListening();
@@ -65,23 +70,23 @@ public class PlayerAnimations : MonoBehaviour
 
     #region Animator Methods
 
-    private void SetMoveTrigger() => _animator.SetTrigger("Move");
-    private void SetIdleTrigger() => _animator.SetTrigger("Idle");
+    private void SetMoveTrigger() => Animator.SetTrigger("Move");
+    private void SetIdleTrigger() => Animator.SetTrigger("Idle");
     private void PlayerUI_OnActionSelected(PlayerAction action)
     {
         switch(action)
         {
             case PlayerAction.Attack:
-                _animator.SetTrigger("Attack");
+                Animator.SetTrigger("Attack");
                 break;
             case PlayerAction.Defense:
-                _animator.SetTrigger("Defend");
+                Animator.SetTrigger("Defend");
                 break;
             case PlayerAction.Mana:
-                _animator.SetTrigger("Mana");
+                Animator.SetTrigger("Mana");
                 break;
             case PlayerAction.Heal:
-                _animator.SetTrigger("Heal");
+                Animator.SetTrigger("Heal");
                 break;
         }
     }
