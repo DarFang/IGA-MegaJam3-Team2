@@ -12,9 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 191be68f0522b8f46b31c83ce1194cbc, type: 3}
   m_Name: Purple
   m_EditorClassIdentifier: 
-  itemName: Purple Orb
+  itemName: "Metus\u2019 Indomitable Courage Orb "
   itemIcon: {fileID: 21300000, guid: dc7d8d5a7da061441a565d8320ee79c4, type: 3}
-  description: 
+  description: "Her heart beats in rhythm to the quiet strength emanating from the
+    orb. \n\r\nNo longer will the shadows taunt her and make her shiver with fear.
+    No more will the creatures hiding underneath her bed torment her.\n\r\nShe\u2019ll
+    face these Fragments with the indomitable courage she gained from Metus. The
+    Library of Limbo holds many secrets, but Wen Ruyi is determined to solve them.
+    What fate awaits her at the end of this journey? Only time will tell."
   startsUnknown: 1
   unknownName: Unknown Item
   unknownIcon: {fileID: 21300000, guid: fbbbefd184988a24cbfda9d0187d93c4, type: 3}

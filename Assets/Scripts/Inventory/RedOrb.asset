@@ -12,9 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 191be68f0522b8f46b31c83ce1194cbc, type: 3}
   m_Name: RedOrb
   m_EditorClassIdentifier: 
-  itemName: red
+  itemName: "Zenghen Ai\u2019s Unwavering Love Orb"
   itemIcon: {fileID: 21300000, guid: d684a0306571b3841a4d25c19448f6cb, type: 3}
-  description: 
+  description: "Her heart finds peace as she holds the orb gently in her hands. The
+    turmoil locked deep inside is finally freed.\r\n\nWen Ruyi remembers staring
+    at her paintings feeling as if she would never amount to anything. She wanted
+    to rip them to shreds until there was nothing left to remind her of her failures.
+    The darkness of her room was not enough to cover the sickening reflection she
+    saw in the mirror.\r\n\nBut, with Zenghen Ai\u2019s unwavering love to guide
+    her, Wen Ruyi blooms like a lotus from muddy waters. Her hatred for herself washes
+    away and she is reborn anew. Her journey is complete and she hopes the Vermilion
+    Bird will usher her safe passage to the celestial realm."
   startsUnknown: 1
   unknownName: Unknown Item
   unknownIcon: {fileID: 21300000, guid: fbbbefd184988a24cbfda9d0187d93c4, type: 3}
