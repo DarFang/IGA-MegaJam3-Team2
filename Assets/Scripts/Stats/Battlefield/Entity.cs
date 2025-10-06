@@ -96,6 +96,7 @@ public class Entity : MonoBehaviour {
         if (IsDead) return;
 
         IsDead = true;
+        SoundManager.Instance.CreateSound().Play(actionSoundList.GetSound("Death"));
         Debug.Log($"[Entity] {name} has died");
         OnDeath?.Invoke(this);
     }

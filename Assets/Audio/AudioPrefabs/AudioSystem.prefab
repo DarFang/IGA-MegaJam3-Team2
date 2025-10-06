@@ -46,6 +46,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AutoUnparentOnAwake: 1
   muteAllSounds: 0
+  gainManaSound:
+    name: GainMana
+    frequentSound: 0
+    mute: 0
+    clips:
+    - {fileID: 8300000, guid: 529283b917b9a654eb6b372ca6bdf292, type: 3}
+    soundSettings:
+      mixerGroup: {fileID: 6899448223994471096, guid: 200eb56313a83da4a9e284b188c37c29, type: 2}
+      loop: 0
+      randomizeVolume: 0
+      volumeRange: {x: 1, y: 0}
+      randomizePitch: 1
+      pitchRange: {x: 0.8, y: 1.1}
   ambience:
     name: Ambience
     frequentSound: 0

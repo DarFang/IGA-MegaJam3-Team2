@@ -9,6 +9,8 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
     public bool muteAllSounds;
 
+    public Sound gainManaSound;
+
     [SerializeField] private Sound ambience, beach;
     private SoundEmitter ambienceEmitter, beachEmitter;
 
