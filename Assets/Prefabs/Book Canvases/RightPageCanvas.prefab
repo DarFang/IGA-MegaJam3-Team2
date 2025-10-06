@@ -457,7 +457,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 75, y: 75}
+  m_SizeDelta: {x: 100, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &427547807376363628
 CanvasRenderer:
@@ -1538,7 +1538,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 75, y: 75}
+  m_SizeDelta: {x: 100, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5173312851582065548
 CanvasRenderer:
@@ -2344,7 +2344,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 75, y: 75}
+  m_SizeDelta: {x: 100, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4656357999645301245
 CanvasRenderer:
@@ -2508,7 +2508,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 6
   m_TargetDisplay: 0
 --- !u!114 &704493968726415835
 MonoBehaviour:
@@ -2532,7 +2532,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &4572350478805898859
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3036,7 +3036,7 @@ MonoBehaviour:
   canvasGroups:
   - {fileID: 0}
   - {fileID: 6133185553522756941}
-  audioMixer: {fileID: 24100000, guid: eb8a91e9901259a4ea085c86e1141ab8, type: 2}
+  audioMixer: {fileID: 24100000, guid: 200eb56313a83da4a9e284b188c37c29, type: 2}
   masterSlider: {fileID: 8689190783667996121}
   masterText: {fileID: 4401410596581155621}
   musicSlider: {fileID: 6692051737860023826}

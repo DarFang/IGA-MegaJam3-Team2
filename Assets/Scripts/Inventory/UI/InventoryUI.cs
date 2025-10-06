@@ -1,8 +1,7 @@
 using System.Collections.Generic;
-using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using System;
 
 public class InventoryUI : MonoBehaviour {
     [Header("Inventory Reference")]
@@ -10,27 +9,48 @@ public class InventoryUI : MonoBehaviour {
 
     [Header("UI Components")]
     [SerializeField] private GameObject inventoryPanel;
-    [SerializeField] private Transform slotContainer;
-    [SerializeField] private GameObject slotPrefab;
+    [SerializeField] private Transform itemContainer;
+    [SerializeField] private GameObject itemSlotPrefab;
     [SerializeField] private ItemDetailPanel detailPanel;
+    [SerializeField] private TextMeshProUGUI itemCountText;
+    [SerializeField] private TextMeshProUGUI unidentifiedCountText;
+
+    [Header("Action Buttons")]
     [SerializeField] private Button useButton;
     [SerializeField] private Button dropButton;
-    [SerializeField] private Button sortButton;
+    [SerializeField] private Button dropAllButton;
+    [SerializeField] private Button identifyButton;
 
+    [Header("Sort Buttons")]
+    [SerializeField] private Button sortByNameButton;
+    [SerializeField] private Button sortByRarityButton;
+    [SerializeField] private Button sortByStatusButton;
+
+    [Header("Special Buttons")]
+    [SerializeField] private Button identifyAllButton;
     [SerializeField] private Button closeButton;
 
     [Header("Settings")]
     [SerializeField] private KeyCode toggleKey = KeyCode.I;
 
-    private List<InventorySlotUI> slotUIs = new List<InventorySlotUI>();
-    private InventorySlotUI selectedSlotUI;
+    private List<InventorySlotUI> slotUIPool = new List<InventorySlotUI>();
+    private int selectedIndex = -1;
 
     private void Start() {
-        InitializeUI();
         inventoryPanel.SetActive(false);
+        detailPanel?.Toggle(false);
 
-        inventory.OnSlotUpdated += OnSlotUpdated;
-        inventory.OnInventoryChanged += OnInventoryChanged;
+        if (inventory != null) {
+            inventory.OnItemAdded += OnItemAdded;
+            inventory.OnItemRemoved += OnItemRemoved;
+            inventory.OnItemUpdated += OnItemUpdated;
+            inventory.OnItemIdentified += OnItemIdentified;
+            inventory.OnInventoryChanged += OnInventoryChanged;
+        }
+
+
+        SetupButtons();
+        UpdateCountDisplays();
     }
 
     private void Update() {
@@ -39,98 +59,221 @@ public class InventoryUI : MonoBehaviour {
         }
     }
 
-    private void InitializeUI() {
-        foreach (Transform child in slotContainer) {
-            Destroy(child.gameObject);
-        }
-        slotUIs.Clear();
+    private void SetupButtons() {
+        useButton?.onClick.AddListener(UseSelectedItem);
+        dropButton?.onClick.AddListener(DropSelectedItem);
+        dropAllButton?.onClick.AddListener(DropAllSelectedItems);
+        identifyButton?.onClick.AddListener(IdentifySelectedItem);
 
-        for (int i = 0; i < inventory.Slots.Count; i++) {
-            GameObject slotObj = Instantiate(slotPrefab, slotContainer);
-            InventorySlotUI slotUI = slotObj.GetComponent<InventorySlotUI>();
-            slotUI.SetIndex(i);
+        sortByNameButton?.onClick.AddListener(() => inventory.SortByName());
+        sortByRarityButton?.onClick.AddListener(() => inventory.SortByRarity());
+        sortByStatusButton?.onClick.AddListener(() => inventory.SortByIdentificationStatus());
 
-            slotUI.OnClicked += SelectSlot;
+        identifyAllButton?.onClick.AddListener(() => inventory.IdentifyAllItems());
+        closeButton?.onClick.AddListener(ToggleInventory);
 
-            slotUIs.Add(slotUI);
-        }
-
-        RefreshAllSlots();
-
-        if (useButton != null)
-            useButton.onClick.AddListener(UseSelectedItem);
-        if (dropButton != null)
-            dropButton.onClick.AddListener(DropSelectedItem);
-        if (sortButton != null)
-            sortButton.onClick.AddListener(SortInventory);
-        if (closeButton != null)
-            closeButton.onClick.AddListener(ToggleInventory);
+        UpdateActionButtons();
     }
 
-    private void RefreshAllSlots() {
-        for (int i = 0; i < slotUIs.Count; i++) {
-            var slot = inventory.GetSlot(i);
-            slotUIs[i].UpdateSlot(slot);
+    private void OnItemAdded(InventorySlot slot) {
+        RebuildUI();
+        UpdateCountDisplays();
+    }
+
+    private void OnItemRemoved(InventorySlot slot) {
+        RebuildUI();
+        UpdateCountDisplays();
+
+        if (selectedIndex >= inventory.Count) {
+            ClearSelection();
         }
     }
 
-    private void RefreshSlot(int index) {
-        if (index >= 0 && index < slotUIs.Count) {
-            var slot = inventory.GetSlot(index);
-            slotUIs[index].UpdateSlot(slot);
+    private void OnItemUpdated(InventorySlot slot) {
+        int index = inventory.GetItemIndex(slot);
+        if (index >= 0 && index < slotUIPool.Count) {
+            slotUIPool[index].UpdateDisplay();
         }
     }
 
-    private void OnSlotUpdated(InventorySlot slot) {
-        int index = inventory.Slots.IndexOf(slot);
-        if (index != -1) {
-            RefreshSlot(index);
+    private void OnItemIdentified(InventorySlot slot) {
+        int index = inventory.GetItemIndex(slot);
+        if (index >= 0 && index < slotUIPool.Count) {
+            slotUIPool[index].UpdateDisplay();
         }
+
+        // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ detail panel пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ item
+        if (selectedIndex == index) {
+            UpdateSelectionDisplay();
+        }
+
+        UpdateCountDisplays();
     }
 
     private void OnInventoryChanged() {
-        RefreshAllSlots();
-        UpdateActionButtons();
+        RebuildUI();
+        UpdateCountDisplays();
     }
 
-    public void SelectSlot(InventorySlotUI slotUI, int index) {
-        // Скасовуємо попередній вибір
-        if (selectedSlotUI != null) {
-            selectedSlotUI.SetSelected(false);
+    private void RebuildUI() {
+        foreach (var slotUI in slotUIPool) {
+            if (slotUI != null) {
+                Destroy(slotUI.gameObject);
+            }
+        }
+        slotUIPool.Clear();
+
+        for (int i = 0; i < inventory.Count; i++) {
+            CreateSlotUI(inventory.GetItemAt(i), i);
         }
 
-        selectedSlotUI = slotUI;
-        selectedSlotUI.SetSelected(true);
-
-        var slot = inventory.GetSlot(index);
-        if (slot != null && !slot.IsEmpty) {
-            detailPanel.ShowItemDetails(slot.Item);
-        } else {
-            detailPanel.Hide();
+        if (selectedIndex >= 0 && selectedIndex < slotUIPool.Count) {
+            slotUIPool[selectedIndex].SetSelected(true);
         }
-
-        UpdateActionButtons();
     }
 
-    private void UpdateActionButtons() {
-        if (selectedSlotUI == null) {
+    private void CreateSlotUI(InventorySlot slot, int index) {
+        GameObject slotObj = Instantiate(itemSlotPrefab, itemContainer);
+        InventorySlotUI slotUI = slotObj.GetComponent<InventorySlotUI>();
+
+        slotUI.Initialize(slot, index);
+        slotUI.OnClicked += SelectItem;
+        slotUI.OnRightClicked += QuickUseItem;
+
+        slotUIPool.Add(slotUI);
+    }
+
+    private void SelectItem(int index) {
+        if (index < 0 || index >= slotUIPool.Count) return;
+
+        if (selectedIndex == index) {
+            ClearSelection();
             return;
         }
 
-        var slot = inventory.GetSlot(selectedSlotUI.Index);
-        bool hasValidSelection = slot != null && !slot.IsEmpty;
-        UpdateButtonInteractivity(hasValidSelection);
+        if (selectedIndex >= 0 && selectedIndex < slotUIPool.Count) {
+            slotUIPool[selectedIndex].SetSelected(false);
+        }
+
+        selectedIndex = index;
+        slotUIPool[index].SetSelected(true);
+
+        UpdateSelectionDisplay();
+        UpdateActionButtons();
     }
 
-    public void UpdateButtonInteractivity(bool isEnabled) {
-        if (useButton != null) {
-            useButton.interactable = isEnabled;
+    private void UpdateSelectionDisplay() {
+        var slot = inventory.GetItemAt(selectedIndex);
+        if (slot != null) {
+            detailPanel?.ShowItemDetails(slot);
         }
-        
-        if (dropButton != null) {
-            dropButton.interactable = isEnabled;
+    }
+
+    private void ClearSelection() {
+        if (selectedIndex >= 0 && selectedIndex < slotUIPool.Count) {
+            slotUIPool[selectedIndex].SetSelected(false);
         }
-       
+
+        selectedIndex = -1;
+        detailPanel?.Toggle(false);
+        UpdateActionButtons();
+    }
+
+    private void QuickUseItem(int index) {
+        var slot = inventory.GetItemAt(index);
+        if (slot == null || !slot.IsIdentified) return;
+
+        if (slot.Item is ConsumableItem consumable) {
+            consumable.Consume();
+            inventory.RemoveItemAt(index, 1);
+        }
+    }
+
+    private void UseSelectedItem() {
+        if (selectedIndex < 0) return;
+
+        var slot = inventory.GetItemAt(selectedIndex);
+        if (slot == null || !slot.IsIdentified) return;
+
+        if (slot.Item is ConsumableItem consumable) {
+            consumable.Consume();
+            inventory.RemoveItemAt(selectedIndex, 1);
+        }
+    }
+
+    private void DropSelectedItem() {
+        if (selectedIndex < 0) return;
+        inventory.RemoveItemAt(selectedIndex, 1);
+    }
+
+    private void DropAllSelectedItems() {
+        if (selectedIndex < 0) return;
+
+        var slot = inventory.GetItemAt(selectedIndex);
+        if (slot == null) return;
+
+        inventory.RemoveItemAt(selectedIndex, slot.Quantity);
+        ClearSelection();
+    }
+
+    private void IdentifySelectedItem() {
+        if (selectedIndex < 0) return;
+
+        bool identified = inventory.IdentifyItemAt(selectedIndex);
+        if (identified) {
+            Debug.Log("Item identified!");
+        }
+    }
+    public void IdentifyItem(int Index)
+    {
+        if (Index < 0) return;
+
+        bool identified = inventory.IdentifyItemAt(Index);
+        if (identified) {
+            Debug.Log("Item identified!");
+        }
+    }
+
+    private void UpdateActionButtons()
+    {
+        bool hasSelection = selectedIndex >= 0 && selectedIndex < inventory.Count;
+
+        if (hasSelection)
+        {
+            var slot = inventory.GetItemAt(selectedIndex);
+            bool isIdentified = slot.IsIdentified;
+            bool canUse = isIdentified && slot.Item is ConsumableItem;
+
+            if (useButton != null) useButton.interactable = canUse;
+            if (dropButton != null) dropButton.interactable = true;
+            if (dropAllButton != null) dropAllButton.interactable = slot.Quantity > 1;
+            if (identifyButton != null) identifyButton.interactable = !isIdentified;
+        }
+        else
+        {
+            if (useButton != null) useButton.interactable = false;
+            if (dropButton != null) dropButton.interactable = false;
+            if (dropAllButton != null) dropAllButton.interactable = false;
+            if (identifyButton != null) identifyButton.interactable = false;
+        }
+
+        // Identify All button
+        if (identifyAllButton != null)
+        {
+            identifyAllButton.interactable = inventory.GetUnidentifiedCount() > 0;
+        }
+    }
+
+    private void UpdateCountDisplays() {
+        if (itemCountText != null) {
+            itemCountText.text = $"Items: {inventory.Count}/{inventory.MaxCapacity}";
+        }
+
+        if (unidentifiedCountText != null) {
+            int unidentifiedCount = inventory.GetUnidentifiedCount();
+            unidentifiedCountText.text = $"Unidentified: {unidentifiedCount}";
+            unidentifiedCountText.gameObject.SetActive(unidentifiedCount > 0);
+        }
     }
 
     public void ToggleInventory() {
@@ -138,80 +281,19 @@ public class InventoryUI : MonoBehaviour {
         inventoryPanel.SetActive(isActive);
 
         if (isActive) {
-            RefreshAllSlots();
-            ClearSelection();
+            RebuildUI();
         } else {
-            detailPanel.Hide();
+            ClearSelection();
         }
-    }
-
-    private void ClearSelection() {
-        if (selectedSlotUI != null) {
-            selectedSlotUI.SetSelected(false);
-            selectedSlotUI = null;
-        }
-        UpdateActionButtons();
-    }
-
-    public void UseSelectedItem() {
-        if (selectedSlotUI.Index >= 0) {
-            UseItem(selectedSlotUI.Index);
-        }
-    }
-
-    private void UseItem(int slotIndex) {
-        var slot = inventory.GetSlot(slotIndex);
-        if (slot == null || slot.IsEmpty) return;
-
-        if (slot.Item is ConsumableItem consumable) {
-            consumable.Consume();
-            inventory.RemoveItem(slot.Item, 1);
-        }
-        // Додати логіку для екіпірування тощо
-    }
-
-    public void DropSelectedItem() {
-        if (selectedSlotUI.Index >= 0) {
-            var slot = inventory.GetSlot(selectedSlotUI.Index);
-            if (slot != null && !slot.IsEmpty) {
-                // Тут можна додати логіку створення предмета у світі
-                inventory.RemoveItem(slot.Item, slot.Quantity);
-                ClearSelection();
-                detailPanel.Hide();
-            }
-        }
-    }
-
-    public void SortInventory() {
-        // Проста реалізація сортування
-        inventory.Slots.Sort((a, b) => {
-            if (a.IsEmpty && b.IsEmpty) return 0;
-            if (a.IsEmpty) return 1;
-            if (b.IsEmpty) return -1;
-            return string.Compare(a.Item.ItemName, b.Item.ItemName, StringComparison.Ordinal);
-        });
-
-        RefreshAllSlots();
     }
 
     private void OnDestroy() {
         if (inventory != null) {
-            inventory.OnSlotUpdated -= OnSlotUpdated;
+            inventory.OnItemAdded -= OnItemAdded;
+            inventory.OnItemRemoved -= OnItemRemoved;
+            inventory.OnItemUpdated -= OnItemUpdated;
+            inventory.OnItemIdentified -= OnItemIdentified;
             inventory.OnInventoryChanged -= OnInventoryChanged;
         }
-
-        foreach (var slotUI in slotUIs) {
-            slotUI.OnClicked -= SelectSlot;
-        }
-
-        if (useButton != null)
-            useButton.onClick.RemoveListener(UseSelectedItem);
-        if (dropButton != null)
-            dropButton.onClick.RemoveListener(DropSelectedItem);
-        if (sortButton != null)
-            sortButton.onClick.RemoveListener(SortInventory);
-        if (closeButton != null)
-            closeButton.onClick.RemoveListener(ToggleInventory);
-
     }
 }
