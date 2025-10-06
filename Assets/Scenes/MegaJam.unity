@@ -572,6 +572,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss_Fear
       objectReference: {fileID: 0}
+    - target: {fileID: 5073022513221887416, guid: 1381e03961b86f145a82aeaefdf86fea, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7424548592627082258, guid: 1381e03961b86f145a82aeaefdf86fea, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1245,7 +1249,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1223342118998961675, guid: 61c6caad7c64da74597a71ce39fa4187, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -333.57947
+      value: -333.57962
       objectReference: {fileID: 0}
     - target: {fileID: 1592136043535796489, guid: 61c6caad7c64da74597a71ce39fa4187, type: 3}
       propertyPath: m_Pivot.x
