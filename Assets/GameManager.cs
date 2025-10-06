@@ -44,9 +44,14 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         SceneController.Instance.StartSceneSwitch(SceneType.Level);
+        SoundManager.Instance.ChangeFromBeachToIndoor();
+        MusicManager.Instance.SetEnemiesDefeated(0);
+
     }
     public void EndGame()
     {
         SceneController.Instance.StartSceneSwitch(SceneType.Credits);
+        SoundManager.Instance.ChangeAmbienceFromIndoorToBeach();
+        MusicManager.Instance.SetEnemiesDefeated(5);
     }
 }

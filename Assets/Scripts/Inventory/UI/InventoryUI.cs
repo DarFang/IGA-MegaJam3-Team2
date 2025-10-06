@@ -285,6 +285,7 @@ public class InventoryUI : MonoBehaviour {
     public void ToggleInventory() {
         bool isActive = !inventoryPanel.activeSelf;
         inventoryPanel.SetActive(isActive);
+        SoundManager.Instance.CreateSound().Play(SoundManager.Instance.bookSound);
 
         if (isActive) {
             RebuildUI();
