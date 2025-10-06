@@ -13,11 +13,61 @@ public class MusicManager : PersistentSingleton<MusicManager>
     public MusicEvent[] allMusicEvents;
     private Dictionary<string, MusicPlayer> loadedMusicPlayers = new();
     private Dictionary<string, MusicPlayer> activeMusicPlayers = new();
+    private int enemiesDefeated = 0;
 
     private void Start()
     {
 
-        PlaySong(0, 5);
+        StartCutsceneMusic(1);
+
+    }
+
+    public void ChangeFromCutsceneToCombat()
+    {
+        StopSong(0, 2);
+        StartCombatMusic();
+    }
+
+    public void ChangeFromCombatToCutscene()
+    {
+        StopSong(1, 1);
+        StartCutsceneMusic(5);
+    }
+
+    public void SetEnemiesDefeated(int numItems)
+    {
+        enemiesDefeated = numItems;
+
+        if (activeMusicPlayers.ContainsKey(allMusicEvents[0].name))
+        {
+            for  (int i = 0; i <= enemiesDefeated; ++i)
+            {
+                AddLayer(0, i, 5);
+            }
+        }
+    }
+
+    public void StartCutsceneMusic(float fadeTime)
+    {
+        if (AudioManager.Instance.muteAllAudio) return;
+        if (muteAllMusic) return; 
+        if (!loadedMusicPlayers.ContainsKey(allMusicEvents[0].name))
+        {
+            MusicPlayer newMusicPlayer = gameObject.AddComponent<MusicPlayer>();
+            newMusicPlayer.Initialize(allMusicEvents[0]);
+            loadedMusicPlayers.Add(newMusicPlayer.name, newMusicPlayer);
+        }
+
+        //Mathf.Clamp(noOfItems, 0, allMusicEvents[0].musicLayers.Length);
+
+        MusicPlayer playerToStart = loadedMusicPlayers[allMusicEvents[0].name];
+        playerToStart.Play(fadeTime);
+        activeMusicPlayers.Add(playerToStart.name, playerToStart);
+
+        for (int i = 0; i <= enemiesDefeated; ++i)
+        {
+            AddLayer(0, i, fadeTime);
+        }
 
     }
 
@@ -25,16 +75,17 @@ public class MusicManager : PersistentSingleton<MusicManager>
     {
         if (AudioManager.Instance.muteAllAudio) return;
         if (muteAllMusic) return;
-        if (!loadedMusicPlayers.ContainsKey(allMusicEvents[0].name))
+        if (!loadedMusicPlayers.ContainsKey(allMusicEvents[1].name))
         {
             MusicPlayer newMusicPlayer = gameObject.AddComponent<MusicPlayer>();
-            newMusicPlayer.Initialize(allMusicEvents[0]);
+            newMusicPlayer.Initialize(allMusicEvents[1]);
             loadedMusicPlayers.Add(newMusicPlayer.name, newMusicPlayer);
         }
         
-        MusicPlayer playerToStart = loadedMusicPlayers[allMusicEvents[0].name];
-
-
+        MusicPlayer playerToStart = loadedMusicPlayers[allMusicEvents[1].name];
+        playerToStart.Play(0.5f);
+        playerToStart.PlayDelayed(1, 0);
+        activeMusicPlayers.Add(playerToStart.name, playerToStart);
     }
 
     /// <summary>

@@ -1,6 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using System;
 using System.Threading;
+using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,7 +17,7 @@ public class Entity : MonoBehaviour {
     public event Action<float> OnHealed;
 
     [Range(0, 1f)]
-    [SerializeField] protected float healPercentage = 0.2f;
+    [SerializeField] protected float healPercentage = 0.6f;
     [Range(0, 1f)]
     [SerializeField] protected float defencePercentage = 0.3f;
 
@@ -88,7 +89,7 @@ public class Entity : MonoBehaviour {
     private void HandleDefenceUpdate(float delta) {
         float defenceValue = Mathf.Round(Stats.Defense.CurrentValue * 100f) / 100f;
         string defenceText = defenceValue.ToString();
-        entityView.UpdateDefense(defenceText);
+        entityView.UpdateDefense(defenceText, Stats.Defense.MaxValue.ToString());
     }
 
     private void HandleDeath() {
@@ -193,22 +194,27 @@ public class Entity : MonoBehaviour {
 
         Debug.Log($"[Combat] {name} gained {resultDefence:F1} defense");
     }
+    public void ConsumeMana(float amount)
+    {
+        if (IsDead) return;
+        Debug.Log($"[Combat] {name} consuming {amount} mana");
+        amount = math.abs(amount);
+        Stats.Mana.ConsumeMana(amount);
 
-    public void ApplyManaBuff(float amount) {
+    }
+    public float amountManaGained()
+    {
+        return Stats.Mana.RegenerationRate * 10f * (UpgradedAbilities.ManaUpgraded ? 1.5f : 1f);
+    }
+
+    public void ApplyManaBuff(float amount)
+    {
         if (IsDead) return;
 
-        float modifiedAmount = amount;
-        if (UpgradedAbilities != null) {
-            modifiedAmount = amount * (UpgradedAbilities.ManaUpgraded ? 1.5f : 1f);
-        }
-
-        if (modifiedAmount < 0) {
-            Stats.Mana.ConsumeMana(-modifiedAmount);
-        } else {
-            Stats.Mana.Add(modifiedAmount);
-        }
+        Stats.Mana.Add(amount);
+        
         // �������� �������� ����� �������
-        entityView?.ShowManaBuff(modifiedAmount);
+        entityView?.ShowManaBuff(amount);
 
         Debug.Log($"[Combat] {name} gained {amount:F1} mana");
     }
@@ -248,23 +254,27 @@ public class Entity : MonoBehaviour {
 
         if (Stats.Mana.CurrentValue < 10)
         {
-            CombatManager.Instance?.ManaManager.GainMana(this, 10);
+            CombatManager.Instance?.ManaManager.GainMana(this);
             return;
         }
 
         int action = UnityEngine.Random.Range(0, 3);
 
-        switch (action) {
+        switch (action)
+        {
             case 0:
                 Attack(context.Opponent);
                 break;
             case 1:
-                float healAmount = Stats.Health.MaxValue * healPercentage;
+                float healAmount = Stats.Attack.CurrentValue * healPercentage;
                 Heal(healAmount);
                 break;
             case 2:
                 float defenseBoost = Stats.Attack.CurrentValue * defencePercentage;
                 ApplyDefenseBuff(defenseBoost);
+                break;
+            case 3:
+                CombatManager.Instance?.ManaManager.GainMana(this);
                 break;
         }
     }

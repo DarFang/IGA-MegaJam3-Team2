@@ -47,7 +47,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if(_inputActions != null)
+        if (GameManager.Instance != null && (GameManager.Instance.IsInCutScene || GameManager.Instance.IsInBattle))
+            return;
+        if (_inputActions != null)
             HandleInput();
 
         if(_isMoving && HasArrived())
