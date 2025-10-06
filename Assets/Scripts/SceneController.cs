@@ -148,7 +148,7 @@ public class SceneController : MonoBehaviour
 	/// <returns></returns>
 	public IEnumerator StartTransition()
 	{
-		transitionPanel.DOColor(new Color(0, 0, 0, 1), 1f);
+		//transitionPanel.DOColor(new Color(0, 0, 0, 1), 1f);
 		yield return new WaitForSecondsRealtime(1f);
 	}
 
@@ -158,7 +158,7 @@ public class SceneController : MonoBehaviour
 	/// <returns></returns>
 	private IEnumerator EndTransition()
 	{
-		transitionPanel.DOColor(new Color(0, 0, 0, 0), 1f);
+		//transitionPanel.DOColor(new Color(0, 0, 0, 0), 1f);
 		yield return new WaitForSecondsRealtime(1f);
 	}
 }
