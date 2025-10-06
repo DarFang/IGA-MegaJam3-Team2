@@ -240,7 +240,7 @@ public class Entity : MonoBehaviour {
         entityView?.ShowManaBuff(amount);
 
         OnActionPerformed?.Invoke(new BattleAction {
-            ActionType = BattleActionType.ManaGain,
+            ActionType = BattleActionType.WillGain,
             Performer = this,
             Target = this,
             Value = amount,
@@ -379,8 +379,8 @@ public class BattleAction {
             case BattleActionType.Defense:
                 return $"{performerName} gained {Value:F1} defense{manaInfo}";
 
-            case BattleActionType.ManaGain:
-                return $"{performerName} gained {Value:F1} mana";
+            case BattleActionType.WillGain:
+                return $"{performerName} gained {Value:F1} will";
 
             default:
                 return $"{performerName} performed unknown action";
@@ -392,5 +392,5 @@ public enum BattleActionType {
     Attack,
     Heal,
     Defense,
-    ManaGain
+    WillGain
 }

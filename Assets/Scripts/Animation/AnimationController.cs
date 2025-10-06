@@ -28,7 +28,7 @@ public abstract class AnimationController : MonoBehaviour
             case BattleActionType.Defense:
                 SetTrigger(ActionAnimationType.Defend);
                 break;
-            case BattleActionType.ManaGain:
+            case BattleActionType.WillGain:
                 SetTrigger(ActionAnimationType.Mana);
                 break;
         }

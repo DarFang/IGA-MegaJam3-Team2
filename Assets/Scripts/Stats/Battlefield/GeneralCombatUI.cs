@@ -13,6 +13,6 @@ public class GeneralCombatUI : MonoBehaviour
         AttackTextAction.text = upgradedAbilities.AttackUpgraded ? "Attack (Upgraded)" : "Attack";
         DefendTextAction.text = upgradedAbilities.DefenseUpgraded ? "Defend (Upgraded)" : "Defend";
         HealTextAction.text = upgradedAbilities.HealUpgraded ? "Heal (Upgraded)" : "Heal";
-        ManaTextAction.text = upgradedAbilities.ManaUpgraded ? "Mana (Upgraded)" : "Mana";
+        ManaTextAction.text = upgradedAbilities.ManaUpgraded ? "Will (Upgraded)" : "Will";
     }
 }

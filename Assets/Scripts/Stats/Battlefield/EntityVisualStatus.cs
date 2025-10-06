@@ -148,7 +148,7 @@ public class EntityVisualStatus : MonoBehaviour {
     }
 
     public void ShowManaBuff(float amount) {
-        string message = $"Mana! +{amount:F0}";
+        string message = $"Will! +{amount:F0}";
         ShowAction(message, manaColor);
     }
 

@@ -1223,6 +1223,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 44814486245618642, guid: 61c6caad7c64da74597a71ce39fa4187, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 125223002771562816, guid: 61c6caad7c64da74597a71ce39fa4187, type: 3}
       propertyPath: m_Camera
       value: 
@@ -1241,7 +1245,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1223342118998961675, guid: 61c6caad7c64da74597a71ce39fa4187, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -333.5796
+      value: -333.57947
       objectReference: {fileID: 0}
     - target: {fileID: 1592136043535796489, guid: 61c6caad7c64da74597a71ce39fa4187, type: 3}
       propertyPath: m_Pivot.x
@@ -1559,6 +1563,14 @@ PrefabInstance:
       propertyPath: OnBattleEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 243428333}
+    - target: {fileID: 8953231662117483257, guid: 61c6caad7c64da74597a71ce39fa4187, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -45.799988
+      objectReference: {fileID: 0}
+    - target: {fileID: 8953231662117483257, guid: 61c6caad7c64da74597a71ce39fa4187, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -34.699997
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1567,6 +1579,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2018972183}
   m_SourcePrefab: {fileID: 100100000, guid: 61c6caad7c64da74597a71ce39fa4187, type: 3}
+--- !u!114 &727420225 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7713672028195492315, guid: 61c6caad7c64da74597a71ce39fa4187, type: 3}
+  m_PrefabInstance: {fileID: 727420224}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c01e8375894a2e43bc6157409f319e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &727420227 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3734882329898191249, guid: 61c6caad7c64da74597a71ce39fa4187, type: 3}
@@ -3687,6 +3710,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7800235236230705359, guid: c2ba474d79c11ed41bb6e654859bdc4b, type: 3}
+      propertyPath: _player
+      value: 
+      objectReference: {fileID: 727420225}
+    - target: {fileID: 7800235236230705359, guid: c2ba474d79c11ed41bb6e654859bdc4b, type: 3}
       propertyPath: _playerUI
       value: 
       objectReference: {fileID: 1749711968}
@@ -5465,6 +5492,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2655760842327000745, guid: 35dc8db70c0cf7841a52c7355320f2f8, type: 3}
+      propertyPath: m_MatchWidthOrHeight
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3748632881727314175, guid: 35dc8db70c0cf7841a52c7355320f2f8, type: 3}
       propertyPath: m_Name
       value: ActionCanvas
@@ -6017,6 +6048,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 520602350899217793, guid: 87ebfca63ca56f342884cd28a0d7fb37, type: 3}
       propertyPath: <OnEventStart>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 622363050483954760, guid: 87ebfca63ca56f342884cd28a0d7fb37, type: 3}
+      propertyPath: <AutoStart>k__BackingField
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 802702975130091236, guid: 87ebfca63ca56f342884cd28a0d7fb37, type: 3}

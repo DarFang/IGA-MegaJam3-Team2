@@ -27,8 +27,8 @@ MonoBehaviour:
     maxValue: 60
     minValue: 0
   manaData:
-    baseValue: 30
-    maxValue: 100
+    baseValue: 20
+    maxValue: 40
     minValue: 0
     regeneration: 1
     hasRegeneration: 1
