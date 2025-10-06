@@ -232,9 +232,11 @@ public class InventoryUI : MonoBehaviour {
         if (Index < 0) return;
 
         bool identified = inventory.IdentifyItemAt(Index);
-        if (identified) {
+        if (identified)
+        {
             MusicManager.Instance.SetEnemiesDefeated(Index);
             Debug.Log("Item identified!");
+            GameManager.Instance.TriggerPlayerAction(true);
         }
     }
 
@@ -290,9 +292,16 @@ public class InventoryUI : MonoBehaviour {
             ClearSelection();
         }
     }
+    public void CloseInventory()
+    {
+        inventoryPanel.SetActive(false);
+        ClearSelection();
+    }
 
-    private void OnDestroy() {
-        if (inventory != null) {
+    private void OnDestroy()
+    {
+        if (inventory != null)
+        {
             inventory.OnItemAdded -= OnItemAdded;
             inventory.OnItemRemoved -= OnItemRemoved;
             inventory.OnItemUpdated -= OnItemUpdated;

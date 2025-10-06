@@ -365,9 +365,11 @@ public class BattleAction {
     public string GetLogMessage() {
         string performerName = Performer?.GetName() ?? "Unknown";
         string targetName = Target?.GetName() ?? "";
-        string manaInfo = ManaConsumed > 0 ? $" (Consumed {ManaConsumed} mana)" : "";
+        // string manaInfo = ManaConsumed > 0 ? $" (Consumed {ManaConsumed} mana)" : "";
+        string manaInfo = "";
 
-        switch (ActionType) {
+        switch (ActionType)
+        {
             case BattleActionType.Attack:
                 return $"{performerName} dealt {Value:F1} damage to {targetName}{manaInfo}";
 
