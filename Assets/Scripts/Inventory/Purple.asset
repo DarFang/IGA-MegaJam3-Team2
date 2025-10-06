@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Purple
   m_EditorClassIdentifier: 
   itemName: "Metus\u2019 Indomitable Courage Orb "
-  itemIcon: {fileID: 21300000, guid: dc7d8d5a7da061441a565d8320ee79c4, type: 3}
+  itemIcon: {fileID: 21300000, guid: a36d29f4699b35146bfcb50e929bd1ed, type: 3}
   description: "Her heart beats in rhythm to the quiet strength emanating from the
     orb. \n\r\nNo longer will the shadows taunt her and make her shiver with fear.
     No more will the creatures hiding underneath her bed torment her.\n\r\nShe\u2019ll
