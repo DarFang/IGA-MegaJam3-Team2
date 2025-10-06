@@ -50,7 +50,7 @@ public class EntityVisualStatus : MonoBehaviour {
         }
     }
     public void UpdateMana(float percentage, string displayText) {
-        //Debug.Log($"[EntityVisualStatus] Updating Mana: {displayText} ({percentage:P1})");
+        Debug.Log($"[EntityVisualStatus] Updating Mana: {displayText} ({percentage:P1})");
         if (manaSlider != null) {
             manaSlider.fillAmount = Mathf.Clamp01(percentage);
         }
@@ -67,12 +67,14 @@ public class EntityVisualStatus : MonoBehaviour {
     }
 
     public void UpdateDefense(float percentage, string displayText) {
-        if (defenceText != null) {
+        Debug.Log($"[EntityVisualStatus] Updating Defence: {displayText} ({percentage:P1})");
+        if (defenceText != null)
+        {
             defenceText.text = defaultDefenseText + displayText;
         }
 
-        if (manaSlider != null) {
-            manaSlider.fillAmount = Mathf.Clamp01(percentage);
+        if (defenceSlider != null) {
+            defenceSlider.fillAmount = Mathf.Clamp01(percentage);
         }
     }
 
