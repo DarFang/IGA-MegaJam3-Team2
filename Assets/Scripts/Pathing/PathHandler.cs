@@ -125,6 +125,14 @@ public class PathHandler : MonoBehaviour
         }
         if (CurrentWaypoint != null && CurrentWaypoint.AutoStart)
         {
+            Invoke("MyFunction", 1f);
+            StartMoving();
+        }
+    }
+    private void StartMoving()
+    {
+        if (CurrentWaypoint != null && CurrentWaypoint.AutoStart)
+        {
             _playerMovement.GoTo(CurrentWaypoint);
         }
     }
