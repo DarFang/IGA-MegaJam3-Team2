@@ -583,8 +583,17 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: Fade(stay, 1, #000000FF);Delay(0.5) @ 1;Fade(unstay, 1, #000000FF)
-          @ 1.5;Delay(0.5) @ 2.5;Continue() @ 3
+        value: 'Fade(stay, 1, #000000FF);
+
+          Delay(0.5) @ 1;
+
+          Fade(unstay,
+          1, #000000FF) @ 1.5;
+
+          Delay(0.5) @ 2.5;
+
+          Continue()
+          @ 3'
         type: 0
         typeString: 
       conversationID: 1
