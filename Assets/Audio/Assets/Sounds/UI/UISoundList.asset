@@ -13,19 +13,19 @@ MonoBehaviour:
   m_Name: UISoundList
   m_EditorClassIdentifier: 
   soundsOnObject:
-  - name: PageTurn
+  - name: OpenBook
     frequentSound: 0
     mute: 0
     clips:
-    - {fileID: 8300000, guid: 065e3c21a29885b4c9c54f5c97bc7b23, type: 3}
+    - {fileID: 8300000, guid: 70189d9590940c14a9070c12f84c7c3b, type: 3}
     soundSettings:
       mixerGroup: {fileID: 6899448223994471096, guid: 200eb56313a83da4a9e284b188c37c29, type: 2}
       loop: 0
       randomizeVolume: 0
       volumeRange: {x: 1, y: 0}
-      randomizePitch: 0
-      pitchRange: {x: 1, y: 0}
-  - name: ButtonPress
+      randomizePitch: 1
+      pitchRange: {x: 0.8, y: 1.1}
+  - name: Select
     frequentSound: 0
     mute: 0
     clips:
@@ -36,15 +36,16 @@ MonoBehaviour:
       randomizeVolume: 0
       volumeRange: {x: 1, y: 0}
       randomizePitch: 1
-      pitchRange: {x: 1.1, y: 0.8}
-  - name: ButtonHover
+      pitchRange: {x: 0.8, y: 1.1}
+  - name: PageTurn
     frequentSound: 0
     mute: 0
-    clips: []
+    clips:
+    - {fileID: 8300000, guid: 065e3c21a29885b4c9c54f5c97bc7b23, type: 3}
     soundSettings:
       mixerGroup: {fileID: 6899448223994471096, guid: 200eb56313a83da4a9e284b188c37c29, type: 2}
       loop: 0
       randomizeVolume: 0
       volumeRange: {x: 1, y: 0}
-      randomizePitch: 0
-      pitchRange: {x: 1, y: 0}
+      randomizePitch: 1
+      pitchRange: {x: 0.8, y: 1.1}

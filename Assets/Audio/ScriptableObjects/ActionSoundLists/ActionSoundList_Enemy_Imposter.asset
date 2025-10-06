@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: acbf354e4c5610b428f7eb4bd907c796, type: 3}
-  m_Name: Enemy_ActionSoundList_Fear
+  m_Name: ActionSoundList_Enemy_Imposter
   m_EditorClassIdentifier: 
   soundsOnObject:
   - name: Attack
     frequentSound: 0
     mute: 0
     clips:
-    - {fileID: 8300000, guid: ce7962e6f38050547b97a6eafa6d600c, type: 3}
+    - {fileID: 8300000, guid: e250900a244c7504b935b3293fc86d43, type: 3}
     soundSettings:
       mixerGroup: {fileID: 6899448223994471096, guid: 200eb56313a83da4a9e284b188c37c29, type: 2}
       loop: 0
@@ -29,7 +29,7 @@ MonoBehaviour:
     frequentSound: 0
     mute: 0
     clips:
-    - {fileID: 8300000, guid: be4453edf8c80a949b36071c5efd14ff, type: 3}
+    - {fileID: 8300000, guid: a5eeb4d3e400b204cbae596e86ecbc2d, type: 3}
     soundSettings:
       mixerGroup: {fileID: 6899448223994471096, guid: 200eb56313a83da4a9e284b188c37c29, type: 2}
       loop: 0
@@ -37,11 +37,11 @@ MonoBehaviour:
       volumeRange: {x: 1, y: 0}
       randomizePitch: 0
       pitchRange: {x: 1, y: 0}
-  - name: Die
+  - name: Dead
     frequentSound: 0
     mute: 0
     clips:
-    - {fileID: 8300000, guid: 1d3982187b9287343b277b434163feee, type: 3}
+    - {fileID: 8300000, guid: 1fb6bce8872da824aa9898c1d80417f2, type: 3}
     soundSettings:
       mixerGroup: {fileID: 6899448223994471096, guid: 200eb56313a83da4a9e284b188c37c29, type: 2}
       loop: 0
@@ -53,7 +53,7 @@ MonoBehaviour:
     frequentSound: 0
     mute: 0
     clips:
-    - {fileID: 8300000, guid: 7f7ee11fa81d523418fd116412c90690, type: 3}
+    - {fileID: 8300000, guid: 97e21429aa1ac7b4dbcd5d8c97b4929e, type: 3}
     soundSettings:
       mixerGroup: {fileID: 6899448223994471096, guid: 200eb56313a83da4a9e284b188c37c29, type: 2}
       loop: 0
@@ -65,7 +65,7 @@ MonoBehaviour:
     frequentSound: 0
     mute: 0
     clips:
-    - {fileID: 8300000, guid: f5c68b0b051b68a4897f00580cb36f2b, type: 3}
+    - {fileID: 8300000, guid: 1ef4e1d0c2f41a149ac89861ea48d5be, type: 3}
     soundSettings:
       mixerGroup: {fileID: 6899448223994471096, guid: 200eb56313a83da4a9e284b188c37c29, type: 2}
       loop: 0
@@ -76,7 +76,8 @@ MonoBehaviour:
   - name: TakeMana
     frequentSound: 0
     mute: 0
-    clips: []
+    clips:
+    - {fileID: 8300000, guid: 529283b917b9a654eb6b372ca6bdf292, type: 3}
     soundSettings:
       mixerGroup: {fileID: 6899448223994471096, guid: 200eb56313a83da4a9e284b188c37c29, type: 2}
       loop: 0

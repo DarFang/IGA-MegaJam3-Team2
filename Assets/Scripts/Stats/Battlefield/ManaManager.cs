@@ -32,6 +32,7 @@ using UnityEngine.Events;
             }
         }
         public void GainMana(Entity entity) {
+            SoundManager.Instance.CreateSound().Play(SoundManager.Instance.gainManaSound);
             float amountGained = (int)entity.amountManaGained();
             NeutralMana -= (int)amountGained;
             float extraManaRequired = 0;

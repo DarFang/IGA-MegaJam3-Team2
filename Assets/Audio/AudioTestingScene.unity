@@ -148,29 +148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cc72384bc7e8b54d8a77fb2593c35d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  testSound:
-    name: Test
-    frequentSound: 1
-    mute: 0
-    clips:
-    - {fileID: 8300000, guid: e90f4727779b4304bbf267787e45fc27, type: 3}
-    - {fileID: 8300000, guid: 420b08817046b514ba1d39fff2802991, type: 3}
-    - {fileID: 8300000, guid: be4d7d1ad8dc3034c9794ab4e18fbdcb, type: 3}
-    - {fileID: 8300000, guid: f28dd1330d6930640b181401f038c24e, type: 3}
-    - {fileID: 8300000, guid: f900ca4c5b529ff4c96139a6910f8399, type: 3}
-    - {fileID: 8300000, guid: 511e53557c9fd0540a8c89c366509868, type: 3}
-    - {fileID: 8300000, guid: 2e37ed903d67a394d9e7b5cde664b97b, type: 3}
-    - {fileID: 8300000, guid: d5d167a53beedd64a9e561732d4678be, type: 3}
-    soundSettings:
-      mixerGroup: {fileID: 0}
-      loop: 0
-      randomizeVolume: 0
-      volumeRange: {x: 1, y: 0}
-      randomizePitch: 0
-      pitchRange: {x: 1, y: 4}
-  playSoundObj: {fileID: 328935937}
-  playSoundObj2: {fileID: 1965159847}
-  playSoundObj3: {fileID: 2061290449}
+  list: {fileID: 0}
 --- !u!4 &283215194
 Transform:
   m_ObjectHideFlags: 0
