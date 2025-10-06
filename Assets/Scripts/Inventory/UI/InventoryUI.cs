@@ -230,6 +230,7 @@ public class InventoryUI : MonoBehaviour {
 
         bool identified = inventory.IdentifyItemAt(Index);
         if (identified) {
+            MusicManager.Instance.SetEnemiesDefeated(Index);
             Debug.Log("Item identified!");
         }
     }

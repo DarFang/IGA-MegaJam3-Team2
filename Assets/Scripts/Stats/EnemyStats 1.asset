@@ -13,21 +13,21 @@ MonoBehaviour:
   m_Name: EnemyStats 1
   m_EditorClassIdentifier: 
   healthData:
-    baseValue: 10
-    maxValue: 10
+    baseValue: 60
+    maxValue: 60
     minValue: 0
     regeneration: 1
     hasRegeneration: 0
   attackData:
-    baseValue: 4
-    maxValue: 10
+    baseValue: 15
+    maxValue: 15
     minValue: 0
   defenseData:
-    baseValue: 2
+    baseValue: 10
     maxValue: 50
     minValue: 0
   manaData:
-    baseValue: 10
+    baseValue: 20
     maxValue: 100
     minValue: 0
     regeneration: 1

@@ -51,6 +51,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityView: {fileID: 8001441366750306831}
   characterData: {fileID: 11400000, guid: 9f91b9118005e564e8fee1bb9055e7b9, type: 2}
+  healPercentage: 0.6
+  defencePercentage: 0.3
   actionSoundList: {fileID: 11400000, guid: 3238cd599d2d71e4094be4c4694bae79, type: 2}
   decisionDelay: 1
 --- !u!1001 &8763718827591377184

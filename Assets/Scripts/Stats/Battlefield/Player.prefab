@@ -53,6 +53,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   entityView: {fileID: 3559480581296338031}
   characterData: {fileID: 11400000, guid: 279be8e11bc98fe428eeedab3f60baac, type: 2}
+  healPercentage: 0.6
+  defencePercentage: 0.3
+  actionSoundList: {fileID: 0}
   playerUI: {fileID: 101224237540806408}
 --- !u!114 &3559480581296338031
 MonoBehaviour:
@@ -79,7 +82,8 @@ MonoBehaviour:
   damageColor: {r: 1, g: 0, b: 0, a: 1}
   healColor: {r: 0, g: 1, b: 0, a: 1}
   buffColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  defaultDefenseText: 'Defence:'
+  manaColor: {r: 0, g: 0.9193516, b: 1, a: 1}
+  defaultDefenseText: 'Defence: '
   defaultHealthText: 'HP: '
   defaultManaText: 'MP: '
   aliveColor: {r: 1, g: 1, b: 1, a: 1}

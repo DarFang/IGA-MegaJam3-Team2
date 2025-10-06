@@ -26,6 +26,7 @@ public class EntityVisualStatus : MonoBehaviour {
     [SerializeField] private Color damageColor = Color.red;
     [SerializeField] private Color healColor = Color.green;
     [SerializeField] private Color buffColor = Color.yellow;
+    [SerializeField] private Color manaColor = Color.blue;
 
     [Header("Formatting")]
     [SerializeField] private string defaultDefenseText = "Defence: ";
@@ -66,9 +67,9 @@ public class EntityVisualStatus : MonoBehaviour {
         }
     }
 
-    public void UpdateDefense(string defenseValueText) {
+    public void UpdateDefense(string defenseValueText, string maxDef) {
         if (defenseText != null) {
-            defenseText.text = defaultDefenseText + defenseValueText;
+            defenseText.text = defaultDefenseText + defenseValueText + " / " + maxDef;
         }
     }
 
@@ -83,7 +84,7 @@ public class EntityVisualStatus : MonoBehaviour {
         }
     }
 
-    public void UpdateStats(float currentHealth, float maxHealth, float defenseValue, float currentMana, float maxMana) {
+    public void UpdateStats(float currentHealth, float maxHealth, float defenseValue, float maxDef, float currentMana, float maxMana) {
         // 1. ������'�
         float percentage = currentHealth / maxHealth;
         string healthStr = $"{currentHealth:F0} / {maxHealth:F0}";
@@ -92,7 +93,7 @@ public class EntityVisualStatus : MonoBehaviour {
         // 2. ������
         // ������������ �� ���������� ���������� ��� (��� ����� - � Presenter)
         float trimmedDefenseValue = Mathf.Round(defenseValue * 100f) / 100f;
-        UpdateDefense(trimmedDefenseValue.ToString("F1")); // "F1" ��� ����������� ������ �����
+        UpdateDefense(trimmedDefenseValue.ToString("F1"), maxDef.ToString()); // "F1" ��� ����������� ������ �����
 
         // 3. ����
         SetActiveState(currentHealth > 0);
@@ -144,8 +145,8 @@ public class EntityVisualStatus : MonoBehaviour {
     }
 
     public void ShowManaBuff(float amount) {
-        string message = $"Mana! +{amount:F1}";
-        ShowAction(message, buffColor);
+        string message = $"Mana! +{amount:F0}";
+        ShowAction(message, manaColor);
     }
 
     public void ShowCustomAction(string action, Color color) {
