@@ -114,6 +114,8 @@ public class SceneController : MonoBehaviour
 		//First load the new scene, so if it fails we can recover
 		yield return AwaitAsyncOperation(SceneManager.LoadSceneAsync((int)targetSceneType, LoadSceneMode.Additive));
 
+		SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex((int)targetSceneType));
+
 
 		//Now call OnSceneLoaded and we good
 		CurrentScene = targetSceneType;
