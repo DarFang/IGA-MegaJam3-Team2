@@ -641,8 +641,8 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 72.714905, y: 71.723915}
-    canvasZoom: 1.1199999
+    canvasScrollPosition: {x: 67.20266, y: 0}
+    canvasZoom: 1
   - id: 2
     fields:
     - title: Title
@@ -1230,7 +1230,7 @@ MonoBehaviour:
           required
           SetContinueMode(true) @ 1.5;
 
-          continue() @ 1.5;'
+          StopConversation() @ 1.5;'
         type: 0
         typeString: 
       - title: Response Menu Sequence
@@ -1257,8 +1257,8 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 0.85000014
+    canvasScrollPosition: {x: 0, y: 14.099678}
+    canvasZoom: 0.79000014
   - id: 3
     fields:
     - title: Title
@@ -1952,10 +1952,13 @@ MonoBehaviour:
           required
           Fade(stay, 0.5, #000000);
 
-          required Fade(unstay, 0.5, #000000)
-          @ 1;
+          required SetActive(Boss_Fear, true)
+          @ 0.5;
 
-          continue() @ 1.5;'
+          required Fade(unstay, 0.5, #000000) @ 1;
+
+          continue()
+          @ 1.5;'
         type: 0
         typeString: 
       conversationID: 3
@@ -2046,8 +2049,8 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 20.237316, y: 99.05647}
-    canvasZoom: 0.76000047
+    canvasScrollPosition: {x: 23.314793, y: 82.798454}
+    canvasZoom: 0.7600005
   - id: 4
     fields:
     - title: Title
@@ -2129,7 +2132,7 @@ MonoBehaviour:
       isGroup: 0
       nodeColor: 
       delaySimStatus: 0
-      falseConditionAction: 
+      falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks:
       - originConversationID: 4
@@ -2411,7 +2414,7 @@ MonoBehaviour:
           required
           SetContinueMode(true) @ 1.5;
 
-          continue() @ 1.5;'
+          StopConversation() @ 1.5;'
         type: 0
         typeString: 
       conversationID: 4
@@ -2434,8 +2437,8 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 1
+    canvasScrollPosition: {x: 100.02533, y: 2.4254758}
+    canvasZoom: 1.2699996
   - id: 5
     fields:
     - title: Title
@@ -3855,10 +3858,13 @@ MonoBehaviour:
           required SetActive(PurpleOrbCutscene,
           true) @ 0.5;
 
-          required Fade(unstay, 0.5, #000000) @ 1;
+          required SetActive(Boss_Fear, false) @ 0.5;
 
           required
-          SetContinueMode(true) @ 1.5;'
+          Fade(unstay, 0.5, #000000) @ 1;
+
+          required SetContinueMode(true)
+          @ 1.5;'
         type: 0
         typeString: 
       conversationID: 7
@@ -3949,8 +3955,8 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 101.90555, y: 40.313316}
-    canvasZoom: 1.3299996
+    canvasScrollPosition: {x: 53.898914, y: 33.77632}
+    canvasZoom: 1.2399997
   - id: 8
     fields:
     - title: Title
@@ -4199,12 +4205,83 @@ MonoBehaviour:
           required Fade(stay, 0.5,
           #000000);
 
-          required Fade(unstay, 0.5, #000000) @ 1;
+          required SetActive(Boss_Pride, false) @ 0.5;
 
           required
-          SetContinueMode(true) @ 1.5;
+          SetActive(YellowOrbCutscene, true) @ 0.5;
 
-          continue() @ 1.5;'
+          required Fade(unstay,
+          0.5, #000000) @ 1;
+
+          required SetContinueMode(true) @ 1.5;'
+        type: 0
+        typeString: 
+      conversationID: 8
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 8
+        originDialogueID: 3
+        destinationConversationID: 8
+        destinationDialogueID: 4
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 161.76923
+        y: 180
+        width: 160
+        height: 30
+    - id: 4
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: -1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 'required SetContinueMode(false);
+
+          required Fade(stay, 0.5,
+          #000000);
+
+          required SetActive(YellowOrbCutscene, false) @ 0.5;
+
+          required
+          Fade(unstay, 0.5, #000000) @ 1;
+
+          required SetContinueMode(true)
+          @ 1.5;
+
+          StopConversation() @ 1.5;'
         type: 0
         typeString: 
       conversationID: 8
@@ -4223,12 +4300,12 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 161
-        y: 180
+        y: 230.76923
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 1
+    canvasScrollPosition: {x: 50.786587, y: 1.3597792}
+    canvasZoom: 1.2999997
   - id: 9
     fields:
     - title: Title
