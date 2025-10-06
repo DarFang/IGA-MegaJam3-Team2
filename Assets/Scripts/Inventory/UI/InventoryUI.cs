@@ -54,7 +54,10 @@ public class InventoryUI : MonoBehaviour {
     }
 
     private void Update() {
-        if (Input.GetKeyDown(toggleKey)) {
+        if(GameManager.Instance != null && (GameManager.Instance.IsInCutScene || GameManager.Instance.IsInBattle))
+            return;
+        if (Input.GetKeyDown(toggleKey))
+        {
             ToggleInventory();
         }
     }
