@@ -12,9 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 191be68f0522b8f46b31c83ce1194cbc, type: 3}
   m_Name: Yellow
   m_EditorClassIdentifier: 
-  itemName: Yellow
+  itemName: "Cixi\u2019s Incandescent Embrace Orb"
   itemIcon: {fileID: 21300000, guid: b30f7a6348aafed469f5d7fc55a5236f, type: 3}
-  description: You remember that was good time
+  description: "When Wen Ruyi holds this orb aloft, the golden flame at its heart
+    illuminates the ancient spines of books and the path ahead through the library\u2019s
+    labyrinthine halls. \n\r\nPeering into the flames, one can see Wen Ruyi seated
+    on a stool in an empty gallery. Her mother stands beside her, surveying the walls.
+    It is Wen Ruyi\u2019s first exhibition. Her mother squeezes her shoulder and
+    murmurs in wonder. Wen Ruyi glances over at her mother, and it strikes her for
+    the first time in a long time that her mother, and many other loved ones, are
+    proud of her.\r\n\nWen Ruyi can feel the faint presences of those who accepted
+    her as a person, a friend, an artist. She carries this feeling with her, and
+    the library feels less alien, as though pieces of herself are hidden all over
+    this great repository."
   startsUnknown: 1
   unknownName: Unknown Item
   unknownIcon: {fileID: 21300000, guid: fbbbefd184988a24cbfda9d0187d93c4, type: 3}
