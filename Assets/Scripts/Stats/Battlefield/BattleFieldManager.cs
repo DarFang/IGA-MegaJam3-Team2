@@ -66,7 +66,7 @@ public class BattleFieldManager : MonoBehaviour {
         await currentEntity.DoActionAsync(context);
 
         // �������� �������� ���� 䳿 ��� ��������
-        await UniTask.Delay(300);
+        await UniTask.Delay(1000);
 
         turnManager.EndTurn();
     }
