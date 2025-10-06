@@ -50,7 +50,7 @@ public class EntityVisualStatus : MonoBehaviour {
         }
     }
     public void UpdateMana(float percentage, string displayText) {
-        Debug.Log($"[EntityVisualStatus] Updating Mana: {displayText} ({percentage:P1})");
+        //Debug.Log($"[EntityVisualStatus] Updating Mana: {displayText} ({percentage:P1})");
         if (manaSlider != null) {
             manaSlider.fillAmount = Mathf.Clamp01(percentage);
         }

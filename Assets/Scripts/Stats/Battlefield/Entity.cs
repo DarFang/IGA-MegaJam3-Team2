@@ -48,6 +48,8 @@ public class Entity : MonoBehaviour {
             return;
         }
 
+        gameObject.name = $"{characterData.Name} (Enemy)";
+
         Stats = new Stats(characterData.StatsData);
         Stats.Defense.OnValueChanged += HandleDefenceUpdate;
 
@@ -77,7 +79,7 @@ public class Entity : MonoBehaviour {
         float percentage = currentValue / maxValue;
 
         entityView.UpdateMana(percentage, resultText);
-        Debug.Log($"[Entity] Mana updated for {name}: {currentValue}/{maxValue}");
+        //Debug.Log($"[Entity] Mana updated for {name}: {currentValue}/{maxValue}");
     }
 
     private void HandleHealthChanged(float delta) {
@@ -121,7 +123,7 @@ public class Entity : MonoBehaviour {
         Stats.Health.TakeDamage(finalDamage);
 
         PlaySound("TakeDamage");
-        Debug.Log($"[Combat] {name} took {finalDamage:F1} damage");
+        //Debug.Log($"[Combat] {name} took {finalDamage:F1} damage");
     }
 
     public void Attack(Entity target) {
@@ -155,7 +157,7 @@ public class Entity : MonoBehaviour {
             ManaConsumed = manaConsumed
         });
 
-        Debug.Log($"[Combat] {name} attacks {target.name} for {resultDamage:F1} damage");
+        //Debug.Log($"[Combat] {name} attacks {target.name} for {resultDamage:F1} damage");
     }
 
     private void PlaySound(string soundName) {
@@ -196,7 +198,7 @@ public class Entity : MonoBehaviour {
             ManaConsumed = manaConsumed
         });
 
-        Debug.Log($"[Combat] {name} healed for {resultHeal:F1} HP");
+        //Debug.Log($"[Combat] {name} healed for {resultHeal:F1} HP");
     }
 
     public void ApplyDefenseBuff(float amount) {
