@@ -1,4 +1,5 @@
 using DG.Tweening;
+using PixelCrushers.DialogueSystem;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -92,6 +93,12 @@ public class SceneController : MonoBehaviour
 		string toScene = Enum.GetName(typeof(SceneType), targetSceneType);
 
 		IsWorking = true;
+
+		//Stop dialogue if active
+		if (DialogueManager.isConversationActive)
+		{
+			DialogueManager.StopAllConversations();
+		}
 
 		//Fade to black
 		Debug.Log($"[SceneManager] Transitioning from {fromScene} to {toScene}");
