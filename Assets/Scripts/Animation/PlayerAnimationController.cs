@@ -5,7 +5,7 @@ public class PlayerAnimationController : AnimationController
 {
     #region Exposed Fields
 
-    [SerializeField] private PlayerUI _playerUI;
+    [SerializeField] private Player _player;
     [SerializeField] private bool _testing;
 
     #endregion
@@ -28,6 +28,8 @@ public class PlayerAnimationController : AnimationController
     {
         Animator = GetComponent<Animator>();
         _playerMovement = GetComponentInParent<PlayerMovement>();
+        if (_player == null)
+            Debug.LogError("Player not assigned in inspector", this);
     }
     private void Start() => StartListening();
     private void OnDisable() => StopListening();
@@ -47,8 +49,12 @@ public class PlayerAnimationController : AnimationController
             _playerMovement.OnArrived += SetIdleTrigger;
         }
 
-        if (_playerUI != null)
-            _playerUI.OnActionSelected += PlayerUI_OnActionSelected;
+        if (_player != null)
+        {
+            _player.OnActionPerformed += PlayActionPerformed;
+            _player.OnDamageTaken += PlayDamageTaken;
+            _player.OnDeath += PlayDead;
+        }
     }
 
     /// <summary>
@@ -62,8 +68,8 @@ public class PlayerAnimationController : AnimationController
             _playerMovement.OnArrived -= SetIdleTrigger;
         }
 
-        if (_playerUI != null)
-            _playerUI.OnActionSelected -= PlayerUI_OnActionSelected;
+        if (_player != null)
+            _player.OnActionPerformed -= PlayActionPerformed;
     }
 
     #endregion
@@ -72,24 +78,6 @@ public class PlayerAnimationController : AnimationController
 
     private void SetMoveTrigger() => Animator.SetTrigger("Move");
     private void SetIdleTrigger() => Animator.SetTrigger("Idle");
-    private void PlayerUI_OnActionSelected(PlayerAction action)
-    {
-        switch(action)
-        {
-            case PlayerAction.Attack:
-                Animator.SetTrigger("Attack");
-                break;
-            case PlayerAction.Defense:
-                Animator.SetTrigger("Defend");
-                break;
-            case PlayerAction.Mana:
-                Animator.SetTrigger("Mana");
-                break;
-            case PlayerAction.Heal:
-                Animator.SetTrigger("Heal");
-                break;
-        }
-    }
 
     #endregion
 }

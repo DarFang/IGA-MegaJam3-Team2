@@ -34,9 +34,7 @@ public class BossAnimationController : AnimationController
     private void OnDisable()
     {
         if(_encounter != null)
-        {
             _encounter.OnEnemyCreated -= Encounter_OnEnemyCreated;
-        }
 
         if (_enemyReference != null)
             StopListeningToEnemyEvents();
@@ -63,28 +61,10 @@ public class BossAnimationController : AnimationController
         _enemyReference = enemy;
         StartListeningToEnemyEvents();
     }
-    private void PlayActionPerformed(BattleAction action)
+
+    override protected void PlayDead(Entity entity)
     {
-        switch(action.ActionType)
-        {
-            case BattleActionType.Attack:
-                SetTrigger(ActionAnimationType.Attack);
-                break;
-            case BattleActionType.Heal:
-                SetTrigger(ActionAnimationType.Heal);
-                break;
-            case BattleActionType.Defense:
-                SetTrigger(ActionAnimationType.Defend);
-                break;
-            case BattleActionType.ManaGain:
-                SetTrigger(ActionAnimationType.Mana);
-                break;
-        }
-    }
-    private void PlayDamageTaken(float _) => SetTrigger(ActionAnimationType.GetHit);
-    private void PlayDead(Entity _)
-    {
-        SetTrigger(ActionAnimationType.Dead);
+        base.PlayDead(entity);
         StopListeningToEnemyEvents();
     }
 
