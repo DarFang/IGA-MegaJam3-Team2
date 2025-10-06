@@ -802,7 +802,7 @@ MonoBehaviour:
   enemyPrefab: {fileID: 9222545399552592174, guid: d53a533d339860e47ad2501ede96f455, type: 3}
   fieldManager: {fileID: 1983270436}
   encounterSpawnPoint: {fileID: 6885491}
-  upgradedAbilities: {fileID: 0}
+  upgradedAbilities: {fileID: 11400000, guid: 78cf3906a14d3ac499cf3f775ec64bf6, type: 2}
 --- !u!224 &11050653111705185
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1048,7 +1048,7 @@ MonoBehaviour:
   characterData: {fileID: 11400000, guid: 279be8e11bc98fe428eeedab3f60baac, type: 2}
   healPercentage: 0.2
   defencePercentage: 0.3
-  actionSoundList: {fileID: 0}
+  actionSoundList: {fileID: 11400000, guid: 67703f1064113c6498ffc67be07425b9, type: 2}
   playerUI: {fileID: 257732492636624983}
 --- !u!1 &601580463635222527
 GameObject:
@@ -1530,6 +1530,7 @@ MonoBehaviour:
   damageColor: {r: 1, g: 0, b: 0, a: 1}
   healColor: {r: 0, g: 1, b: 0, a: 1}
   buffColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  manaColor: {r: 0, g: 0, b: 1, a: 1}
   defaultDefenseText: 'Defence: '
   defaultHealthText: 'HP: '
   defaultManaText: 'MP: '
@@ -1562,9 +1563,45 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 71865188}
     m_Modifications:
+    - target: {fileID: 271228439353193143, guid: 008e6a3b2e530ef4ca80410cacf1cfc5, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 271228439353193143, guid: 008e6a3b2e530ef4ca80410cacf1cfc5, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 271228439353193143, guid: 008e6a3b2e530ef4ca80410cacf1cfc5, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 271228439353193143, guid: 008e6a3b2e530ef4ca80410cacf1cfc5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 271228439353193143, guid: 008e6a3b2e530ef4ca80410cacf1cfc5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 764537971315743735, guid: 008e6a3b2e530ef4ca80410cacf1cfc5, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 764537971315743735, guid: 008e6a3b2e530ef4ca80410cacf1cfc5, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 764537971315743735, guid: 008e6a3b2e530ef4ca80410cacf1cfc5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 764537971315743735, guid: 008e6a3b2e530ef4ca80410cacf1cfc5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3158763284261710348, guid: 008e6a3b2e530ef4ca80410cacf1cfc5, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -333.5796
+      value: -333.57962
       objectReference: {fileID: 0}
     - target: {fileID: 4698630404161826414, guid: 008e6a3b2e530ef4ca80410cacf1cfc5, type: 3}
       propertyPath: m_Pivot.x
@@ -1646,6 +1683,42 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5656085355232681472, guid: 008e6a3b2e530ef4ca80410cacf1cfc5, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5656085355232681472, guid: 008e6a3b2e530ef4ca80410cacf1cfc5, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5656085355232681472, guid: 008e6a3b2e530ef4ca80410cacf1cfc5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5656085355232681472, guid: 008e6a3b2e530ef4ca80410cacf1cfc5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6055687637945022180, guid: 008e6a3b2e530ef4ca80410cacf1cfc5, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6055687637945022180, guid: 008e6a3b2e530ef4ca80410cacf1cfc5, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6055687637945022180, guid: 008e6a3b2e530ef4ca80410cacf1cfc5, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6055687637945022180, guid: 008e6a3b2e530ef4ca80410cacf1cfc5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6055687637945022180, guid: 008e6a3b2e530ef4ca80410cacf1cfc5, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6582133024180818030, guid: 008e6a3b2e530ef4ca80410cacf1cfc5, type: 3}
       propertyPath: m_Name
       value: Inventory
@@ -1656,6 +1729,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6744924970088388229, guid: 008e6a3b2e530ef4ca80410cacf1cfc5, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6744924970088388229, guid: 008e6a3b2e530ef4ca80410cacf1cfc5, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8325717199020404108, guid: 008e6a3b2e530ef4ca80410cacf1cfc5, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8325717199020404108, guid: 008e6a3b2e530ef4ca80410cacf1cfc5, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8325717199020404108, guid: 008e6a3b2e530ef4ca80410cacf1cfc5, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8325717199020404108, guid: 008e6a3b2e530ef4ca80410cacf1cfc5, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1809,6 +1902,7 @@ MonoBehaviour:
   damageColor: {r: 1, g: 0, b: 0, a: 1}
   healColor: {r: 0, g: 1, b: 0, a: 1}
   buffColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  manaColor: {r: 0, g: 0, b: 1, a: 1}
   defaultDefenseText: 'Defence:'
   defaultHealthText: 'HP: '
   defaultManaText: 'MP: '

@@ -5,7 +5,6 @@ using UnityEngine.Events;
 
 public class BattleFieldManager : MonoBehaviour {
     [SerializeField] private TurnManager turnManager;
-
     private Entity player;
     private Entity enemy;
     private Entity currentEntity;
@@ -13,8 +12,8 @@ public class BattleFieldManager : MonoBehaviour {
 
     public UnityEvent<bool> OnBattleEnd;
     public event Action<Entity> OnTurnStarted;
+    public event Action<string> OnActionLogged; // Новий event для логів
 
-    // ������ 1: � ������������� UniTask
     public async void StartBattle(Entity playerEntity, Entity enemyEntity, UpgradedAbilities upgradedAbilities) {
         if (playerEntity == null || enemyEntity == null) {
             Debug.LogError("[BattleField] Cannot start battle with null entities");
@@ -23,18 +22,30 @@ public class BattleFieldManager : MonoBehaviour {
 
         player = playerEntity;
         enemy = enemyEntity;
+
         player.SetUpgradedAbilities(upgradedAbilities);
         enemy.SetUpgradedAbilities(upgradedAbilities);
+
         battleActive = true;
 
         player.OnDeath += HandleEntityDeath;
         enemy.OnDeath += HandleEntityDeath;
+
+        // Підписуємось на дії сутностей
+        player.OnActionPerformed += HandleActionPerformed;
+        enemy.OnActionPerformed += HandleActionPerformed;
 
         turnManager = new TurnManager();
 
         Debug.Log($"[BattleField] Battle started: {player.name} vs {enemy.name}");
 
         await RunBattleLoopAsync();
+    }
+
+    private void HandleActionPerformed(BattleAction action) {
+        string logMessage = action.GetLogMessage();
+        Debug.Log($"[BattleLog] {logMessage}");
+        OnActionLogged?.Invoke(logMessage);
     }
 
     private async UniTask RunBattleLoopAsync() {
@@ -46,7 +57,6 @@ public class BattleFieldManager : MonoBehaviour {
 
     private async UniTask ExecuteTurnAsync() {
         currentEntity = DetermineNextEntity();
-
         if (currentEntity == null || currentEntity.IsDead) {
             return;
         }
@@ -62,17 +72,13 @@ public class BattleFieldManager : MonoBehaviour {
             this
         );
 
-        // ��� ������ ���� entity ������ ��
         await currentEntity.DoActionAsync(context);
-
-        // �������� �������� ���� 䳿 ��� ��������
         await UniTask.Delay(1000);
 
         turnManager.EndTurn();
     }
 
     private Entity DetermineNextEntity() {
-        // ������� ��������: ������� ��� ������ � ������� ����
         bool isOddTurn = turnManager.CurrentTurn % 2 == 1;
         bool playerIsFaster = player.Stats.Speed.CurrentValue >= enemy.Stats.Speed.CurrentValue;
 
@@ -89,16 +95,21 @@ public class BattleFieldManager : MonoBehaviour {
     }
 
     private void EndBattle() {
-
         Entity winner = player.IsDead ? enemy : player;
-
         Debug.Log($"[BattleField] Battle ended. Winner: {winner.name}");
+
         Destroy(enemy.gameObject);
+        OnBattleEnd?.Invoke(winner == player);
 
-        OnBattleEnd?.Invoke(winner);
-
-        if (player != null) player.OnDeath -= HandleEntityDeath;
-        if (enemy != null) enemy.OnDeath -= HandleEntityDeath;
+        // Відписуємось від подій
+        if (player != null) {
+            player.OnDeath -= HandleEntityDeath;
+            player.OnActionPerformed -= HandleActionPerformed;
+        }
+        if (enemy != null) {
+            enemy.OnDeath -= HandleEntityDeath;
+            enemy.OnActionPerformed -= HandleActionPerformed;
+        }
     }
 }
 
