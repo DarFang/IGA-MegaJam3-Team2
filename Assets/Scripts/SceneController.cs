@@ -107,7 +107,7 @@ public class SceneController : MonoBehaviour
 		//Call OnCurrentSceneUnload and unload the current scene
 		if (CurrentScene != SceneType.SceneManager)
 		{
-			OnCurrentSceneUnload.Invoke();
+			OnCurrentSceneUnload?.Invoke();
 			yield return AwaitAsyncOperation(SceneManager.UnloadSceneAsync((int)CurrentScene));
 		}
 
@@ -119,7 +119,7 @@ public class SceneController : MonoBehaviour
 
 		//Now call OnSceneLoaded and we good
 		CurrentScene = targetSceneType;
-		OnSceneLoaded.Invoke();
+		OnSceneLoaded?.Invoke();
 
 		//Fade from black
 		yield return EndTransition();

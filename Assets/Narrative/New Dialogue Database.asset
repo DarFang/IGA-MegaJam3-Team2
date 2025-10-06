@@ -6159,9 +6159,16 @@ MonoBehaviour:
           required
           SetContinueMode(true) @ 2;
 
-          StopConversation @ 2;'
+          StopConversation() @ 2;
+
+          required
+          Fade(unstay, 0.5, #000000) @ 2;'
         type: 0
         typeString: CustomFieldType_Text
+      - title: Response Menu Sequence
+        value: 
+        type: 0
+        typeString: 
       conversationID: 12
       isRoot: 0
       isGroup: 0
@@ -6213,7 +6220,7 @@ MonoBehaviour:
           required Fade(stay, 0.5,
           #000000);
 
-          required SetActive(OutroCutscene, true);
+          required SetActive(OutroCutscene, true) @ 0.5;
 
           required
           Fade(unstay, 0.5, #000000) @ 1;
@@ -6250,8 +6257,8 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 0.6700003
+    canvasScrollPosition: {x: 54.88742, y: 108.392075}
+    canvasZoom: 0.8200002
   - id: 13
     fields:
     - title: Title
