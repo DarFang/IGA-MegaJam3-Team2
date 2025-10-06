@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84bf66454a725494690e88ab1b75f6f4, type: 3}
   m_Name: EnemyData 5
   m_EditorClassIdentifier: 
-  Name: Enemy5
+  Name: Zenghen Ai
   StatsData: {fileID: 11400000, guid: b3bcd5d2bf5c6db4aa484fde7662e6f6, type: 2}

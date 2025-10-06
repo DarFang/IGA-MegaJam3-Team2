@@ -26,8 +26,7 @@ MonoBehaviour:
   startsUnknown: 1
   unknownName: Unknown Item
   unknownIcon: {fileID: 21300000, guid: fbbbefd184988a24cbfda9d0187d93c4, type: 3}
-  unknownDescription: You don't know what this item is. Use an identification scroll
-    or visit a merchant to identify it.
+  unknownDescription: Continue on your journey to find the rest of the fragments.
   isStackable: 1
   maxStackSize: 1
   rarity: 0

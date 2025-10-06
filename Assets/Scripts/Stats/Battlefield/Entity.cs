@@ -72,8 +72,8 @@ public class Entity : MonoBehaviour {
 
     private void HandleManaUpdate(float delta) {
 
-        float maxValue = Mathf.Round(Stats.Health.MaxValue * 100f) / 100f;
-        float currentValue = Mathf.Round(Stats.Health.CurrentValue * 100f) / 100f;
+        float maxValue = Mathf.Round(Stats.Mana.MaxValue * 100f) / 100f;
+        float currentValue = Mathf.Round(Stats.Mana.CurrentValue * 100f) / 100f;
 
         string resultText = $"{currentValue} / {maxValue}";
         float percentage = currentValue / maxValue;

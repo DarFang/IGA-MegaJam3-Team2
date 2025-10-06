@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84bf66454a725494690e88ab1b75f6f4, type: 3}
   m_Name: EnemyData 4
   m_EditorClassIdentifier: 
-  Name: Enemy4
+  Name: The Everempty
   StatsData: {fileID: 11400000, guid: 2ed7554c8b85a9a4291eb6eb7cfa48ae, type: 2}
