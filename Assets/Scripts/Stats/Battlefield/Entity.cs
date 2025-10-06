@@ -2,9 +2,7 @@
 using System;
 using System.Threading;
 using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class Entity : MonoBehaviour {
     [SerializeField] private EntityVisualStatus entityView;
@@ -15,6 +13,7 @@ public class Entity : MonoBehaviour {
     public event Action<Entity> OnDeath;
     public event Action<float> OnDamageTaken;
     public event Action<float> OnHealed;
+    public event Action<BattleAction> OnActionPerformed;
 
     [Range(0, 1f)]
     [SerializeField] protected float healPercentage = 0.6f;
@@ -49,6 +48,8 @@ public class Entity : MonoBehaviour {
             return;
         }
 
+        gameObject.name = $"{characterData.Name} (Enemy)";
+
         Stats = new Stats(characterData.StatsData);
         Stats.Defense.OnValueChanged += HandleDefenceUpdate;
 
@@ -70,32 +71,42 @@ public class Entity : MonoBehaviour {
     }
 
     private void HandleManaUpdate(float delta) {
-        Debug.Log($"[Entity] Mana updated for {name}: {Stats.Mana.CurrentValue}/{Stats.Mana.MaxValue}");
-        string manaText = $"{Stats.Mana.CurrentValue} / {Stats.Mana.MaxValue}";
-        float percentage = Stats.Mana.CurrentValue / Stats.Mana.MaxValue;
-        entityView.UpdateMana(percentage, manaText);
+
+        float maxValue = Mathf.Round(Stats.Mana.MaxValue * 100f) / 100f;
+        float currentValue = Mathf.Round(Stats.Mana.CurrentValue * 100f) / 100f;
+
+        string resultText = $"{currentValue} / {maxValue}";
+        float percentage = currentValue / maxValue;
+
+        entityView.UpdateMana(percentage, resultText);
+        //Debug.Log($"[Entity] Mana updated for {name}: {currentValue}/{maxValue}");
     }
 
     private void HandleHealthChanged(float delta) {
-        float maxHealth = Mathf.Round(Stats.Health.MaxValue * 100f) / 100f;
+        float maxValue = Mathf.Round(Stats.Health.MaxValue * 100f) / 100f;
         float currentValue = Mathf.Round(Stats.Health.CurrentValue * 100f) / 100f;
 
+        string resultText = $"{currentValue} / {maxValue}";
+        float percentage = currentValue / maxValue;
 
-        string healthText = $"{currentValue} / {maxHealth}";
-        float percentage = Stats.Health.CurrentValue / Stats.Health.MaxValue;
-        entityView.UpdateHealth(percentage, healthText);
+        entityView.UpdateHealth(percentage, resultText);
     }
 
     private void HandleDefenceUpdate(float delta) {
-        float defenceValue = Mathf.Round(Stats.Defense.CurrentValue * 100f) / 100f;
-        string defenceText = defenceValue.ToString();
-        entityView.UpdateDefense(defenceText, Stats.Defense.MaxValue.ToString());
+        float maxValue = Mathf.Round(Stats.Defense.MaxValue * 100f) / 100f;
+        float currentValue = Mathf.Round(Stats.Defense.CurrentValue * 100f) / 100f;
+
+        string resultText = $"{currentValue} / {maxValue}";
+        float percentage = currentValue / maxValue;
+
+        entityView.UpdateDefense(percentage, resultText);
     }
 
     private void HandleDeath() {
         if (IsDead) return;
 
         IsDead = true;
+        SoundManager.Instance.CreateSound().Play(actionSoundList.GetSound("Death"));
         Debug.Log($"[Entity] {name} has died");
         OnDeath?.Invoke(this);
     }
@@ -113,7 +124,7 @@ public class Entity : MonoBehaviour {
         Stats.Health.TakeDamage(finalDamage);
 
         PlaySound("TakeDamage");
-        Debug.Log($"[Combat] {name} took {finalDamage:F1} damage");
+        //Debug.Log($"[Combat] {name} took {finalDamage:F1} damage");
     }
 
     public void Attack(Entity target) {
@@ -123,22 +134,31 @@ public class Entity : MonoBehaviour {
             Debug.LogWarning($"[Combat] {name} does not have enough mana to attack.");
             return;
         }
-        CombatManager.Instance?.ManaManager.ConsumeMana(this, UpgradedAbilities.AttackManaCost);
+
+        float manaConsumed = UpgradedAbilities.AttackManaCost;
+        CombatManager.Instance?.ManaManager.ConsumeMana(this, (int) manaConsumed);
+
         float damage = Stats.Attack.CurrentValue;
         float upgradedDamage = damage;
-        if (UpgradedAbilities != null)
-        {
+        if (UpgradedAbilities != null) {
             upgradedDamage = damage * (UpgradedAbilities.AttackUpgraded ? 1.5f : 1f);
         }
 
         float resultDamage = upgradedDamage = Mathf.Round(upgradedDamage * 100f) / 100f;
-
         target.TakeDamage(resultDamage, this);
-
         entityView?.ShowDealDamage(resultDamage);
-
         PlaySound("Attack");
-        Debug.Log($"[Combat] {name} attacks {target.name} for {resultDamage:F1} damage");
+
+        // Логування дії
+        OnActionPerformed?.Invoke(new BattleAction {
+            ActionType = BattleActionType.Attack,
+            Performer = this,
+            Target = target,
+            Value = resultDamage,
+            ManaConsumed = manaConsumed
+        });
+
+        //Debug.Log($"[Combat] {name} attacks {target.name} for {resultDamage:F1} damage");
     }
 
     private void PlaySound(string soundName) {
@@ -152,10 +172,12 @@ public class Entity : MonoBehaviour {
     public void Heal(float amount) {
         if (IsDead) return;
         if (Stats.Mana.CurrentValue < UpgradedAbilities.HealManaCost) {
-            Debug.LogWarning($"[Combat] {name} does not have enough mana to attack.");
+            Debug.LogWarning($"[Combat] {name} does not have enough mana to heal.");
             return;
         }
-        CombatManager.Instance?.ManaManager.ConsumeMana(this, UpgradedAbilities.HealManaCost);
+
+        float manaConsumed = UpgradedAbilities.HealManaCost;
+        CombatManager.Instance?.ManaManager.ConsumeMana(this, (int)manaConsumed);
 
         float upgradedHeal = amount;
         if (UpgradedAbilities != null) {
@@ -163,24 +185,33 @@ public class Entity : MonoBehaviour {
         }
 
         float resultHeal = upgradedHeal = Mathf.Round(upgradedHeal * 100f) / 100f;
-
         Stats.Health.Heal(resultHeal);
         OnHealed?.Invoke(resultHeal);
-
         entityView?.ShowHeal(resultHeal);
-
         PlaySound("Heal");
 
-        Debug.Log($"[Combat] {name} healed for {resultHeal:F1} HP");
+        // Логування дії
+        OnActionPerformed?.Invoke(new BattleAction {
+            ActionType = BattleActionType.Heal,
+            Performer = this,
+            Target = this,
+            Value = resultHeal,
+            ManaConsumed = manaConsumed
+        });
+
+        //Debug.Log($"[Combat] {name} healed for {resultHeal:F1} HP");
     }
 
     public void ApplyDefenseBuff(float amount) {
         if (IsDead) return;
         if (Stats.Mana.CurrentValue < UpgradedAbilities.DefenseManaCost) {
-            Debug.LogWarning($"[Combat] {name} does not have enough mana to attack.");
+            Debug.LogWarning($"[Combat] {name} does not have enough mana to defend.");
             return;
         }
-        CombatManager.Instance?.ManaManager.ConsumeMana(this, UpgradedAbilities.DefenseManaCost);
+
+        float manaConsumed = UpgradedAbilities.DefenseManaCost;
+        CombatManager.Instance?.ManaManager.ConsumeMana(this, (int)manaConsumed);
+
         float modifiedAmount = amount;
         if (UpgradedAbilities != null) {
             modifiedAmount = amount * (UpgradedAbilities.DefenseUpgraded ? 1.5f : 1f);
@@ -188,12 +219,37 @@ public class Entity : MonoBehaviour {
         float resultDefence = Mathf.Round(modifiedAmount * 100f) / 100f;
 
         Stats.Defense.Add(resultDefence);
-
-
         entityView?.ShowDefenseBuff(resultDefence);
+
+        // Логування дії
+        OnActionPerformed?.Invoke(new BattleAction {
+            ActionType = BattleActionType.Defense,
+            Performer = this,
+            Target = this,
+            Value = resultDefence,
+            ManaConsumed = manaConsumed
+        });
 
         Debug.Log($"[Combat] {name} gained {resultDefence:F1} defense");
     }
+
+    public void ApplyManaBuff(float amount) {
+        if (IsDead) return;
+
+        Stats.Mana.Add(amount);
+        entityView?.ShowManaBuff(amount);
+
+        OnActionPerformed?.Invoke(new BattleAction {
+            ActionType = BattleActionType.ManaGain,
+            Performer = this,
+            Target = this,
+            Value = amount,
+            ManaConsumed = 0
+        });
+
+        Debug.Log($"[Combat] {name} gained {amount:F1} mana");
+    }
+
     public void ConsumeMana(float amount)
     {
         if (IsDead) return;
@@ -205,18 +261,6 @@ public class Entity : MonoBehaviour {
     public float amountManaGained()
     {
         return Stats.Mana.RegenerationRate * 10f * (UpgradedAbilities.ManaUpgraded ? 1.5f : 1f);
-    }
-
-    public void ApplyManaBuff(float amount)
-    {
-        if (IsDead) return;
-
-        Stats.Mana.Add(amount);
-        
-        // �������� �������� ����� �������
-        entityView?.ShowManaBuff(amount);
-
-        Debug.Log($"[Combat] {name} gained {amount:F1} mana");
     }
     // ==================== BATTLE LOGIC ====================
 
@@ -292,6 +336,11 @@ public class Entity : MonoBehaviour {
     private void OnDestroy() {
         CancelCurrentAction();
     }
+
+    public string GetName() {
+        if (characterData != null) return characterData.Name;
+        return gameObject.name;
+    }
 }
 
 public class BattleContext {
@@ -304,4 +353,42 @@ public class BattleContext {
         TurnManager = turnManager;
         BattleField = battleField;
     }
+}
+
+public class BattleAction {
+    public BattleActionType ActionType { get; set; }
+    public Entity Performer { get; set; }
+    public Entity Target { get; set; }
+    public float Value { get; set; }
+    public float ManaConsumed { get; set; }
+
+    public string GetLogMessage() {
+        string performerName = Performer?.GetName() ?? "Unknown";
+        string targetName = Target?.GetName() ?? "";
+        string manaInfo = ManaConsumed > 0 ? $" (Consumed {ManaConsumed} mana)" : "";
+
+        switch (ActionType) {
+            case BattleActionType.Attack:
+                return $"{performerName} dealt {Value:F1} damage to {targetName}{manaInfo}";
+
+            case BattleActionType.Heal:
+                return $"{performerName} healed {Value:F1} HP{manaInfo}";
+
+            case BattleActionType.Defense:
+                return $"{performerName} gained {Value:F1} defense{manaInfo}";
+
+            case BattleActionType.ManaGain:
+                return $"{performerName} gained {Value:F1} mana";
+
+            default:
+                return $"{performerName} performed unknown action";
+        }
+    }
+}
+
+public enum BattleActionType {
+    Attack,
+    Heal,
+    Defense,
+    ManaGain
 }

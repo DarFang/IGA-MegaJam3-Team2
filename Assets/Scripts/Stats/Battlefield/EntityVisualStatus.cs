@@ -15,9 +15,12 @@ public class EntityVisualStatus : MonoBehaviour {
     [SerializeField] private Image manaSlider;
     [SerializeField] private TextMeshProUGUI manaText;
 
+    [Header("Defence UI")]
+    [SerializeField] private Image defenceSlider;
+    [SerializeField] private TextMeshProUGUI defenceText;
+
     [Header("Text Fields")]
     [SerializeField] private TextMeshProUGUI characterNameText;
-    [SerializeField] private TextMeshProUGUI defenseText;
     [SerializeField] private TextMeshProUGUI actionText; // ����� ����� ��� ��
 
     [Header("Action Text Animation")]
@@ -50,15 +53,11 @@ public class EntityVisualStatus : MonoBehaviour {
         Debug.Log($"[EntityVisualStatus] Updating Mana: {displayText} ({percentage:P1})");
         if (manaSlider != null) {
             manaSlider.fillAmount = Mathf.Clamp01(percentage);
-            Debug.Log(manaSlider.fillAmount);
         }
 
         if (manaText != null) {
             manaText.text = defaultManaText + displayText;
-            Debug.Log(manaText.text);
         }
-       
-        
     }
 
     public void UpdateName(string characterName) {
@@ -67,9 +66,15 @@ public class EntityVisualStatus : MonoBehaviour {
         }
     }
 
-    public void UpdateDefense(string defenseValueText, string maxDef) {
-        if (defenseText != null) {
-            defenseText.text = defaultDefenseText + defenseValueText + " / " + maxDef;
+    public void UpdateDefense(float percentage, string displayText) {
+        Debug.Log($"[EntityVisualStatus] Updating Defence: {displayText} ({percentage:P1})");
+        if (defenceText != null)
+        {
+            defenceText.text = defaultDefenseText + displayText;
+        }
+
+        if (defenceSlider != null) {
+            defenceSlider.fillAmount = Mathf.Clamp01(percentage);
         }
     }
 
@@ -84,22 +89,20 @@ public class EntityVisualStatus : MonoBehaviour {
         }
     }
 
-    public void UpdateStats(float currentHealth, float maxHealth, float defenseValue, float maxDef, float currentMana, float maxMana) {
-        // 1. ������'�
+    public void UpdateStats(float currentHealth, float maxHealth, float currentDefence, float maxDef, float currentMana, float maxMana) {
         float percentage = currentHealth / maxHealth;
         string healthStr = $"{currentHealth:F0} / {maxHealth:F0}";
         UpdateHealth(percentage, healthStr);
 
-        // 2. ������
-        // ������������ �� ���������� ���������� ��� (��� ����� - � Presenter)
-        float trimmedDefenseValue = Mathf.Round(defenseValue * 100f) / 100f;
-        UpdateDefense(trimmedDefenseValue.ToString("F1"), maxDef.ToString()); // "F1" ��� ����������� ������ �����
 
-        // 3. ����
+        float defencePercentage = currentDefence / maxDef;
+        UpdateDefense(defencePercentage, currentDefence.ToString());
+
         SetActiveState(currentHealth > 0);
         float manaPercentage = currentMana / maxMana;
         UpdateMana(manaPercentage, currentMana.ToString("F0"));
     }
+
     public void ShowAction(string actionMessage, Color textColor) {
         // ��������� ��������� �������� ���� ���� �
         currentActionSequence?.Kill();

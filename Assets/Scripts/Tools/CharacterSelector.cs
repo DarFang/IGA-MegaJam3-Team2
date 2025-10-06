@@ -2,17 +2,24 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(TestingActionSounds))]
 public class CharacterSelector : MonoBehaviour
 {
     [SerializeField] private CameraLookAt _lookAt;
     [SerializeField] private HorizontalLayoutGroup _actionsHorizontalLayout;
     [SerializeField] private GameObject _pfActionTestButton;
+    private TestingActionSounds _actionSounds;
 
     private GameObject _selected;
     private Animator _targetAnimator;
     private List<TestButton> _testButtons;
 
     private void Awake() => _testButtons = new();
+
+    private void Start()
+    {
+        _actionSounds = gameObject.GetComponent<TestingActionSounds>();
+    }
 
     public void SelectVisual(GameObject targetVisual)
     {
@@ -57,14 +64,17 @@ public class CharacterSelector : MonoBehaviour
     private TestButton CreateButton(AnimationClip clip)
     {
         TestButton button = Instantiate(_pfActionTestButton, _actionsHorizontalLayout.transform).GetComponent<TestButton>();
-        button.Initialize(clip.name, _targetAnimator);
+        button.Initialize(clip.name, _targetAnimator, _actionSounds);
         return button;
     }
 
     public void SetTrigger(string trigger)
     {
         if (_targetAnimator != null)
+        {
             _targetAnimator.SetTrigger(trigger);
+            _actionSounds.PlaySound(trigger);
+        }
         else
             Debug.LogWarning($"Couldn't set trigger \"{trigger}\" because no target is selected", this);
     }

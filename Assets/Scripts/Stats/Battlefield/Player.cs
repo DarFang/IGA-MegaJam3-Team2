@@ -20,7 +20,7 @@ public class Player : Entity {
     private void HandleActionSelected(PlayerAction action) {
         if (!_isWaitingForInput) return;
 
-        Debug.Log($"[Player] Action received: {action}");
+        //Debug.Log($"[Player] Action received: {action}");
         _currentActionSource?.TrySetResult(action);
     }
 
