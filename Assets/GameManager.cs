@@ -1,3 +1,4 @@
+using PixelCrushers.DialogueSystem;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
@@ -43,6 +44,7 @@ public class GameManager : MonoBehaviour
     }
     public void GameOver()
     {
+        Destroy(DialogueManager.Instance.gameObject);
         SceneController.Instance.StartSceneSwitch(SceneType.Level);
         SoundManager.Instance.ChangeFromBeachToIndoor();
         MusicManager.Instance.SetEnemiesDefeated(0);
