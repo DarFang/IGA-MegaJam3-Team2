@@ -53,7 +53,7 @@ MonoBehaviour:
   characterData: {fileID: 11400000, guid: 9f91b9118005e564e8fee1bb9055e7b9, type: 2}
   healPercentage: 0.6
   defencePercentage: 0.3
-  actionSoundList: {fileID: 11400000, guid: 3238cd599d2d71e4094be4c4694bae79, type: 2}
+  actionSoundList: {fileID: 11400000, guid: cf498d8051cb9c64dbea912c0166ca3a, type: 2}
   decisionDelay: 1
 --- !u!1001 &8763718827591377184
 PrefabInstance:

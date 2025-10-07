@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84bf66454a725494690e88ab1b75f6f4, type: 3}
   m_Name: EnemyData 3
   m_EditorClassIdentifier: 
-  Name: Enemy3
+  Name: A Different Wen Ruyi
   StatsData: {fileID: 11400000, guid: 93b232dd0b9177a43b8d449ccdf52ae7, type: 2}

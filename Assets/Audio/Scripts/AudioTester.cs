@@ -1,10 +1,10 @@
+using System;
 using UnityEngine;
 
 public class AudioTester : MonoBehaviour
 {
-    public Sound testSound;
-    public GameObject playSoundObj, playSoundObj2, playSoundObj3;
-    SoundEmitter testingEmitter;
+    public SoundList list;
+    private bool boolean = true;
 
     private void Start()
     {
@@ -16,40 +16,44 @@ public class AudioTester : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Q))
         {
-            MusicManager.Instance.ChangeFromCutsceneToCombat();
-        }
-
-        if (Input.GetKeyDown(KeyCode.A))
-        {
             MusicManager.Instance.SetEnemiesDefeated(1);
         }
 
         if (Input.GetKeyDown(KeyCode.W))
         {
-            MusicManager.Instance.ChangeFromCombatToCutscene();
+            MusicManager.Instance.SetEnemiesDefeated(2);
 
         }
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            SoundManager.Instance.CreateSound().SetParent(playSoundObj3).PlayAndGetSoundEmitter(testSound, out testingEmitter);
+            MusicManager.Instance.SetEnemiesDefeated(3);
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
+            if (boolean)
+            {
+                MusicManager.Instance.ChangeFromCutsceneToCombat();
+            }
+            else
+            {
+                MusicManager.Instance.ChangeFromCombatToCutscene();
+            }
 
+            boolean = !boolean;
+
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
             MusicManager.Instance.SetEnemiesDefeated(4);
 
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKeyDown(KeyCode.T))
         {
-            MusicManager.Instance.StopAllMusic(5);
-        }
-
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            MusicManager.Instance.AddLayer(0, 1, 5);
+            MusicManager.Instance.SetEnemiesDefeated(5);
         }
 
         if (Input.GetKeyDown(KeyCode.P))

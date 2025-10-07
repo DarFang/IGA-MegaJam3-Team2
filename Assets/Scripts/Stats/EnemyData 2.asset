@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84bf66454a725494690e88ab1b75f6f4, type: 3}
   m_Name: EnemyData 2
   m_EditorClassIdentifier: 
-  Name: Enemy2
+  Name: Cixi, the Apis Empress
   StatsData: {fileID: 11400000, guid: 4e3f54a55d7f2d94dabb8faf28c50a8f, type: 2}

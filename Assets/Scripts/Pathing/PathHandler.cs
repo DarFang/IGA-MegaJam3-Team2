@@ -118,10 +118,22 @@ public class PathHandler : MonoBehaviour
     /// </summary>
     private void StartListening()
     {
-        if(_playerMovement != null)
+        if (_playerMovement != null)
         {
             _playerMovement.OnStartedMoving += StartMoveEvent;
             _playerMovement.OnArrived += HandleArrival;
+        }
+        if (CurrentWaypoint != null && CurrentWaypoint.AutoStart)
+        {
+            Invoke("MyFunction", 1f);
+            StartMoving();
+        }
+    }
+    private void StartMoving()
+    {
+        if (CurrentWaypoint != null && CurrentWaypoint.AutoStart)
+        {
+            _playerMovement.GoTo(CurrentWaypoint);
         }
     }
 
@@ -159,10 +171,14 @@ public class PathHandler : MonoBehaviour
 
     private void HandleArrival()
     {
-        if(CurrentWaypoint.Event != null)
+        if (CurrentWaypoint.Event != null)
             CurrentWaypoint.Event.StartEvent();
-        else
-            Debug.LogError($"{CurrentWaypoint.name} has no event assigned.", this);
+            if (CurrentWaypoint.Event.SkippEvent)
+                HandleWaypointEventEnd();
+
+        // UNDONE: Error check
+        else if (CurrentWaypoint.Event is not DialogueEvent)
+            Debug.LogError($"{CurrentWaypoint.name} has no event assigned.", CurrentWaypoint);
     }
 
     private void HandleWaypointEventEnd()
@@ -195,10 +211,16 @@ public class PathHandler : MonoBehaviour
     /// </summary>
     private void AssignNextWaypoint()
     {
-        int targetIndex = System.Array.IndexOf(_waypoints , CurrentWaypoint) + 1;
-        if(targetIndex < _waypoints.Length)
+        int targetIndex = System.Array.IndexOf(_waypoints, CurrentWaypoint) + 1;
+        if (targetIndex < _waypoints.Length)
             CurrentWaypoint = _waypoints[targetIndex];
+        if (CurrentWaypoint != null && CurrentWaypoint.AutoStart)
+        {
+        _playerMovement.GoTo(CurrentWaypoint);
+            return;
+        }
         Debug.Log("Move anywhere to keep moving...");
+
     }
 
     #endregion

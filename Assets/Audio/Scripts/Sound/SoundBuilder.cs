@@ -86,6 +86,47 @@ public class SoundBuilder
 
     }
 
+    public void Play(Sound sound, float fadeInTime, out SoundEmitter e)
+    {
+        if (sound == null)
+        {
+            Debug.LogWarning("Sound is null");
+            e = null;
+            return;
+        }
+
+        if (!soundManager.CanPlaySound(sound)) 
+        { 
+            e = null;    
+            return;
+        }
+
+        SoundEmitter soundEmitter = soundManager.Get();
+        soundEmitter.Initialize(sound);
+
+        if (_parentOverride == null)
+        {
+            soundEmitter.transform.parent = soundManager.transform;
+            soundEmitter.transform.localPosition = _position;
+        }
+        else
+        {
+            soundEmitter.transform.parent = _parentOverride.transform;
+            soundEmitter.transform.localPosition = Vector3.zero;
+        }
+
+        if (sound.frequentSound)
+        {
+            soundEmitter.Node = AudioManager.Instance.FrequentSoundEmitters.AddLast(soundEmitter);
+        }
+
+        //put this in the other method lol
+        soundEmitter.Play(fadeInTime);
+        e = soundEmitter;
+        if (_groupToDuck != null) { AudioMixerController.Instance.AutoDuckMusicMixerGroup(soundEmitter.AudioSource.clip); }
+
+    }
+
 
     /// <summary>
     /// Plays the Sound from the SoundEmitter. Takes data from the Sound object and applies them to the SoundEmitter, and also ggives a reference to the SoundEMitter so that it can be accessed at a later time (looping sounds).

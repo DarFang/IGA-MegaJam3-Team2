@@ -6,13 +6,13 @@ using UnityEngine.Events;
         public int NeutralMana;
         public Entity Player;
         public Entity Enemy;
-        public int MaxMana = 100;
+        public int MaxMana = 40;
         public UnityEvent<int> OnMaxManaChanged;
 
         public void Initialize(Entity player, Entity enemy) {
             Player = player;
             Enemy = enemy;
-            MaxMana = 100;
+            MaxMana = 40;
             NeutralMana = MaxMana - (int)player.Stats.Mana.CurrentValue - (int)enemy.Stats.Mana.CurrentValue;
             Debug.Log("NeutralMana at start: " + NeutralMana);
             OnMaxManaChanged?.Invoke(NeutralMana);
@@ -32,6 +32,7 @@ using UnityEngine.Events;
             }
         }
         public void GainMana(Entity entity) {
+            SoundManager.Instance.CreateSound().Play(SoundManager.Instance.gainManaSound);
             float amountGained = (int)entity.amountManaGained();
             NeutralMana -= (int)amountGained;
             float extraManaRequired = 0;

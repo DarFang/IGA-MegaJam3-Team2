@@ -1,4 +1,5 @@
 using DG.Tweening;
+using PixelCrushers.DialogueSystem;
 using System;
 using System.Collections;
 using UnityEngine;
@@ -93,23 +94,32 @@ public class SceneController : MonoBehaviour
 
 		IsWorking = true;
 
+		//Stop dialogue if active
+		if (DialogueManager.isConversationActive)
+		{
+			DialogueManager.StopAllConversations();
+		}
+
 		//Fade to black
 		Debug.Log($"[SceneManager] Transitioning from {fromScene} to {toScene}");
 		yield return StartTransition();
 
-		//First load the new scene, so if it fails we can recover
-		yield return AwaitAsyncOperation(SceneManager.LoadSceneAsync((int)targetSceneType, LoadSceneMode.Additive));
-
 		//Call OnCurrentSceneUnload and unload the current scene
 		if (CurrentScene != SceneType.SceneManager)
 		{
-			OnCurrentSceneUnload.Invoke();
+			OnCurrentSceneUnload?.Invoke();
 			yield return AwaitAsyncOperation(SceneManager.UnloadSceneAsync((int)CurrentScene));
 		}
 
+		//First load the new scene, so if it fails we can recover
+		yield return AwaitAsyncOperation(SceneManager.LoadSceneAsync((int)targetSceneType, LoadSceneMode.Additive));
+
+		SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex((int)targetSceneType));
+
+
 		//Now call OnSceneLoaded and we good
 		CurrentScene = targetSceneType;
-		OnSceneLoaded.Invoke();
+		OnSceneLoaded?.Invoke();
 
 		//Fade from black
 		yield return EndTransition();
