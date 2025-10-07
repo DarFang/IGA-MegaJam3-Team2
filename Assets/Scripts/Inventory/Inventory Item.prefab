@@ -275,6 +275,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbb84a6566998d64f99b1f70d9dc2730, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Sounds: {fileID: 11400000, guid: f6c46ed78be155043a21941552b8414e, type: 2}
   itemIcon: {fileID: 1138516589104299018}
   itemNameText: {fileID: 707177115272262690}
   quantityText: {fileID: 511925524120731772}
