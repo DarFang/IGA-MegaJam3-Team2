@@ -535,12 +535,9 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: 'Fade(out, 1, #000000);
+        value: 'Fade(out, 0.5, #000000);
 
-          Wait(2);
-
-          Fade(in, 1,
-          #000000);'
+          Fade(in, 0.5, #000000);'
         type: 0
         typeString: 
       conversationID: 1
@@ -558,7 +555,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 164.39563
+        x: 163.29672
         y: 381.09897
         width: 160
         height: 30
@@ -589,12 +586,9 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: 'Fade(out, 1, #000000);
+        value: 'Fade(out, 0.5, #000000);
 
-          Wait(2);
-
-          Fade(in, 1,
-          #000000);'
+          Fade(in, 0.5, #000000);'
         type: 0
         typeString: 
       conversationID: 1
@@ -1202,12 +1196,9 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: 'Fade(out, 1, #000000);
+        value: 'Fade(out, 0.5, #000000);
 
-          Wait(2);
-
-          Fade(in, 1,
-          #000000);'
+          Fade(in, 0.5, #000000);'
         type: 0
         typeString: 
       conversationID: 2
@@ -1356,7 +1347,8 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: I can hear someone in here. Maybe they can help me!
+        value: I see a door. I hear something on the other side. Maybe they can help
+          me!
         type: 0
         typeString: 
       - title: Sequence
@@ -1974,12 +1966,9 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: 'Fade(out, 1, #000000);
+        value: 'Fade(out, 0.5, #000000);
 
-          Wait(2);
-
-          Fade(in, 1,
-          #000000);'
+          Fade(in, 0.5, #000000);'
         type: 0
         typeString: 
       conversationID: 3
@@ -2002,8 +1991,8 @@ MonoBehaviour:
         width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 3.8372498, y: 0}
-    canvasZoom: 1.1799998
+    canvasScrollPosition: {x: 0, y: 220.18347}
+    canvasZoom: 1.0899999
   - id: 4
     fields:
     - title: Title
@@ -2357,12 +2346,9 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: 'Fade(out, 1, #000000);
+        value: 'Fade(out, 0.5, #000000);
 
-          Wait(2);
-
-          Fade(in, 1,
-          #000000);'
+          Fade(in, 0.5, #000000);'
         type: 0
         typeString: 
       conversationID: 4
@@ -2853,12 +2839,9 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: 'Fade(out, 1, #000000);
+        value: 'Fade(out, 0.5, #000000);
 
-          Wait(2);
-
-          Fade(in, 1,
-          #000000);'
+          Fade(in, 0.5, #000000);'
         type: 0
         typeString: 
       conversationID: 5
@@ -2876,7 +2859,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 161
+        x: 160
         y: 380
         width: 160
         height: 30
@@ -3405,12 +3388,9 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: 'Fade(out, 1, #000000);
+        value: 'Fade(out, 0.5, #000000);
 
-          Wait(2);
-
-          Fade(in, 1,
-          #000000);'
+          Fade(in, 0.5, #000000);'
         type: 0
         typeString: 
       conversationID: 6
@@ -3786,12 +3766,9 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: 'Fade(out, 1, #000000);
+        value: 'Fade(out, 0.5, #000000);
 
-          Wait(2);
-
-          Fade(in, 1,
-          #000000);'
+          Fade(in, 0.5, #000000);'
         type: 0
         typeString: 
       conversationID: 7
@@ -4059,12 +4036,9 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: 'Fade(out, 1, #000000);
+        value: 'Fade(out, 0.5, #000000);
 
-          Wait(2);
-
-          Fade(in, 1,
-          #000000);'
+          Fade(in, 0.5, #000000);'
         type: 0
         typeString: 
       conversationID: 8
@@ -4385,12 +4359,9 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: 'Fade(out, 1, #000000);
+        value: 'Fade(out, 0.5, #000000);
 
-          Wait(2);
-
-          Fade(in, 1,
-          #000000);'
+          Fade(in, 0.5, #000000);'
         type: 0
         typeString: 
       conversationID: 9
@@ -4711,12 +4682,9 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: 'Fade(out, 1, #000000);
+        value: 'Fade(out, 0.5, #000000);
 
-          Wait(2);
-
-          Fade(in, 1,
-          #000000);'
+          Fade(in, 0.5, #000000);'
         type: 0
         typeString: 
       conversationID: 10
@@ -5262,12 +5230,9 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: 'Fade(out, 1, #000000);
+        value: 'Fade(out, 0.5, #000000);
 
-          Wait(2);
-
-          Fade(in, 1,
-          #000000);'
+          Fade(in, 0.5, #000000);'
         type: 0
         typeString: 
       conversationID: 11
@@ -5700,12 +5665,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: 'Fade(out, 1, #000000);
-
-          Wait(2);
-
-          Fade(in, 1,
-          #000000);'
+        value: Fade(out, 1.5, #000000);
         type: 0
         typeString: 
       conversationID: 12
