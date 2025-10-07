@@ -24,12 +24,14 @@ public class MusicManager : PersistentSingleton<MusicManager>
 
     public void ChangeFromCutsceneToCombat()
     {
+        if (activeMusicPlayers[allMusicEvents[1].name].isPlaying) return;
         StopSong(0, 2);
         StartCombatMusic();
     }
 
     public void ChangeFromCombatToCutscene()
     {
+        if (activeMusicPlayers[allMusicEvents[0].name].isPlaying) return;
         StopSong(1, 1);
         StartCutsceneMusic(5);
     }
