@@ -1347,8 +1347,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: I see a door. I hear something on the other side. Maybe they can help
-          me!
+        value: I can hear someone in here. Maybe they can help me!
         type: 0
         typeString: 
       - title: Sequence
