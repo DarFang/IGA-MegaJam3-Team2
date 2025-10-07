@@ -47,6 +47,7 @@ public class GameManager : MonoBehaviour
         Destroy(DialogueManager.Instance.gameObject);
         SceneController.Instance.StartSceneSwitch(SceneType.Level);
         SoundManager.Instance.ChangeFromBeachToIndoor();
+        MusicManager.Instance.ChangeFromCombatToCutscene();
         MusicManager.Instance.SetEnemiesDefeated(0);
 
     }
