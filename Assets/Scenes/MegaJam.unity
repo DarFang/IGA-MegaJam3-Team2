@@ -1209,6 +1209,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss_Hunger
       objectReference: {fileID: 0}
+    - target: {fileID: 6365476874935484759, guid: 9286c1e9789d3d14484bdc393dc548d8, type: 3}
+      propertyPath: _encounter
+      value: 
+      objectReference: {fileID: 727420230}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1598,6 +1602,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c01e8375894a2e43bc6157409f319e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &727420226 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 744162879910032874, guid: 61c6caad7c64da74597a71ce39fa4187, type: 3}
+  m_PrefabInstance: {fileID: 727420224}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c097c8163606bd4181a39d4d8dcea5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &727420227 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3734882329898191249, guid: 61c6caad7c64da74597a71ce39fa4187, type: 3}
@@ -1623,6 +1638,17 @@ MonoBehaviour:
 --- !u!114 &727420229 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3380206184803778416, guid: 61c6caad7c64da74597a71ce39fa4187, type: 3}
+  m_PrefabInstance: {fileID: 727420224}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c097c8163606bd4181a39d4d8dcea5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &727420230 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9060920007950099948, guid: 61c6caad7c64da74597a71ce39fa4187, type: 3}
   m_PrefabInstance: {fileID: 727420224}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -2866,6 +2892,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Boss_Hate
       objectReference: {fileID: 0}
+    - target: {fileID: 5995695354512995860, guid: 7dced5229c873c641b92ce7992fdafc6, type: 3}
+      propertyPath: _encounter
+      value: 
+      objectReference: {fileID: 727420226}
     - target: {fileID: 6539886234073681387, guid: 7dced5229c873c641b92ce7992fdafc6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
