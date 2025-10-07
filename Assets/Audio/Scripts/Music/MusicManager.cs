@@ -61,8 +61,8 @@ public class MusicManager : PersistentSingleton<MusicManager>
         //Mathf.Clamp(noOfItems, 0, allMusicEvents[0].musicLayers.Length);
 
         MusicPlayer playerToStart = loadedMusicPlayers[allMusicEvents[0].name];
-        playerToStart.Play(fadeTime);
-        activeMusicPlayers.Add(playerToStart.name, playerToStart);
+        playerToStart.Play();
+        if (!activeMusicPlayers.ContainsKey(playerToStart.name)) activeMusicPlayers.Add(playerToStart.name, playerToStart);
 
         for (int i = 0; i <= enemiesDefeated; ++i)
         {

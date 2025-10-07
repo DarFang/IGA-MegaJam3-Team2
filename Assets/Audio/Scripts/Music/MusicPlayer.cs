@@ -26,6 +26,11 @@ namespace AudioSystem
             InitializeLayerSoundEmitters();
         }
 
+        public void Play()
+        {
+            isPlaying = true;
+        }
+
         public void Play(float fadeInTime)
         {
 
@@ -164,7 +169,12 @@ namespace AudioSystem
 
         private IEnumerator IFadeInAudioSource(AudioSource sourceToFadeIn, float startVolulme, float targetVolume, float fadeInTime, string layerName)
         {
-            if(!sourceToFadeIn.isPlaying) sourceToFadeIn.Play();
+            if (!sourceToFadeIn.isPlaying)
+            {
+                sourceToFadeIn.time = _musicLayerEventEmitters[0].AudioSource.time;
+                sourceToFadeIn.Play();
+            }
+
 
             float elapsedTime = 0;
 
