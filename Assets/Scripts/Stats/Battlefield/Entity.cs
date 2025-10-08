@@ -14,6 +14,7 @@ public class Entity : MonoBehaviour {
     public event Action<float> OnDamageTaken;
     public event Action<float> OnHealed;
     public event Action<BattleAction> OnActionPerformed;
+    public string EntityName => characterData != null ? characterData.Name : gameObject.name;
 
     [Range(0, 1f)]
     [SerializeField] protected float healPercentage = 0.6f;
@@ -355,14 +356,16 @@ public class BattleContext {
     }
 }
 
-public class BattleAction {
+public class BattleAction
+{
     public BattleActionType ActionType { get; set; }
     public Entity Performer { get; set; }
     public Entity Target { get; set; }
     public float Value { get; set; }
     public float ManaConsumed { get; set; }
 
-    public string GetLogMessage() {
+    public string GetLogMessage()
+    {
         string performerName = Performer?.GetName() ?? "Unknown";
         string targetName = Target?.GetName() ?? "";
         // string manaInfo = ManaConsumed > 0 ? $" (Consumed {ManaConsumed} mana)" : "";
@@ -371,20 +374,26 @@ public class BattleAction {
         switch (ActionType)
         {
             case BattleActionType.Attack:
-                return $"{performerName} dealt {Value:F1} damage to {targetName}{manaInfo}";
+                return $"<color=#808080>{performerName}</color> dealt <color=red>{Value:F1}</color> damage to <color=#808080>{targetName}</color>{manaInfo}";
 
             case BattleActionType.Heal:
-                return $"{performerName} healed {Value:F1} HP{manaInfo}";
+                return $"<color=#808080>{performerName}</color> healed <color=green>{Value:F1}</color> HP{manaInfo}";
 
             case BattleActionType.Defense:
-                return $"{performerName} gained {Value:F1} defense{manaInfo}";
+                return $"<color=#808080>{performerName}</color> gained <color=#FF6900>{Value:F1}</color> defense{manaInfo}"; // bronze
 
             case BattleActionType.WillGain:
-                return $"{performerName} gained {Value:F1} will";
+                return $"<color=#808080>{performerName}</color> gained <color=#00FFFF>{Value:F0}</color> will";
 
             default:
-                return $"{performerName} performed unknown action";
+                return $"<color=#808080>{performerName}</color> performed unknown action";
         }
+
+    }
+    public string GetManaLogMessage()
+    {
+        string performerName = Performer?.GetName() ?? "Unknown";
+        return $"<color=#808080>{performerName}</color> consumed <color=#00FFFF>10</color> will";
     }
 }
 

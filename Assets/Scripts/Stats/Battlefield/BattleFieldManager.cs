@@ -14,8 +14,12 @@ public class BattleFieldManager : MonoBehaviour {
     public event Action<Entity> OnTurnStarted;
     public event Action<string> OnActionLogged; // Новий event для логів
 
-    public async void StartBattle(Entity playerEntity, Entity enemyEntity, UpgradedAbilities upgradedAbilities) {
-        if (playerEntity == null || enemyEntity == null) {
+    public async void StartBattle(Entity playerEntity, Entity enemyEntity, UpgradedAbilities upgradedAbilities)
+    {
+        string battleStartMessage = $"<color=#808080>{playerEntity.EntityName}</color> engages in battle with <color=#808080>{enemyEntity.EntityName}</color>!";
+        OnActionLogged?.Invoke(battleStartMessage);
+        if (playerEntity == null || enemyEntity == null)
+        {
             Debug.LogError("[BattleField] Cannot start battle with null entities");
             return;
         }
@@ -42,10 +46,17 @@ public class BattleFieldManager : MonoBehaviour {
         await RunBattleLoopAsync();
     }
 
-    private void HandleActionPerformed(BattleAction action) {
+    private void HandleActionPerformed(BattleAction action)
+    {
         string logMessage = action.GetLogMessage();
         Debug.Log($"[BattleLog] {logMessage}");
         OnActionLogged?.Invoke(logMessage);
+        if (action.ActionType != BattleActionType.WillGain)
+        {
+            string manaLogMessage = action.GetManaLogMessage();
+            Debug.Log($"[BattleLog] {manaLogMessage}");
+            OnActionLogged?.Invoke(manaLogMessage);
+        }
     }
 
     private async UniTask RunBattleLoopAsync() {

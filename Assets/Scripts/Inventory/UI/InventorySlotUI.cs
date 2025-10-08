@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class InventorySlotUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler {
+    public SoundList Sounds;
     [Header("UI References")]
     [SerializeField] private Image itemIcon;
     [SerializeField] private TextMeshProUGUI itemNameText;
@@ -69,7 +70,7 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
             itemNameText.text = slot.GetDisplayName();
             itemNameText.color = isIdentified ? identifiedTextColor : unknownTextColor;
 
-            // Додати italic для невідомих
+            // пїЅпїЅпїЅпїЅпїЅпїЅ italic пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
             if (!isIdentified) {
                 itemNameText.fontStyle = FontStyles.Italic;
             } else {
@@ -106,9 +107,13 @@ public class InventorySlotUI : MonoBehaviour, IPointerClickHandler, IPointerEnte
     }
 
     public void OnPointerClick(PointerEventData eventData) {
-        if (eventData.button == PointerEventData.InputButton.Left) {
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
             OnClicked?.Invoke(index);
-        } else if (eventData.button == PointerEventData.InputButton.Right) {
+            SoundManager.Instance.CreateSound().AutoDuckMusic().Play(Sounds.GetSound("Select"));
+        }
+        else if (eventData.button == PointerEventData.InputButton.Right)
+        {
             OnRightClicked?.Invoke(index);
         }
     }
