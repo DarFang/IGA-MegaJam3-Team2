@@ -32,6 +32,7 @@ public class SoundManager : PersistentSingleton<SoundManager>
 
     public void ChangeFromBeachToIndoor()
     {
+        if (beachEmitter == null) return; 
         beachEmitter.Stop(7);
         CreateSound().Play(ambience, 7, out ambienceEmitter);
     }

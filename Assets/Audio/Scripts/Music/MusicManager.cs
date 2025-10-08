@@ -123,7 +123,7 @@ public class MusicManager : PersistentSingleton<MusicManager>
     /// <param name="fadeOutTime"></param>
     public void StopSong(int musicEventID, float fadeOutTime)
     {
-
+        if (!activeMusicPlayers.ContainsKey(allMusicEvents[musicEventID].name)) return;
         MusicPlayer playerToStop = activeMusicPlayers[allMusicEvents[musicEventID].name];
 
         if (playerToStop != null) StartCoroutine(IStopMusicPlayerThenRemoveFromList(playerToStop, fadeOutTime));

@@ -6240,6 +6240,10 @@ PrefabInstance:
       propertyPath: <OnEventStart>k__BackingField.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1972736159629608747, guid: 87ebfca63ca56f342884cd28a0d7fb37, type: 3}
+      propertyPath: <AutoStart>k__BackingField
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1997178178996081882, guid: 87ebfca63ca56f342884cd28a0d7fb37, type: 3}
       propertyPath: m_IsActive
       value: 1
