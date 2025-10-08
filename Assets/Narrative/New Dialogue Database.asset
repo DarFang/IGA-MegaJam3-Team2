@@ -5106,7 +5106,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 168.61542
+        x: 169.53287
         y: 305
         width: 160
         height: 30
@@ -5707,7 +5707,7 @@ MonoBehaviour:
           required Fade(stay, 0.5,
           #000000);
 
-          required SetActive(RedOrbCutscene, false);
+          required SetActive(RedOrbCutscene, false) @ 0.5;
 
           required
           Fade(unstay, 0.5, #000000) @ 1;
